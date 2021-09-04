@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Wahab Ahmad</title>
+    <link>https://w28ahmad.github.io/</link>
+    <description>Recent content on Wahab Ahmad</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 03 Sep 2021 21:49:12 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Testpage</title>
+      <link>https://w28ahmad.github.io/post/testpage/</link>
+      <pubDate>Fri, 03 Sep 2021 21:49:12 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/testpage/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
