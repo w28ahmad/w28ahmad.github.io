@@ -5,6 +5,25 @@
     <link>https://w28ahmad.github.io/categories/</link>
     <description>Recent content in Categories on Wahab Ahmad</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://w28ahmad.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 Sep 2021 19:09:57 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Machine Learning</title>
+      <link>https://w28ahmad.github.io/categories/machine-learning/</link>
+      <pubDate>Sun, 05 Sep 2021 19:09:57 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/categories/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Math</title>
+      <link>https://w28ahmad.github.io/categories/math/</link>
+      <pubDate>Sun, 05 Sep 2021 19:09:57 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/categories/math/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>

@@ -28,9 +28,9 @@
     
 
     
-    <meta name="title" content="Math Behind a Neural Network" />
-    <meta property="og:title" content="Math Behind a Neural Network" />
-    <meta property="twitter:title" content="Math Behind a Neural Network" />
+    <meta name="title" content="Math" />
+    <meta property="og:title" content="Math" />
+    <meta property="twitter:title" content="Math" />
     
 
     
@@ -47,9 +47,9 @@
     <meta name="keyword"  content="Wahab, Ahmad, Machine Learning">
     <link rel="shortcut icon" href="/img/favicon.ico">
 
-    <title>Math Behind a Neural Network-Wahab&#39;s Blog</title>
+    <title>Math-Wahab&#39;s Blog</title>
 
-    <link rel="canonical" href="/post/math-behind-a-neural-network/">
+    <link rel="canonical" href="/tags/math/">
 
     <link rel="stylesheet" href="/css/iDisqus.min.css"/>
 	
@@ -180,41 +180,14 @@
 
 
 
-
-<style type="text/css">
-    header.intro-header {
-        background-image: url('/images/main_go_wideandtall_darklayer.jpeg')
-    }
-</style>
-<header class="intro-header">
+<header class="intro-header" style="background-image: url('/images/main_go_wideandtall_darklayer.jpeg')">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <div class="tags">
-                        
-                        <a class="tag" href="/tags/machine-learning" title="Machine Learning">
-                            Machine Learning
-                        </a>
-                        
-                        <a class="tag" href="/tags/math" title="Math">
-                            Math
-                        </a>
-                        
-                    </div>
-                    <h1>Math Behind a Neural Network</h1>
-                    <h2 class="subheading"></h2>
-                    <span class="meta">
-                        Posted by 
-                        
-                                Wahab Ahmad
-                         
-                        on 
-                        Sunday, September 5, 2021
-                        
-                        
-                        
-                    </span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>Engineering Talk </h1>
+                    
+		    <span class="subheading"></span>
                 </div>
             </div>
         </div>
@@ -223,149 +196,148 @@
 
 
 
-
-<article>
-    <div class="container">
-        <div class="row">
-
+  
+<div class="container">
+    <div class="row">
+        
+        
+   	    <div class="
+            col-lg-8 col-lg-offset-1
+            col-md-8 col-md-offset-1
+            col-sm-12
+            col-xs-12
+            post-container
+        ">
             
-            <div class="
-                col-lg-11 col-lg-offset-1
-                col-md-10 col-md-offset-1
-                post-container">
 
-                
-                <header>
-                    <h2>Contents</h2>
-                </header>
-                <nav id="TableOfContents">
-  <ul>
-    <li><a href="#overview">Overview</a></li>
-    <li><a href="#what-is-a-neural-network">What Is a Neural Network</a>
-      <ul>
-        <li><a href="#neuron">Neuron</a></li>
-        <li><a href="#layer-of-neurons">Layer of Neurons</a></li>
-        <li><a href="#neural-network">Neural Network</a></li>
-        <li><a href="#the-bias">The Bias</a></li>
-      </ul>
-    </li>
-    <li><a href="#forward-propagation">Forward Propagation</a></li>
-    <li><a href="#backward-propagation">Backward Propagation</a></li>
-  </ul>
-</nav>
-                
-                <h2 id="overview">Overview</h2>
-<p>Machine Learning and AI is all the talk these days in engineering communities. AI in recent years achieved a great mile stone, it can now defeat any individual in any board game ever conceived by humans. Fully autonomous cars are coming closer reality with every passing year. So now is a good time as any to start to learn what is machine learning all about. The post will go through some of the core properties of neural networks such as <strong>Forward Propagation</strong> and <strong>Backward Propagation</strong> with some mathematical rigour.</p>
-<h2 id="what-is-a-neural-network">What Is a Neural Network</h2>
-<p>A neural network is comprised of some number of layers, where each layer is comprised of some number of neurons. You may ask, what is a neuron?</p>
-<h3 id="neuron">Neuron</h3>
-<p>A neuron is has the structure:</p>
-<p>
-  <img src="/static/posts/image-20210905194711152.png" alt="Neuron">
+<div class="post-preview">
+    <a href="https://w28ahmad.github.io/post/math-behind-a-neural-network/">
+        <h2 class="post-title">
+            Math Behind a Neural Network
+        </h2>
+	
+        <div class="post-content-preview">
+	    
+            Overview Machine Learning and AI is all the talk these days in engineering communities. AI in recent years achieved a great mile stone, it can now defeat any individual in any board game ever conceived by humans. Fully autonomous cars are coming closer reality with every passing year. So now is a good time as any to start to learn what is machine learning all about. The post will go through some of the core properties of neural networks such as Forward Propagation and Backward Propagation with some mathematical rigour.
+        
+       
 
-
-$$
-\begin{aligned}
-n &amp;: \text{number of neurons on the previous layer} \newline
-W &amp;: \lbrack w_1, w_2 \dots w_n \rbrack	\newline
-I &amp;: \lbrack i_1, i_2 \dots i_n \rbrack	\newline
-\end{aligned}
-$$
-$G$ is a function that takes in $W$ and $I$ and determines if the neuron will fire. More precisely, we can define $G$ like so:
-$$
-\begin{equation}
-G(W, I) = \sigma(W \cdot I)
-\end{equation}
-$$
-So, $G$ performs a dot product between W and I, essentially taking a weighted sum of the previous layer: $w_1 \times i_1 + w_2 \times i_2 + \dots + w_n \times i_n$. This sum is then passed into the activation function $\sigma$, and then the activation function lets us know whether or not the neuron fired. A common activation function is the <strong>sigmoid</strong>:
-$$
-\sigma(x) = \frac{1}{1+e^{-x}}
-$$
-
-  <img src="/static/posts/image-20210905211342520.png" alt="Sigmoid">
-
-</p>
-<p>Note that the sigmoid function resembles the step function. If the sigmoid of the weighted sum is above $0.5$ then we can think of the neuron as firing. There are few important properties of the sigmoid function - it is differentiable, which is important for back propagation. It is bounded, it helps us determine which neurons have fired. There are several other types of activation functions each with their own set of benefits and drawbacks. For instance, it has been shown that the sigmoid some times leads to the <strong>Vanashing Gradient Problem</strong> which is detrimental for a neural networks ability to learn.</p>
-<h3 id="layer-of-neurons">Layer of Neurons</h3>
-<p>It is exactly what it sounds like, a layer of neurons:</p>
-<p>
-  <img src="/static/posts/image-20210905213610884.png" alt="Layer">
-
-</p>
-<h3 id="neural-network">Neural Network</h3>
-<p>So finally a neural network is a set of layers:</p>
-<p>
-  <img src="/static/posts/image-20210905222209442.png" alt="Network">
-
-</p>
-<p>In a neural network, we usually have 3 types of layers. Input, hidden and Output layers. The input layers are responsible for supplying the subsequent hidden layer with inputs. The hidden layer is where all the magic happens, each neuron performs its function as defined above with the supplied inputs from the previous layer. The output layer gives the output of the neural network.</p>
-<h3 id="the-bias">The Bias</h3>
-<p>You may have noted something weird about the image of the neural network above. Why aren&rsquo;t the green neurons accepting any inputs? Well, they are special type of neurons called <strong>Bias</strong> neurons. Their speciality is that they always output a one.</p>
-<p>
-  <img src="/static/posts/image-20210905222643706.png" alt="Bias">
-
-</p>
-<h4 id="why-do-we-need-a-bias-neuron">Why do we need a bias neuron?</h4>
-<p>To understand why we need a bias neuron, we can run a thought experiment. Assume we build a neural network with 1 input neuron and 1 output neuron without any bias neurons and we adjust the weight from input to output such that for an input of $0$ we want an output of $0$. Assume we use a sigmoid activation function. The result of the output neuron will be so:
-$$
-\begin{aligned}
-G(W, I) &amp;= \sigma(w_1 \times 0) \newline
-&amp;= 0.5
-\end{aligned}
-$$
-Note that no matter what we choose for $w_1$ we will always get an output of $0.5$ and so we can never teach the neural network to output a $0$. Now if we include a bias neuron, the result of the output neuron will be so:
-$$
-\begin{aligned}
-G(W, I) &amp;= \sigma(w_1 \times 0 + w_2 \times 1) \newline
-\end{aligned}
-$$
-Now note that choose a sufficiently large negative value for $w_2$ will result in an output of close to $0$. Hence, the bias makes the neural network more powerful at learning.</p>
-<h2 id="forward-propagation">Forward Propagation</h2>
-<h2 id="backward-propagation">Backward Propagation</h2>
-
-
-                
-
-                <hr>
-                <ul class="pager">
-                    
-                    
-                </ul>
-
-                
-<div id="disqus-comment"></div>
-
-
-
-            </div>
-            
-            <div class="
-                col-lg-11 col-lg-offset-1
-                col-md-10 col-md-offset-1
-                sidebar-container">
-
-                
-                
-                <section>
-                    <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
-                    <div class="tags">
-                        
-                        
-                        
-                        
-                        
-                        
-                    </div>
-                </section>
-                
-
-                
-                
-            </div>
         </div>
-    </div>
-</article>
+    </a>
+    <p class="post-meta">
+    Posted by Wahab Ahmad Sunday, September 5, 2021
+    
+    
+    </p>
+
+</div>
+<hr>
+
+
+            
+
+
+
+       	</div>
+        
+
+<div class="
+    col-lg-3 col-lg-offset-0
+    col-md-3 col-md-offset-0
+    col-sm-12
+    col-xs-12
+    sidebar-container
+">
+    
+    
+    <section>
+        <hr class="hidden-sm hidden-xs">
+        <h5>FEATURED TAGS</h5>
+        <div class="tags">
+             
+            
+                
+            
+                
+            
+        </div>
+    </section>
+    
+
+    
+	
+    <section class="visible-md visible-lg">
+	<hr><h5><a href="/top/about">ABOUT ME</a></h5>
+        <div class="short-about">
+            
+            <a href="/top/about">
+               <img src="/images/MeAtJackson.jpeg" alt="avatar" style="cursor: pointer" />
+            </a>
+            
+            
+                <p>Father, Husband, Skier, Cyclist, and, oh yeah, Software Developer</p>
+            
+           
+           <ul class="list-inline"> 
+               
+               <li>
+                   <a href='/tags/math/index.xml' rel="alternate" type="application/rss+xml" title="Wahab Ahmad" >
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               
+               
+               
+               <li>
+                   <a target="_blank" href="https://github.com/w28ahmad">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+               
+               <li>
+                   <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/">
+                       <span class="fa-stack fa-lg">
+                           <i class="fa fa-circle fa-stack-2x"></i>
+                           <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                       </span>
+                   </a>
+               </li>
+               
+               
+               
+            
+            
+               
+               
+               
+               
+                </ul>
+            </div>
+    </section>
+	
+    
+    
+
+    
+    
+</div>
+
+	</div>
+</div>
+
 
 
 
@@ -377,7 +349,7 @@ Now note that choose a sufficiently large negative value for $w_2$ will result i
                 <ul class="list-inline text-center">
                    
                    <li>
-                       <a href='' rel="alternate" type="application/rss+xml" title="Wahab Ahmad" >
+                       <a href='/tags/math/index.xml' rel="alternate" type="application/rss+xml" title="Wahab Ahmad" >
                            <span class="fa-stack fa-lg">
                                <i class="fa fa-circle fa-stack-2x"></i>
                                <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
