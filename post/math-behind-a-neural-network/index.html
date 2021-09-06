@@ -81,6 +81,7 @@
     
     
 
+
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
 	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
@@ -251,6 +252,7 @@
     </li>
     <li><a href="#forward-propagation">Forward Propagation</a></li>
     <li><a href="#backward-propagation">Backward Propagation</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
                 
@@ -267,8 +269,8 @@
 $$
 \begin{aligned}
 n &amp;: \text{number of neurons on the previous layer} \newline
-W &amp;: \lbrack w_1, w_2 \dots w_n \rbrack	\newline
-I &amp;: \lbrack i_1, i_2 \dots i_n \rbrack	\newline
+W &amp;: \lbrack w_1, w_2 \dots w_n \rbrack	\text{ weights from previous layer to this layer} \newline
+I &amp;: \lbrack i_1, i_2 \dots i_n \rbrack	\text{ inputs from previous layer}\newline
 \end{aligned}
 $$
 $G$ is a function that takes in $W$ and $I$ and determines if the neuron will fire. More precisely, we can define $G$ like so:
@@ -321,7 +323,45 @@ G(W, I) &amp;= \sigma(w_1 \times 0 + w_2 \times 1) \newline
 $$
 Now note that choose a sufficiently large negative value for $w_2$ will result in an output of close to $0$. Hence, the bias makes the neural network more powerful at learning.</p>
 <h2 id="forward-propagation">Forward Propagation</h2>
+<p>To understand forward propagation we need mathematical notation for the entire network rather than just the neuron. Therefore we define the following variables:
+$$
+W^{(l)} = \begin{bmatrix}
+w_{0,0}^{(l)} &amp; \dots &amp; w_{0,n}^{(l)} \newline
+\vdots &amp; \ddots &amp; \vdots \newline
+w_{m+1,0}^{(l)} &amp; \dots &amp; w_{m+1,n}^{(l)} \newline
+\end{bmatrix}
+$$</p>
+<p>*<em>Note that $^{(l)}$ not an exponent</em></p>
+<p>We start by define $W^l \in \real^{m+1 \times n} $ where $w_{i. j}^l$ is the weight from the $i$-th neuron on layer $l-1$ to the $j$-th neuron on layer $l$.
+$$
+I^{(1)} = \begin{bmatrix}
+i_0 \newline
+\vdots \newline
+i_m
+\end{bmatrix}
+$$
+Next, we define the input vector at layer $1$, where $m$ input neurons are chosen for simplicity. In reality every layer could have an arbitrary number of neurons. Finally we define forward propagation from input layer to the first hidden layer as such:
+$$
+I^{(2)} = \sigma(I^{(1)T} \times W^{(2)})\newline
+I^{(2)}=\sigma\Bigg(
+\begin{bmatrix}
+i_0 \newline
+\vdots \newline
+i_m \newline
+1
+\end{bmatrix} ^ T
+\times
+\begin{bmatrix}
+w_{0,0}^{(1)} &amp; \dots &amp; w_{0,n}^{(1)} \newline
+\vdots &amp; \ddots &amp; \vdots \newline
+w_{m+1,0}^{(1)} &amp; \dots &amp; w_{m+1,n}^{(1)} \newline
+\end{bmatrix}
+\Bigg)
+$$</p>
+<p>*<em>Note that $^{T}$ is the transpose operation</em></p>
+<p>So, the inputs to layer to can be computed as above. Each subsiquent layer can be computed in a similar way.</p>
 <h2 id="backward-propagation">Backward Propagation</h2>
+<h2 id="conclusion">Conclusion</h2>
 
 
                 
