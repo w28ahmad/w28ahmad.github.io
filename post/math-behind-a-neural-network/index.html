@@ -252,12 +252,12 @@
     </li>
     <li><a href="#forward-propagation">Forward Propagation</a></li>
     <li><a href="#backward-propagation">Backward Propagation</a></li>
-    <li><a href="#conclusion">Conclusion</a></li>
   </ul>
 </nav>
                 
                 <h2 id="overview">Overview</h2>
 <p>Machine Learning and AI is all the talk these days in engineering communities. AI in recent years achieved a great mile stone, it can now defeat any individual in any board game ever conceived by humans. Fully autonomous cars are coming closer reality with every passing year. So now is a good time as any to start to learn what is machine learning all about. The post will go through some of the core properties of neural networks such as <strong>Forward Propagation</strong> and <strong>Backward Propagation</strong> with some mathematical rigour.</p>
+<p><em>This post will assume you have basic knowledge of Linear Algebra and Calculus.</em></p>
 <h2 id="what-is-a-neural-network">What Is a Neural Network</h2>
 <p>A neural network is comprised of some number of layers, where each layer is comprised of some number of neurons. You may ask, what is a neuron?</p>
 <h3 id="neuron">Neuron</h3>
@@ -342,7 +342,11 @@ i_m
 $$
 Next, we define the input vector at layer $1$, where $m$ input neurons are chosen for simplicity. In reality every layer could have an arbitrary number of neurons. Finally we define forward propagation from input layer to the first hidden layer as such:
 $$
+\begin{equation}
 I^{(2)} = \sigma(I^{(1)T} \times W^{(2)})\newline
+\end{equation}
+$$</p>
+<p>$$
 I^{(2)}=\sigma\Bigg(
 \begin{bmatrix}
 i_0 \newline
@@ -361,7 +365,69 @@ $$</p>
 <p>*<em>Note that $^{T}$ is the transpose operation</em></p>
 <p>So, the inputs to layer to can be computed as above. Each subsiquent layer can be computed in a similar way.</p>
 <h2 id="backward-propagation">Backward Propagation</h2>
-<h2 id="conclusion">Conclusion</h2>
+<p>The purpose behind back-prop is to adjust the weights at each layer $W^{(l)}$ such that the output of the neural network $\bar{O}$  moves closer to the actual output $O$. To do so, we first must define the concept of error, a measure for how far $\bar{O}$ is from $O$.
+$$
+\begin{equation}
+E = \frac{1}{2}\sum_{i=1}^{n}(o_i-\bar{o_i})^2
+\end{equation}
+$$</p>
+<p>$$
+\text{Where $n$ is the number output of neurons}
+$$</p>
+<p>We want to minimize $w_{i, j}^l$ such that the error is minimized. To do so, lets consider minimizing a simpler function:
+$$
+f(x) = x^2 \newline
+\text{suppose we are currently at $x_o=-3$}
+$$
+We can adjust the $x$ and move it in the direction of decreasing slope like so:
+$$
+x_o = x_o - f'(x)|_{x=x_o}\newline~
+\newline
+\text{Iteration 1:}\newline
+x_o = -3 - f'(x)|_{x=-3}\newline
+x_o = 3 \newline~
+\newline
+\text{Iteration 2:}\newline
+x_o = 3 - f'(x)|_{x=3}\newline
+x_o = -3
+$$
+Hmm, looks like we aren&rsquo;t making any progress:</p>
+<p><img src="/static/posts/image-20210907152013782.png" alt="stuck" style="zoom:50%;" /></p>
+<p>To fix this issue, we must add another a step size / learning rate $\alpha$ to ensure that each subsequent step is smaller than the previous. Suppose $\alpha = \frac{1}{3}$:
+$$
+\begin{equation}
+x_o = x_o - \alpha f'(x)|_{x=x_o}
+\end{equation}
+$$</p>
+<p>$$
+\text{Iteration 1:}\newline
+x_o = -3 - \frac{1}{3}f'(x)|_{x=-3}\newline
+x_o = -1
+$$</p>
+<p>$$
+\text{Iteration 2:}\newline
+x_o = -1 - \frac{1}{3}f'(x)|_{x=-1}\newline
+x_o = -1/3\newline
+\vdots
+$$</p>
+<p>Now, we can see that $x_o$  is converging towards the minimum. This type of iterative optimization is referred to as <strong>Gradient Descent</strong>. The final tool we need to understand back-prop is the chain rule. Chain rule is a rule that defines derivatives of composition of functions.</p>
+<p>$$
+f(x) = y(g(x))\newline
+\frac{df}{dx} = \frac{dy}{dg}\frac{dg}{dx}
+$$
+To understand why the chain rule is important we need view the output $\bar{O}$ as a compositions of outputs from previous layers.</p>
+<p>$$
+\begin{equation}
+\bar{O} = \sigma(\sigma(\sigma(&hellip; \times W^{(n-2)}) \times W^{(n-1)}) \times W^{(n)})\newline
+\end{equation}
+$$</p>
+<p><em>Where $n$ is the total number of layers in the network</em></p>
+<p>In order to update each weight, everytime we go back one layer we will need to use the chain rule to find the gradient that will minimize the error $E$ with respect to the weight $w_{i,j}^l$ . Once we have the gradient we need to update the weights according to equation (4).
+$$
+\begin{equation}
+w_{i, j}^{(l)} = w_{i, j}^{(l)} - \alpha \frac{\partial E}{\partial w_{i, j}^{(l)}}
+\end{equation}
+$$</p>
 
 
                 
