@@ -81,7 +81,7 @@
     
     
 
-
+    
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
 	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
 	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
@@ -102,6 +102,8 @@
 				    });
 	</script>
 
+    
+    <link disabled id="dark-mode-theme" rel="stylesheet" href="/css/dark.css">
 </head>
 
 
@@ -143,6 +145,12 @@
                     
 
                     
+                    <li>
+                        
+                        <a>
+                            <i id="dark-mode-toggle" class="fa fa-moon-o fa-lg"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -179,6 +187,36 @@
     }
 </script>
 
+<script>
+    var toggle = document.getElementById("dark-mode-toggle");
+    var darkTheme = document.getElementById("dark-mode-theme");
+    var body = document.getElementsByTagName('body')[0];
+    var icon = $('.fa-lg');
+    
+    window.onbeforeunload = restoreTheme();
+    toggle.addEventListener("click", ()=>{
+        var savedTheme = localStorage.getItem("dark-mode-storage") || "light";
+        if (savedTheme === "light") {
+            darkTheme.disabled = false;
+            icon.toggleClass('fa-sun-o fa-moon-o');
+            localStorage.setItem("dark-mode-storage", "dark");
+        } else {
+            darkTheme.disabled = true;
+            icon.toggleClass('fa-sun-o fa-moon-o');
+            localStorage.setItem("dark-mode-storage", "light");
+        }
+    });
+
+    function restoreTheme(){
+        var savedTheme = localStorage.getItem("dark-mode-storage") || "light";
+        if (savedTheme === "dark") {
+            darkTheme.disabled = false;
+        } else {
+            darkTheme.disabled = true;
+        }
+    }
+</script>
+
 
 
 <header class="intro-header" style="background-color: black">
@@ -198,18 +236,19 @@
 
 
   
-<div class="container">
-    <div class="row">
-        
-        
-   	    <div class="
-            col-lg-8 col-lg-offset-1
-            col-md-8 col-md-offset-1
-            col-sm-12
-            col-xs-12
-            post-container
-        ">
+<article>
+    <div class="container">
+        <div class="row">
             
+            
+            <div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                post-container
+            ">
+                
 
 <div class="post-preview">
     <a href="https://w28ahmad.github.io/post/math-behind-a-neural-network/">
@@ -235,12 +274,12 @@
 <hr>
 
 
+                
+
+
+
+            </div>
             
-
-
-
-       	</div>
-        
 
 <div class="
     col-lg-3 col-lg-offset-0
@@ -332,9 +371,9 @@
     
 </div>
 
-	</div>
-</div>
-
+        </div>
+    </div>
+</article>
 
 
 

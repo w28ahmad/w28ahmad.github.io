@@ -1,0 +1,37 @@
+article,
+footer{
+    background-color: #000000 !important;
+}
+article,
+footer{
+    filter: invert(100%) hue-rotate(180deg) brightness(105%) contrast(85%);
+    -webkit-filter: invert(100%) hue-rotate(180deg) brightness(105%) contrast(85%);
+}
+article,
+footer{
+    background-color: #FFF !important;
+}
+img,
+video,
+article * [style*="background-image"]{
+    filter: hue-rotate(180deg) contrast(100%) invert(100%);
+    -webkit-filter: hue-rotate(180deg) contrast(100%) invert(100%);
+}
+
+html {
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+ }
+ 
+ body {
+    margin: 0px;
+    min-height: 100%;
+    width: 100%;
+    background-color: #131313;
+ }
+
+ .intro-header {
+    background-color: #131313 !important;
+ }
+ 
