@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    
+
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177198277-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-177198277-1');
+    </script>
+
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Wahab Ahmad">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://w28ahmad.github.io/">
+    <meta property="twitter:image" content="https://w28ahmad.github.io/" />
+    
+
+    
+    <meta name="title" content="Supply and Demand" />
+    <meta property="og:title" content="Supply and Demand" />
+    <meta property="twitter:title" content="Supply and Demand" />
+    
+
+    
+    <meta name="description" content="">
+    <meta property="og:description" content="" />
+    <meta property="twitter:description" content="" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Wahab, Math, Machine Learning">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Supply and Demand-Wahab&#39;s Blog</title>
+
+    <link rel="canonical" href="/post/supply-and-demand/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+    
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+	<script>
+		    document.addEventListener("DOMContentLoaded", function() {
+				        renderMathInElement(document.body, {
+							          
+							          
+							          delimiters: [
+										                {left: '$$', right: '$$', display: true},
+										                {left: '$', right: '$', display: false},
+										                {left: '\\(', right: '\\)', display: false},
+										                {left: '\\[', right: '\\]', display: true}
+										            ],
+							          
+							          throwOnError : false
+							        });
+				    });
+	</script>
+
+    
+    <link disabled id="dark-mode-theme" rel="stylesheet" href="/css/dark.css">
+</head>
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wahab Ahmad</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/economics">economics</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/machine-learning">machine-learning</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/math">math</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="https://wahabahmad.me/">ABOUT</a></li>
+                    
+
+                    
+                    <li>
+                        
+                        <a>
+                            <i id="dark-mode-toggle" class="fa fa-moon-o fa-lg"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<script>
+    var toggle = document.getElementById("dark-mode-toggle");
+    var darkTheme = document.getElementById("dark-mode-theme");
+    var body = document.getElementsByTagName('body')[0];
+    var icon = $('.fa-lg');
+    
+    window.onbeforeunload = restoreTheme();
+    toggle.addEventListener("click", ()=>{
+        var savedTheme = localStorage.getItem("dark-mode-storage") || "light";
+        if (savedTheme === "light") {
+            darkTheme.disabled = false;
+            icon.toggleClass('fa-sun-o fa-moon-o');
+            localStorage.setItem("dark-mode-storage", "dark");
+        } else {
+            darkTheme.disabled = true;
+            icon.toggleClass('fa-sun-o fa-moon-o');
+            localStorage.setItem("dark-mode-storage", "light");
+        }
+    });
+
+    function restoreTheme(){
+        var savedTheme = localStorage.getItem("dark-mode-storage") || "light";
+        if (savedTheme === "dark") {
+            darkTheme.disabled = false;
+        } else {
+            darkTheme.disabled = true;
+        }
+    }
+</script>
+
+
+
+
+<header class="intro-header" style="background-color: black">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/economics" title="Economics">
+                            Economics
+                        </a>
+                        
+                        <a class="tag" href="/tags/math" title="Math">
+                            Math
+                        </a>
+                        
+                    </div>
+                    <h1>Supply and Demand</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                Wahab Ahmad
+                         
+                        on 
+                        Monday, October 18, 2021
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>Contents</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#what-is-economy">What is Economy?</a></li>
+    <li><a href="#demand-and-supply">Demand and Supply</a>
+      <ul>
+        <li><a href="#demand">Demand</a></li>
+        <li><a href="#supply">Supply</a></li>
+        <li><a href="#market-equilibrium">Market Equilibrium</a></li>
+        <li><a href="#predicted-changes-in-price-and-quantity">Predicted changes in Price and Quantity</a></li>
+      </ul>
+    </li>
+    <li><a href="#elasticity">Elasticity</a>
+      <ul>
+        <li><a href="#elasticity-of-demand">Elasticity of Demand</a></li>
+        <li><a href="#income-elasticity-of-demand">Income Elasticity of Demand</a></li>
+        <li><a href="#cross-elasticity-of-demand">Cross Elasticity of Demand</a></li>
+        <li><a href="#elasticity-of-supply">Elasticity of Supply</a></li>
+      </ul>
+    </li>
+    <li><a href="#efficiency-and-equity">Efficiency and Equity</a>
+      <ul>
+        <li><a href="#consumer-surplus">Consumer Surplus</a></li>
+        <li><a href="#producer-surplus">Producer Surplus</a></li>
+        <li><a href="#competitive-equilibrium-and-efficiency">Competitive Equilibrium and Efficiency</a></li>
+        <li><a href="#market-failures">Market Failures</a></li>
+      </ul>
+    </li>
+    <li><a href="#social-welfare">Social Welfare</a>
+      <ul>
+        <li><a href="#price-ceilings">Price Ceilings</a></li>
+        <li><a href="#price-floors">Price Floors</a></li>
+        <li><a href="#production-quotas-and-subsidies">Production Quotas and Subsidies</a></li>
+        <li><a href="#taxes">Taxes</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                
+                <h2 id="overview">Overview</h2>
+<!--TODO-->
+<h2 id="what-is-economy">What is Economy?</h2>
+<blockquote>
+<p><strong>Economy</strong>: Economy is a science that studies the set of actions and choices individuals, businesses, communities and government take as a result some set of incentives and scarcities.</p>
+</blockquote>
+<h2 id="demand-and-supply">Demand and Supply</h2>
+<h3 id="demand">Demand</h3>
+<p>For a product or service to have demand there must be 3 criterion that must be met:</p>
+<p>A) You must want it.<br />
+B) You must be able to afford this product or service<br />
+C) You must have a plan to purchase this product or service<br /></p>
+<p>People usually have infinite desires and wants but most fail to meet B) and C) and so their demand is diminished. This concept is best summarised by the <strong>Law of Demand</strong>.</p>
+<blockquote>
+<p><strong>Law of Demand</strong>: The higher the price of a product of service, the smaller the quantity demanded. Likewise, the lower the price of a good the higher the demand.</p>
+</blockquote>
+<p>The law of demand occurs because of two reasons:</p>
+<p>A) <strong>Substitution Effect</strong>: When a price of a good increases, the relative price against competitors selling the same good increases. Once the price of the good exceeds competitor&rsquo;s price, the public has more incentive to purchase goods from competitors than from you.<br />B) <strong>Income Effect</strong>: When a price of a good increases, the quantity of the good a consumer can purchase decreases due to their fixed income.</p>
+<p>If you have $x$ dollars to purchase some quantity $q$ of the good, the cost per $1$ quantity is $\frac{x}{q}$. There is a inverse relationship between the price and quantity. Using this we can define the demand curve where as the quantity increases the price per 1 quantity of good decreases:</p>
+<p>
+  <img src="/static/posts/image-20211018181756219.png" alt="Demand Curve">
+
+</p>
+<p>There are a set of things that may impact the demand curve:</p>
+<ol>
+<li><strong>Prices of Related Goods</strong>: For a given good we have <strong>substitute</strong> and <strong>complements</strong>. Substitutes are alternatives to a given good, like Mustard and Ketchup. If a substitutes price decreases, the demand for your good decreases and vise-versa. Likewise a complement is a set of goods that are needed together, like hot dog buns and Ketchup. If the demand for a good A increases the demand for all the complements for good A also increases and vise-versa.</li>
+<li><strong>Expected Future Prices</strong>: If prices are expected to rise in the future the current demand for that good would also increase. Real estate investment works in a similar fashion.</li>
+<li><strong>Income</strong>: Demand quantity increases when income of individuals increases. The demand curve shifts right. We can have 2 types of good. <strong>Normal Goods</strong>, whose quantity demanded increases when income increases. <strong>Inferior good</strong> whose quantity demanded decreases when income increases.</li>
+</ol>
+<p>If demand for a particular good increases, the demand curve shifts rightward. Likewise, if the demand of the good decreases, the graph shifts leftward.</p>
+<h3 id="supply">Supply</h3>
+<p>There are 3 criterion that a firm must meed in order to be a supplier of a good:</p>
+<p>A) Must have resources to produce a given good/service <br />B) Must be profitable from producing the good/service <br />C) Must have a definite plan to produce the good/service</p>
+<blockquote>
+<p><strong>Law of Supply</strong>: The higher the price of a good the larger the quantity supplied will be. Likewise, the smaller the price of the good the smaller the quantity supplied will be.</p>
+</blockquote>
+<p>This law may seem counter intuitive, especially since the higher the price of the good the smaller the demand for the good. So, how come the supply increases? To understand this, we must understand <strong>marginal cost</strong>.</p>
+<blockquote>
+<p><strong>Marginal Cost</strong>: is the change in production cost resulting from producing one more unit of a good or service.
+$$
+\text{Marginal Cost of Production}=\frac{\text{Change in total Production Costs}}{\text{Change in total Quantity Produced}}
+$$
+Marginal costs of production will keep going down as production rises until the company needs to incur more costs tor produce more products.</p>
+</blockquote>
+<p>Therefore, from the eyes of the producer the higher the cost of the good or service, the lower the marginal cost of producing one more unit of that good. Therefore, more of that good can be produced as compared to a cheaper good.</p>
+<p>A supply curve displays the relationship between quantity supplied and the price of the good. From the law of supply the higher the cost of a good the more that can be supplied due to the low marginal costs.</p>
+<p>
+  <img src="/static/posts/image-20211018200050296.png" alt="Supply Curve">
+
+</p>
+<p>When supply of a particular curve increases, the supply curve shifts right. Likewise, when the supply decreases, the supply curve shifts left.</p>
+<p>There are a set of things that may impact the supply curve:</p>
+<ol>
+<li><strong>The Prices of Factors of Production</strong>: If the price of a factor of production rises, the cost of selling a good also rises, but the price that the producer can sell for remains the same. The producer in this case must produce less, thereby decreasing the supply.</li>
+<li><strong>The Prices of Related Goods Produced</strong>: For a <strong>substitute in production</strong> if the price of a related good increases, the producer will switch to the related good in order to secure the higher profits. Thus supply of a good or service will decrease when the price of a substitute rises, the supply curve shifts left.</li>
+<li><strong>Expected Future Prices</strong>: if the price of a good rises in the near future the supplier will want to sell the good in the near future to secure higher profits. The supply curve will decrease, since the producer will sell later.</li>
+<li><strong>The Number of Suppliers</strong>: More suppliers, more goods. Thus the supply curve shifts rightward.</li>
+</ol>
+<h3 id="market-equilibrium">Market Equilibrium</h3>
+<p>In a global market place we have transactions between buyers and sellers. To see at which price these interactions take place we can see the price demanded for a quantity demanded vs price asked for a quantity supplied. This created an equilibrium point at which both buyers and sellers agree for an exchange.</p>
+<p>
+  <img src="/static/posts/image-20211018202506765.png" alt="Equilibrium">
+
+</p>
+<p>The market will always approach the equilibrium. For example if the price is too high, say $2.00 from the above diagram, the quantity demanded will be 7 units where as the quantity supplied will be 13 units. Thus there is a <strong>surplus</strong> of the good. Producers don&rsquo;t want any surplus, therefore they will reduce the price which will in turn increase the demand. Thus reaching the equilibrium. On the other hand, if the price is too low, say $1.00 from the above diagram, the quantity demanded will 15 whereas the quantity supplied will be 5. Thus there is a shortage of 10. Suppliers do not want a shortage. Thus they will increase the price, thereby decreasing the demand and this again continues until equilibrium is achieved.</p>
+<blockquote>
+<p>If we know the equation for the supply and demand curve we can solve for the equilibrium</p>
+</blockquote>
+<h3 id="predicted-changes-in-price-and-quantity">Predicted changes in Price and Quantity</h3>
+<p>We can have shifts to the supply and demand curve, each in turn resulting in Price and Quantity changes at the equilibrium. The possible outcomes are summarized below:</p>
+<p>
+  <img src="/static/posts/image-20211018215203140.png" alt="Cases">
+
+</p>
+<h2 id="elasticity">Elasticity</h2>
+<blockquote>
+<p><strong>Elasticity</strong>- The magnitude of change in price due to demand/supply curve shift</p>
+</blockquote>
+<h3 id="elasticity-of-demand">Elasticity of Demand</h3>
+<blockquote>
+<p>Measure of the responsiveness of the quantity demanded of a good to a change in its price</p>
+</blockquote>
+<p>The elasticity of demand is given by the following formula, where $Q$ is the quantity and $P$ is the price:
+$$
+\epsilon_D = \frac{\frac{\Delta Q}{\bar{Q}}}{\frac{\Delta P}{\bar{P}}}
+$$</p>
+<ul>
+<li>Note $\Delta A = A_{new}-A_{old}$ and $\bar{A} = \text{Average($A$)}$</li>
+<li>$\epsilon_D=0 \implies$ demand is <strong>Perfectly Inelastic</strong></li>
+<li>$\epsilon_D=-1 \implies$ demand is <strong>Unit Elastic</strong></li>
+<li>$\epsilon_D &lt; 1 \implies$ demand is <strong>Inelastic</strong></li>
+<li>$\epsilon_D&gt;1 \implies$ demand is <strong>Elastic</strong></li>
+<li>$\epsilon_D=\infty \implies$ demand is <strong>Perfectly Elastic</strong> (division by 0)</li>
+</ul>
+<p>
+  <img src="/static/posts/image-20211018221008095.png" alt="Elasticity of Demand">
+
+</p>
+<p>From the suppliers point of view the revenue is directly related to a price of good, so elasticity directly effects the revenue. If demand is <strong>elastic</strong>, 1% price cut results in quantity sold increasing by more than 1%, thus total revenue increases. If demand is <strong>inelastic</strong>, a 1% price cut increases the quantity sold by less than 1%, total revenue decreases. If the demand is <strong>unit elastic</strong>, a 1% price cut result in increasing quantity sold by 1%, and the total revenue is unchanged.</p>
+<p>
+  <img src="/static/posts/image-20211018225741248.png" alt="Elasticity of Demand">
+
+</p>
+<h3 id="income-elasticity-of-demand">Income Elasticity of Demand</h3>
+<blockquote>
+<p>Measure the responsiveness of quantity demanded of a good to some change in consumer income.</p>
+</blockquote>
+<p>The income elasticity of demand is given by the following formula, where $Q$ is the quantity and $I$ is the income:
+$$
+\epsilon_M = \frac{\frac{\Delta Q}{\bar{Q}}}{\frac{\Delta I}{\bar{I}}}
+$$</p>
+<ul>
+<li>If $\epsilon_M &gt; 1 \implies$ demand is <strong>income elastic</strong> &amp; good being bought is <strong>normal good</strong></li>
+<li>If $0 &lt; \epsilon_M &lt; 1 \implies$ demand is <strong>income inelastic</strong> &amp; good being bought is again a <strong>normal good</strong></li>
+<li>If $\epsilon_M &lt; 0 \implies$ good good being bought is an <strong>inferior good</strong></li>
+</ul>
+<p>
+  <img src="/static/posts/image-20211018225830815.png" alt="Income Elasticity">
+
+</p>
+<h3 id="cross-elasticity-of-demand">Cross Elasticity of Demand</h3>
+<blockquote>
+<p>Measurement of the responsiveness of the quantity demanded of a good to a change in the price of a <strong>substitute</strong> or a <strong>complement</strong></p>
+</blockquote>
+<p>The cross elasticity of demand is given by the following formula, where  $Q$ is the quantity, $P$ is the price, $X$ is one type of good (good $X$) and $Y$ is another type of good (good $Y$):
+$$
+\epsilon_{XY} = \frac{\frac{\Delta Q^X}{\bar{Q^X}}}{\frac{\Delta P^Y}{\bar{P^Y}}}
+$$</p>
+<ul>
+<li>if $\epsilon &gt; 0 \implies$ $X$ and $Y$ are <strong>substitutes</strong></li>
+<li>if $\epsilon &lt; 0 \implies$ $X$ and $Y$ are <strong>complements</strong></li>
+</ul>
+<p>
+  <img src="/static/posts/image-20211018225915727.png" alt="Cross Elasticity">
+
+</p>
+<h3 id="elasticity-of-supply">Elasticity of Supply</h3>
+<blockquote>
+<p>Measurement for the responsiveness of a quantity supplied of a good to a change in its price</p>
+</blockquote>
+<p>The elasticity of supply is given by the following formula, where $Q$ is the quantity and $P$ is the price:
+$$
+\epsilon_S = \frac{\frac{\Delta Q}{\bar{Q}}}{\frac{\Delta P}{\bar{P}}}
+$$</p>
+<ul>
+<li>If $\epsilon_S = 0 \implies$ <strong>perfectly inelastic</strong></li>
+<li>If $0 &lt; \epsilon_S &lt; 1 \implies$ <strong>inelastic</strong></li>
+<li>If $\epsilon_S = 1 \implies$ <strong>unit elastic</strong></li>
+<li>If $\epsilon_S &gt; 1 \implies$ <strong>elastic</strong></li>
+<li>If $\epsilon_S = \infty \implies$ <strong>perfectly elastic</strong></li>
+</ul>
+<p>
+  <img src="/static/posts/image-20211018225952201.png" alt="Elasticity of Supply">
+
+</p>
+<h2 id="efficiency-and-equity">Efficiency and Equity</h2>
+<h3 id="consumer-surplus">Consumer Surplus</h3>
+<p>To understand consumer surplus, we first need to understand the notion of a <strong>market demand curve</strong>. Market demand curve is the demand curve which represents the quantity demanded by the entire market rather than demands of individuals:</p>
+<p>
+  <img src="/static/posts/image-20211019125607668.png" alt="image-20211019125607668">
+
+</p>
+<blockquote>
+<p><strong>Consumer surplus</strong> is defined as the excess of benefit received from a good or service over the amount paid for the good or service. For instance, if you find a bike for which you are willing to pay $100 but there is a deal which allows you to purchase the bike for $50. Your receive a surplus of $50 which is what you saved off of the transaction.</p>
+</blockquote>
+<p>For the following graph, we can compute the consumer surplus as follows:</p>
+<p>
+  <img src="/static/posts/image-20211019131358166.png" alt="image-20211019131358166">
+
+
+$$
+\text{Lisa&rsquo;s consumer surplus} = \frac{1}{2}\times30\times1.50
+$$</p>
+<ul>
+<li>Note that both the height and base of the triangle effect the consumer surplus. Increasing the price will decrease the quantity, thereby decreasing the consumer surplus.</li>
+</ul>
+<p>To find the market surplus we must sum the surplus of Lisa and Nick. Generally, we would sum the surplus of all consumers in a given market place to obtain the market surplus.</p>
+<h3 id="producer-surplus">Producer Surplus</h3>
+<p>We can start by defined the <strong>market supply curve</strong> as we did with market demand curve. Market supply curve is the sum on quantities that each supplier can supply at a given price:</p>
+<p>
+  <img src="/static/posts/image-20211019132848861.png" alt="image-20211019132848861">
+
+</p>
+<p>Likewise, when the price of a good exceeds the price of producing the good. That is referred to as the <strong>producer surplus</strong>.</p>
+<p>
+  <img src="/static/posts/image-20211019133212677.png" alt="image-20211019133212677">
+
+</p>
+<p>Once again, we can compute the producer surplus by computing the area under the market price. For example, Maria&rsquo;s producer surplus is:
+$$
+\text{Maria&rsquo;s consumer surplus} = \frac{1}{2}\times100\times10
+$$
+The market producer surplus is the sum of the surplus for all the producers.</p>
+<h3 id="competitive-equilibrium-and-efficiency">Competitive Equilibrium and Efficiency</h3>
+<p>Again, we can find the market equilibrium by overlaying market supply curve with the market demand curve. Now we can identify the consumer and producer surplus:</p>
+<p>
+  <img src="/static/posts/image-20211019135019845.png" alt="image-20211019135019845">
+
+</p>
+<blockquote>
+<p>We can define the concept of <strong>Total Surplus</strong>:<br />$\text{Total Surplus} = \text{Consumer Surplus} + \text{Producer Surplus}$</p>
+</blockquote>
+<p>For the market in the image, the total surplus is maximised as the consumers and producers are receiving the greatest possible value at the market equilibrium.</p>
+<h3 id="market-failures">Market Failures</h3>
+<p>A market failure is when a good is under or overproduced such that equilibrium is not met. Consider the following:</p>
+<p>
+  <img src="/static/posts/image-20211019141206416.png" alt="image-20211019141206416">
+
+</p>
+<ol>
+<li>The market is producing fewer pizzas than the equilibrium</li>
+<li>Consumer and producer surplus shrinks</li>
+<li>Marginal Social Benefit &gt; Marginal Social Cost</li>
+<li>Since equilibrium is not met a dead-weight loss is produced</li>
+</ol>
+<blockquote>
+<p><strong>Dead-weight Lost</strong> is the decrease in total surplus</p>
+</blockquote>
+<p>For over production we can similar situation:</p>
+<p>
+  <img src="/static/posts/image-20211019141606785.png" alt="image-20211019141606785">
+
+</p>
+<ol>
+<li>Market is producing more pizzas than needed priced at a higher price (because producers are incurring marginal costs of producing more pizzas) thus reducing the demand</li>
+<li>Resources are being wasted in producing the extra pizzas</li>
+<li>Marginal Social Benefit &lt; Marginal Social Cost</li>
+<li>Since equilibrium is not met a dead-weight loss occurs</li>
+</ol>
+<p>Market failures can arise in many different situatations:</p>
+<ul>
+<li>Price and Quantity Regulation</li>
+<li>Taxes and subsidies</li>
+<li>Externalities</li>
+<li>Monopoly</li>
+<li>High Transactions Costs</li>
+</ul>
+<h2 id="social-welfare">Social Welfare</h2>
+<h3 id="price-ceilings">Price Ceilings</h3>
+<blockquote>
+<p>A regulation that makes it illegal to charge a price higher than a specific level</p>
+</blockquote>
+<ul>
+<li>if $\text{ceiling} &gt; \text{Price} \implies$ there is no public effect</li>
+<li>if $\text{ceiling} &lt; \text{Price} \implies$
+<ul>
+<li>A shortage (demand &gt; supply)</li>
+<li>Increased searching for good/service</li>
+<li>Black market</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Black Market</strong> - is an illegal market that operates alongside legal market in which a ceiling exists</p>
+</blockquote>
+<p>Market failures can result from a ceiling if ceiling &lt; Price:</p>
+<p>
+  <img src="/static/posts/image-20211019152007478.png" alt="image-20211019152007478">
+
+</p>
+<p>
+  <img src="/static/posts/image-20211019152039971.png" alt="image-20211019152039971">
+
+</p>
+<h3 id="price-floors">Price Floors</h3>
+<blockquote>
+<p>Regulation that makes it illegal to trade a price lower than a specific level. (Ex. Minimum Wage)</p>
+</blockquote>
+<ul>
+<li>if $\text{floor} &lt; \text{Price} \implies$ there is no public effect</li>
+<li>if $\text{floor} &gt; \text{Price} \implies$
+<ul>
+<li>A surplus occurs (supply &gt; demand)</li>
+<li>In the example of labour and minimum wage, unemployment would occur</li>
+</ul>
+</li>
+</ul>
+<p>Market failures can result from a floor if floor &gt; price:</p>
+<p>
+  <img src="/static/posts/image-20211019153041047.png" alt="image-20211019153041047">
+
+</p>
+<p>
+  <img src="/static/posts/image-20211019153107505.png" alt="image-20211019153107505">
+
+</p>
+<h3 id="production-quotas-and-subsidies">Production Quotas and Subsidies</h3>
+<blockquote>
+<p><strong>Production Quota</strong>: upper limit to quantity of good that may be produced during some period of time</p>
+<p><strong>Subsidy</strong>: Payment made from a government to a producer</p>
+</blockquote>
+<p>If a production quota &lt; equilibrium quantity:</p>
+<p>
+  <img src="/static/posts/image-20211019153735219.png" alt="image-20211019153735219">
+
+</p>
+<ul>
+<li>Production is insufficient and producers have an incentive to cheat and provide for the excess demand</li>
+</ul>
+<p>Subsidies on the other hand reduce the cost of production allowing producers to supply good with a lower price:</p>
+<p>
+  <img src="/static/posts/image-20211019154010913.png" alt="image-20211019154010913">
+
+</p>
+<h3 id="taxes">Taxes</h3>
+<p><strong>Taxing the sellers</strong> often increase the price of producing a good:</p>
+<p>
+  <img src="/static/posts/image-20211019155231698.png" alt="image-20211019155231698">
+
+</p>
+<p><strong>Taxing the buyers</strong> often decreases the demand:</p>
+<p>
+  <img src="/static/posts/image-20211019155438721.png" alt="image-20211019155438721">
+
+</p>
+<ul>
+<li><strong>Perfectly inelastic demand</strong> - Buyers pay the entire tax</li>
+</ul>
+<p>
+  <img src="/static/posts/image-20211019155621158.png" alt="image-20211019155621158">
+
+</p>
+<ul>
+<li><strong>Perfectly elastic demand</strong>- Sellers pay the entire tax</li>
+</ul>
+<p>
+  <img src="/static/posts/image-20211019155636763.png" alt="image-20211019155636763">
+
+</p>
+<ul>
+<li><strong>Perfectly inelastic supply</strong> - Sellers pay the entire tax</li>
+</ul>
+<p>
+  <img src="/static/posts/image-20211019155811235.png" alt="image-20211019155811235">
+
+</p>
+<ul>
+<li><strong>Perfectly elastic supply</strong> - Buyers pay the entire tax</li>
+</ul>
+<p>
+  <img src="/static/posts/image-20211019155840427.png" alt="image-20211019155840427">
+
+</p>
+<ul>
+<li>Taxes can also result in deadweight loss, since the tax revenue takes part of the total surplus</li>
+</ul>
+<p>
+  <img src="/static/posts/image-20211019160052491.png" alt="image-20211019160052491">
+
+</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/post/math-behind-a-neural-network/" data-toggle="tooltip" data-placement="top" title="Math Behind a Neural Network">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Wahab Ahmad" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:w28ahmad@uwaterloo.ca">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/w28ahmad">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Wahab Ahmad 2021
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>
