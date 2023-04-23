@@ -6,17 +6,28 @@
     <description>Recent content on Wahab Ahmad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 18 Oct 2021 17:29:44 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Apr 2023 07:15:38 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Design Patterns</title>
+      <link>https://w28ahmad.github.io/post/design-patterns/</link>
+      <pubDate>Wed, 19 Apr 2023 07:15:38 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/design-patterns/</guid>
+      <description>Overview Object oriented design patterns are fundamental to programming, they are reusable solutions to common problems during programming. Often make heavy use of interfaces, information hiding, polymorphisms and intermediary objects. There are 3 main categories of design patterns that will be discussed in this blog:
+Creational Patterns Structural Patterns Behavioral Patterns Other engineers have faced issues while developing applications and so they have come up with specific design patterns. We can leverage their knowledge in our own software design to simplify the process.</description>
+    </item>
+    
     <item>
       <title>Supply and Demand</title>
       <link>https://w28ahmad.github.io/post/supply-and-demand/</link>
       <pubDate>Mon, 18 Oct 2021 17:29:44 -0400</pubDate>
       
       <guid>https://w28ahmad.github.io/post/supply-and-demand/</guid>
-      <description>Overview  What is Economy?  Economy: Economy is a science that studies the set of actions and choices individuals, businesses, communities and government take as a result some set of incentives and scarcities.
- Demand and Supply Demand For a product or service to have demand there must be 3 criterion that must be met:
+      <description>Overview What is Economy? Economy: Economy is a science that studies the set of actions and choices individuals, businesses, communities and government take as a result some set of incentives and scarcities.
+Demand and Supply Demand For a product or service to have demand there must be 3 criterion that must be met:
 A) You must want it.
-B) You must be able to afford this product or service</description>
+B) You must be able to afford this product or service
+C) You must have a plan to purchase this product or service</description>
     </item>
     
     <item>

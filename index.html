@@ -1,20 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-	<meta name="generator" content="Hugo 0.88.0" />
-    
-
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177198277-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-177198277-1');
-    </script>
-
-
+	<meta name="generator" content="Hugo 0.111.3">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -82,30 +69,8 @@
     
     
 
-    
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
-	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
-	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
-	<script>
-		    document.addEventListener("DOMContentLoaded", function() {
-				        renderMathInElement(document.body, {
-							          
-							          
-							          delimiters: [
-										                {left: '$$', right: '$$', display: true},
-										                {left: '$', right: '$', display: false},
-										                {left: '\\(', right: '\\)', display: false},
-										                {left: '\\[', right: '\\]', display: true}
-										            ],
-							          
-							          throwOnError : false
-							        });
-				    });
-	</script>
-
-    
-    <link disabled id="dark-mode-theme" rel="stylesheet" href="/css/dark.css">
 </head>
+
 
 
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -143,6 +108,10 @@
                             <a href="/categories/math">math</a>
                         </li>
                         
+                        <li>
+                            <a href="/categories/programming">programming</a>
+                        </li>
+                        
                     
                     
 		    
@@ -150,12 +119,6 @@
                     
 
                     
-                    <li>
-                        
-                        <a>
-                            <i id="dark-mode-toggle" class="fa fa-moon-o fa-lg"></i>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -192,39 +155,9 @@
     }
 </script>
 
-<script>
-    var toggle = document.getElementById("dark-mode-toggle");
-    var darkTheme = document.getElementById("dark-mode-theme");
-    var body = document.getElementsByTagName('body')[0];
-    var icon = $('.fa-lg');
-    
-    window.onbeforeunload = restoreTheme();
-    toggle.addEventListener("click", ()=>{
-        var savedTheme = localStorage.getItem("dark-mode-storage") || "light";
-        if (savedTheme === "light") {
-            darkTheme.disabled = false;
-            icon.toggleClass('fa-sun-o fa-moon-o');
-            localStorage.setItem("dark-mode-storage", "dark");
-        } else {
-            darkTheme.disabled = true;
-            icon.toggleClass('fa-sun-o fa-moon-o');
-            localStorage.setItem("dark-mode-storage", "light");
-        }
-    });
-
-    function restoreTheme(){
-        var savedTheme = localStorage.getItem("dark-mode-storage") || "light";
-        if (savedTheme === "dark") {
-            darkTheme.disabled = false;
-        } else {
-            darkTheme.disabled = true;
-        }
-    }
-</script>
 
 
-
-<header class="intro-header" style="background-color: black">
+<header class="intro-header" style="background-image: url('/')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
@@ -241,19 +174,42 @@
 
 
   
-<article>
-    <div class="container">
-        <div class="row">
+<div class="container">
+    <div class="row">
+        
+        
+   	    <div class="
+            col-lg-8 col-lg-offset-1
+            col-md-8 col-md-offset-1
+            col-sm-12
+            col-xs-12
+            post-container
+        ">
             
-            
-            <div class="
-                col-lg-8 col-lg-offset-1
-                col-md-8 col-md-offset-1
-                col-sm-12
-                col-xs-12
-                post-container
-            ">
-                
+
+<div class="post-preview">
+    <a href="https://w28ahmad.github.io/post/design-patterns/">
+        <h2 class="post-title">
+            Design Patterns
+        </h2>
+	
+        <div class="post-content-preview">
+	    
+            Overview Object oriented design patterns are fundamental to programming, they are reusable solutions to common problems during programming. Often make heavy use of interfaces, information hiding, polymorphisms and intermediary objects. There are 3 main categories of design patterns that will be discussed in this blog:
+Creational Patterns Structural Patterns Behavioral Patterns Other engineers have faced issues while developing applications and so they have come up with specific design patterns. We can leverage their knowledge in our own software design to simplify the process.
+        
+       
+
+        </div>
+    </a>
+    <p class="post-meta">
+    Posted by Wahab Ahmad Wednesday, April 19, 2023
+    
+    
+    </p>
+
+</div>
+<hr>
 
 <div class="post-preview">
     <a href="https://w28ahmad.github.io/post/supply-and-demand/">
@@ -263,10 +219,11 @@
 	
         <div class="post-content-preview">
 	    
-            Overview  What is Economy?  Economy: Economy is a science that studies the set of actions and choices individuals, businesses, communities and government take as a result some set of incentives and scarcities.
- Demand and Supply Demand For a product or service to have demand there must be 3 criterion that must be met:
+            Overview What is Economy? Economy: Economy is a science that studies the set of actions and choices individuals, businesses, communities and government take as a result some set of incentives and scarcities.
+Demand and Supply Demand For a product or service to have demand there must be 3 criterion that must be met:
 A) You must want it.
 B) You must be able to afford this product or service
+C) You must have a plan to purchase this product or service
         
        
 
@@ -305,12 +262,12 @@ B) You must be able to afford this product or service
 <hr>
 
 
-                
-
-
-
-            </div>
             
+
+
+
+       	</div>
+        
 
 <div class="
     col-lg-3 col-lg-offset-0
@@ -326,6 +283,8 @@ B) You must be able to afford this product or service
         <h5>FEATURED TAGS</h5>
         <div class="tags">
              
+            
+                
             
                 
             
@@ -404,9 +363,9 @@ B) You must be able to afford this product or service
     
 </div>
 
-        </div>
-    </div>
-</article>
+	</div>
+</div>
+
 
 
 
@@ -428,7 +387,8 @@ B) You must be able to afford this product or service
                    
                     
                     <li>
-                        <a href="mailto:w28ahmad@uwaterloo.ca">
+                        <a href="mailto:w28ahmad@uwaterloo.ca"
+                        rel="alternate" type="application/rss+xml" title="mailto:w28ahmad@uwaterloo.ca" >
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
@@ -447,7 +407,7 @@ B) You must be able to afford this product or service
                     
                     
                     <li>
-                        <a target="_blank" href="https://github.com/w28ahmad">
+                        <a target="_blank" href="https://github.com/w28ahmad" title="GitHub">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -459,7 +419,7 @@ B) You must be able to afford this product or service
                     
                     
                     <li>
-                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/">
+                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/" title="LinkedIn">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
@@ -477,13 +437,13 @@ B) You must be able to afford this product or service
             
                 </ul>
 		<p class="copyright text-muted">
-                    Copyright &copy; Wahab Ahmad 2022
+                    Copyright &copy; Wahab Ahmad 2023
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
-                    <iframe
+                    <iframe title="Zhao Huabing GitHub"
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="100px" height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true">
                     </iframe>
                 </p>
             </div>

@@ -1,19 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <head>
-    
-
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-177198277-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-177198277-1');
-    </script>
-
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -81,30 +68,8 @@
     
     
 
-    
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
-	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
-	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
-	<script>
-		    document.addEventListener("DOMContentLoaded", function() {
-				        renderMathInElement(document.body, {
-							          
-							          
-							          delimiters: [
-										                {left: '$$', right: '$$', display: true},
-										                {left: '$', right: '$', display: false},
-										                {left: '\\(', right: '\\)', display: false},
-										                {left: '\\[', right: '\\]', display: true}
-										            ],
-							          
-							          throwOnError : false
-							        });
-				    });
-	</script>
-
-    
-    <link disabled id="dark-mode-theme" rel="stylesheet" href="/css/dark.css">
 </head>
+
 
 
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
@@ -142,6 +107,10 @@
                             <a href="/categories/math">math</a>
                         </li>
                         
+                        <li>
+                            <a href="/categories/programming">programming</a>
+                        </li>
+                        
                     
                     
 		    
@@ -149,12 +118,6 @@
                     
 
                     
-                    <li>
-                        
-                        <a>
-                            <i id="dark-mode-toggle" class="fa fa-moon-o fa-lg"></i>
-                        </a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -191,40 +154,15 @@
     }
 </script>
 
-<script>
-    var toggle = document.getElementById("dark-mode-toggle");
-    var darkTheme = document.getElementById("dark-mode-theme");
-    var body = document.getElementsByTagName('body')[0];
-    var icon = $('.fa-lg');
-    
-    window.onbeforeunload = restoreTheme();
-    toggle.addEventListener("click", ()=>{
-        var savedTheme = localStorage.getItem("dark-mode-storage") || "light";
-        if (savedTheme === "light") {
-            darkTheme.disabled = false;
-            icon.toggleClass('fa-sun-o fa-moon-o');
-            localStorage.setItem("dark-mode-storage", "dark");
-        } else {
-            darkTheme.disabled = true;
-            icon.toggleClass('fa-sun-o fa-moon-o');
-            localStorage.setItem("dark-mode-storage", "light");
-        }
-    });
 
-    function restoreTheme(){
-        var savedTheme = localStorage.getItem("dark-mode-storage") || "light";
-        if (savedTheme === "dark") {
-            darkTheme.disabled = false;
-        } else {
-            darkTheme.disabled = true;
-        }
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/')
     }
-</script>
-
-
-
-
-<header class="intro-header" style="background-color: black">
+</style>
+<header class="intro-header">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
@@ -418,32 +356,32 @@ f(x) = x^2 \newline
 $$
 We can adjust the $x$ and move it in the direction of decreasing slope like so:
 $$
-x_o = x_o - f'(x)|_{x=x_o}\newline~
+x_o = x_o - f&rsquo;(x)|<em>{x=x_o}\newline~
 \newline
 \text{Iteration 1:}\newline
-x_o = -3 - f'(x)|_{x=-3}\newline
+x_o = -3 - f&rsquo;(x)|</em>{x=-3}\newline
 x_o = 3 \newline~
 \newline
 \text{Iteration 2:}\newline
-x_o = 3 - f'(x)|_{x=3}\newline
+x_o = 3 - f&rsquo;(x)|_{x=3}\newline
 x_o = -3
 $$
 Hmm, looks like we aren&rsquo;t making any progress:</p>
-<p><img src="/static/posts/image-20210907152013782.png" alt="stuck" style="zoom:50%;" /></p>
+<img src="/static/posts/image-20210907152013782.png" alt="stuck" style="zoom:50%;" />
 <p>To fix this issue, we must add another a step size / learning rate $\alpha$ to ensure that each subsequent step is smaller than the previous. Suppose $\alpha = \frac{1}{3}$:
 $$
 \begin{equation}
-x_o = x_o - \alpha f'(x)|_{x=x_o}
+x_o = x_o - \alpha f&rsquo;(x)|_{x=x_o}
 \end{equation}
 $$</p>
 <p>$$
 \text{Iteration 1:}\newline
-x_o = -3 - \frac{1}{3}f'(x)|_{x=-3}\newline
+x_o = -3 - \frac{1}{3}f&rsquo;(x)|_{x=-3}\newline
 x_o = -1
 $$</p>
 <p>$$
 \text{Iteration 2:}\newline
-x_o = -1 - \frac{1}{3}f'(x)|_{x=-1}\newline
+x_o = -1 - \frac{1}{3}f&rsquo;(x)|_{x=-1}\newline
 x_o = -1/3\newline
 \vdots
 $$</p>
@@ -474,7 +412,7 @@ $$</p>
                     
                     
                     <li class="next">
-                        <a href="/post/supply-and-demand/" data-toggle="tooltip" data-placement="top" title="Supply and Demand">Next
+                        <a href="https://w28ahmad.github.io/post/supply-and-demand/" data-toggle="tooltip" data-placement="top" title="Supply and Demand">Next
                             Post &rarr;</a>
                     </li>
                     
@@ -498,6 +436,8 @@ $$</p>
                     <hr class="hidden-sm hidden-xs">
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
+                        
+                        
                         
                         
                         
@@ -537,7 +477,8 @@ $$</p>
                    
                     
                     <li>
-                        <a href="mailto:w28ahmad@uwaterloo.ca">
+                        <a href="mailto:w28ahmad@uwaterloo.ca"
+                        rel="alternate" type="application/rss+xml" title="mailto:w28ahmad@uwaterloo.ca" >
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
@@ -556,7 +497,7 @@ $$</p>
                     
                     
                     <li>
-                        <a target="_blank" href="https://github.com/w28ahmad">
+                        <a target="_blank" href="https://github.com/w28ahmad" title="GitHub">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -568,7 +509,7 @@ $$</p>
                     
                     
                     <li>
-                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/">
+                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/" title="LinkedIn">
                             <span class="fa-stack fa-lg">
                                 <i class="fa fa-circle fa-stack-2x"></i>
                                 <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
@@ -586,13 +527,13 @@ $$</p>
             
                 </ul>
 		<p class="copyright text-muted">
-                    Copyright &copy; Wahab Ahmad 2022
+                    Copyright &copy; Wahab Ahmad 2023
                     <br>
                     <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
-                    <iframe
+                    <iframe title="Zhao Huabing GitHub"
                         style="margin-left: 2px; margin-bottom:-5px;"
                         frameborder="0" scrolling="0" width="100px" height="20px"
-                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true" >
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true">
                     </iframe>
                 </p>
             </div>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on Wahab Ahmad</title>
+    <link>https://w28ahmad.github.io/tags/programming/</link>
+    <description>Recent content in Programming on Wahab Ahmad</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 19 Apr 2023 07:15:38 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Design Patterns</title>
+      <link>https://w28ahmad.github.io/post/design-patterns/</link>
+      <pubDate>Wed, 19 Apr 2023 07:15:38 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/design-patterns/</guid>
+      <description>Overview Object oriented design patterns are fundamental to programming, they are reusable solutions to common problems during programming. Often make heavy use of interfaces, information hiding, polymorphisms and intermediary objects. There are 3 main categories of design patterns that will be discussed in this blog:
+Creational Patterns Structural Patterns Behavioral Patterns Other engineers have faced issues while developing applications and so they have come up with specific design patterns. We can leverage their knowledge in our own software design to simplify the process.</description>
+    </item>
+    
+  </channel>
+</rss>

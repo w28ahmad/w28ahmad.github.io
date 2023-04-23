@@ -1,0 +1,1375 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Wahab Ahmad">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://w28ahmad.github.io/">
+    <meta property="twitter:image" content="https://w28ahmad.github.io/" />
+    
+
+    
+    <meta name="title" content="Design Patterns" />
+    <meta property="og:title" content="Design Patterns" />
+    <meta property="twitter:title" content="Design Patterns" />
+    
+
+    
+    <meta name="description" content="">
+    <meta property="og:description" content="" />
+    <meta property="twitter:description" content="" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Wahab, Math, Machine Learning">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Design Patterns-Wahab&#39;s Blog</title>
+
+    <link rel="canonical" href="/post/design-patterns/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wahab Ahmad</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/economics">economics</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/machine-learning">machine-learning</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/math">math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/programming">programming</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="https://wahabahmad.me/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/programming" title="Programming">
+                            Programming
+                        </a>
+                        
+                    </div>
+                    <h1>Design Patterns</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                Wahab Ahmad
+                         
+                        on 
+                        Wednesday, April 19, 2023
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>Contents</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#design-properties">Design Properties</a>
+      <ul>
+        <li><a href="#cohesion">Cohesion</a></li>
+        <li><a href="#coupling">Coupling</a></li>
+      </ul>
+    </li>
+    <li><a href="#structural-patterns">Structural Patterns</a>
+      <ul>
+        <li><a href="#application-1---adaptor">Application 1. - Adaptor</a></li>
+        <li><a href="#application-2---composite">Application 2. - Composite</a></li>
+        <li><a href="#application-3---facade">Application 3. - Facade</a></li>
+        <li><a href="#application-4---decorator">Application 4. - Decorator</a></li>
+      </ul>
+    </li>
+    <li><a href="#creational-patterns">Creational Patterns</a>
+      <ul>
+        <li><a href="#application-1---abstract-factory">Application 1. - Abstract Factory</a></li>
+        <li><a href="#application-2---singleton">Application 2. - Singleton</a></li>
+        <li><a href="#application-3---factory-method">Application 3. - Factory Method</a></li>
+      </ul>
+    </li>
+    <li><a href="#behaviorial-patterns">Behaviorial Patterns</a>
+      <ul>
+        <li><a href="#application-1---iterator">Application 1. - Iterator</a></li>
+        <li><a href="#application-2---observer">Application 2. - Observer</a></li>
+        <li><a href="#application-3---template">Application 3. - Template</a></li>
+        <li><a href="#application-4---strategy">Application 4. - Strategy</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                
+                <h2 id="overview">Overview</h2>
+<p>Object oriented design patterns are fundamental to programming, they are reusable solutions to common problems during programming. Often make heavy use of interfaces, information hiding, polymorphisms and intermediary objects. There are 3 main categories of design patterns that will be discussed in this blog:</p>
+<ol>
+<li>Creational Patterns</li>
+<li>Structural Patterns</li>
+<li>Behavioral Patterns</li>
+</ol>
+<p>Other engineers have faced issues while developing applications and so they have come up with specific design patterns. We can leverage their knowledge in our own software design to simplify the process.</p>
+<h2 id="design-properties">Design Properties</h2>
+<h3 id="cohesion">Cohesion</h3>
+<ul>
+<li>Degree to which a module relies on members withing the module to deliver functionality</li>
+<li>Ideally <strong>HIGH</strong></li>
+</ul>
+<h3 id="coupling">Coupling</h3>
+<ul>
+<li>Degree to which a module relies on other modules to deliver functionality</li>
+<li>Ideally <strong>LOW</strong></li>
+</ul>
+<h2 id="structural-patterns">Structural Patterns</h2>
+<p>Concerns the process of assembling objects and classes.</p>
+<h3 id="application-1---adaptor">Application 1. - Adaptor</h3>
+<p>The Adapter Design Pattern is a structural design pattern that allows two incompatible interfaces to work together. This design pattern acts as a bridge between two interfaces, converting one interface into the other without modifying the original code. This pattern is useful when you want to intergrate existing code/libraries that have different interfaces.</p>
+<p><strong>Components:</strong></p>
+<ol>
+<li>Target Interface: The desired interface that the client code expects</li>
+<li>Adaptee: The existing code that needs to be adapted</li>
+<li>Adapter: This is the class that implements the target interface and wraps the adaptee, making it compatible with the target</li>
+<li>Client: Collaborates with objects conforming to the target interface</li>
+</ol>
+<p><strong>Types of Adapters:</strong></p>
+<ol>
+<li>Class Adapters: in uses multiple inheritance (inheritance from both target and adaptee) to aadapt the interface. Less flexible as it relies on inheritance and doesn&rsquo;t allow dynamic adaptation at runtime.</li>
+<li>Object Adapters: it uses composition to adapt the interface, where the adapter has reference to the adaptee.It is more flexable and allows for dynamic adaption at runtime, but requires more code if interface changees.</li>
+</ol>
+<p><strong>Example 1:</strong>
+You are building a weather app that fetches data from a third party weather API. The API returns data in a different format that what the app requires. In this case we will need to conver the API response into a format the app can understand:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WeatherApiResponse</span>(<span style="color:#66d9ef">val</span> temperatureF: Double)
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WeatherData</span>(<span style="color:#66d9ef">val</span> temperatureC: Double)
+</span></span></code></pre></div><p>Now we define an adapter class:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WeatherDataAdapter</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">adapt</span>(apiResponse: WeatherApiResponse): WeatherData {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> temperatureC = (apiResponse.temperatureF - <span style="color:#ae81ff">32</span>) * <span style="color:#ae81ff">5</span> / <span style="color:#ae81ff">9</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> WeatherData(temperatureC)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>This can be used as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> apiResponse = WeatherApiResponse(<span style="color:#ae81ff">68.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Define an adapter
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> weatherDataAdapter = WeatherDataAdapter()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> weatherData = weatherDataAdapter.adapt(apiResponse)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Example 2:</strong>
+Another example is when we want to create a condition on the same type but one of the object interface is of another type. Thus we need to adapt it to the new interface. In this example <code>StripeGateway</code> and <code>PaypalGateway</code> are both of type <code>PaymentGateway</code>. However, <code>BankGateway</code> is of another type, but we must adapt it to use it in a when statement which returns an object of the same type:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">processPayment</span>(selectedGatewayId: Int, paymentAmount: Double): Boolean {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> stripeGateway = StripeGateway()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> payPalGateway = PayPalGateway()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> bankGateway = BankGateway()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> bankGatewayAdapter = BankGatewayAdapter(bankGateway)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> paymentGateway = <span style="color:#66d9ef">when</span> (selectedGatewayId) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">1</span> <span style="color:#f92672">-&gt;</span> stripeGateway
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">2</span> <span style="color:#f92672">-&gt;</span> payPalGateway
+</span></span><span style="display:flex;"><span>        <span style="color:#ae81ff">3</span> <span style="color:#f92672">-&gt;</span> bankGatewayAdapter
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span> <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">throw</span> IllegalArgumentException(<span style="color:#e6db74">&#34;Invalid payment gateway selected.&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> paymentGateway.processPayment(paymentAmount)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In this example:</p>
+<ol>
+<li>Target Interface: return type of <code>BankGatewayAdapter</code></li>
+<li>Client: The function <code>processPayment</code> or <code>when</code> statement could be considered as the client</li>
+<li>Adapter: <code>BankGatewayAdapter</code></li>
+<li>Adaptee: <code>bankGateway</code></li>
+</ol>
+<h3 id="application-2---composite">Application 2. - Composite</h3>
+<p>Allows you to compose objects into tree structures to represent part-whole hierarchies.Pattern enables clients to tread individual object and compositions of objection uniformly. This pattern is designed to be used when working with complex hierarchy of objects where objects may have children.</p>
+<p><strong>Components:</strong></p>
+<ol>
+<li>Component: Is the base class or the interface that defines common patterns and properties for both composite and leaf objects</li>
+<li>Leaf: Individual objects without children, implements component interface or extends component class, which provides actual behaviour</li>
+<li>Composite: Class that represents objects that have children, it also implements component interface or extends the component class. It contains a collection of child components (either leaf or composite)</li>
+<li>Client: The code that interacts with the component interface or class, treat both Leaf and Composite uniformly:</li>
+</ol>
+<p><strong>Example 1:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.ArrayList<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.List<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Component
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">FileSystemElement</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display</span><span style="color:#f92672">(</span>String indent<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Leaf
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">File</span> <span style="color:#66d9ef">implements</span> FileSystemElement <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">File</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display</span><span style="color:#f92672">(</span>String indent<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>indent <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;File: &#34;</span> <span style="color:#f92672">+</span> name<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Composite
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Directory</span> <span style="color:#66d9ef">implements</span> FileSystemElement <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> String name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> List<span style="color:#f92672">&lt;</span>FileSystemElement<span style="color:#f92672">&gt;</span> elements<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">Directory</span><span style="color:#f92672">(</span>String name<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> name<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">elements</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">display</span><span style="color:#f92672">(</span>String indent<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>indent <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;Directory: &#34;</span> <span style="color:#f92672">+</span> name<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span>FileSystemElement element <span style="color:#f92672">:</span> elements<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            element<span style="color:#f92672">.</span><span style="color:#a6e22e">display</span><span style="color:#f92672">(</span>indent <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;  &#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>FileSystemElement element<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        elements<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>element<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span>FileSystemElement element<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        elements<span style="color:#f92672">.</span><span style="color:#a6e22e">remove</span><span style="color:#f92672">(</span>element<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Client code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        File file1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;file1.txt&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        File file2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;file2.txt&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        File file3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> File<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;file3.txt&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Directory dir1 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Directory<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;dir1&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        dir1<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>file1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        dir1<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>file2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Directory dir2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Directory<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;dir2&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        dir2<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>file3<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Directory root <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Directory<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;root&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        root<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>dir1<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        root<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>dir2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        root<span style="color:#f92672">.</span><span style="color:#a6e22e">display</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>In this example, we have an interface <code>FileSystemElement</code> which requires a <code>display</code> function. This interface is implemented as a <code>File</code> and <code>Directory</code> as a Leaf and Composite. This works well because a composite can be composed of other composite or other leafs, just like directory can be composed of other directory or files. Finally, we show a client code which implements composite and client classes in a functional way.</p>
+<h3 id="application-3---facade">Application 3. - Facade</h3>
+<p>The Facade Design Pattern provides a simplified, unified interface to a set of interfaces or subsystems. It reduces complexity and improves the ease of use of a system by hiding internal details/complexitis from client code.</p>
+<p><strong>Components:</strong></p>
+<ol>
+<li><strong>Facade</strong>: Class that provides a simple, unified interface to interact with a subsystem. The Facade class contains methods that delegate the client&rsquo;s requests to the appropriate subsystem, while taking care of any complex logic/coordination.</li>
+<li><strong>Subsystem</strong>: The set of classes or components that make up the subsystem, these classes are directly used by the client code.</li>
+<li><strong>Client</strong>: The code that interacts with the facade to access the subsystem functionalities.</li>
+</ol>
+<p><strong>Example 1:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#75715e">// Subsystem classes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FlightBooking</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">searchFlights</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Searching flights...&#34;</span><span style="color:#f92672">);</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bookFlight</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Booking flight...&#34;</span><span style="color:#f92672">);</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HotelBooking</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">searchRooms</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Searching hotel rooms...&#34;</span><span style="color:#f92672">);</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bookRoom</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Booking hotel room...&#34;</span><span style="color:#f92672">);</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CarRental</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">searchCars</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Searching rental cars...&#34;</span><span style="color:#f92672">);</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bookCar</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span> System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Booking rental car...&#34;</span><span style="color:#f92672">);</span> <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Facade
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TravelFacade</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> FlightBooking flightBooking<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> HotelBooking hotelBooking<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> CarRental carRental<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">TravelFacade</span><span style="color:#f92672">(</span>FlightBooking flightBooking<span style="color:#f92672">,</span> HotelBooking hotelBooking<span style="color:#f92672">,</span> CarRental carRental<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">flightBooking</span> <span style="color:#f92672">=</span> flightBooking<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">hotelBooking</span> <span style="color:#f92672">=</span> hotelBooking<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">carRental</span> <span style="color:#f92672">=</span> carRental<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">planTrip</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        flightBooking<span style="color:#f92672">.</span><span style="color:#a6e22e">searchFlights</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        hotelBooking<span style="color:#f92672">.</span><span style="color:#a6e22e">searchRooms</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        carRental<span style="color:#f92672">.</span><span style="color:#a6e22e">searchCars</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bookTrip</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        flightBooking<span style="color:#f92672">.</span><span style="color:#a6e22e">bookFlight</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        hotelBooking<span style="color:#f92672">.</span><span style="color:#a6e22e">bookRoom</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        carRental<span style="color:#f92672">.</span><span style="color:#a6e22e">bookCar</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Client code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        FlightBooking flightBooking <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FlightBooking<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        HotelBooking hotelBooking <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> HotelBooking<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        CarRental carRental <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> CarRental<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        TravelFacade travelFacade <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> TravelFacade<span style="color:#f92672">(</span>flightBooking<span style="color:#f92672">,</span> hotelBooking<span style="color:#f92672">,</span> carRental<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        travelFacade<span style="color:#f92672">.</span><span style="color:#a6e22e">planTrip</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        travelFacade<span style="color:#f92672">.</span><span style="color:#a6e22e">bookTrip</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>In this example, we have 3 subsytem classes <code>FlightBooking</code>, <code>HotelBooking</code>, and <code>CarRental</code>. We have a Facade to interact with these subsystem classes <code>TravelFacade</code>. Finally, we use the Facade to plan and book trips, which groups searching and booking flights, hotel rooms and cars.</p>
+<p><strong>Example 2:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#75715e">// Subsystem classes
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InventoryManagement</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">checkProductAvailability</span><span style="color:#f92672">(</span>String productId<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Logic to check product availability in inventory
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Checking product availability for &#34;</span> <span style="color:#f92672">+</span> productId<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PaymentProcessing</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">boolean</span> <span style="color:#a6e22e">processPayment</span><span style="color:#f92672">(</span>String paymentDetails<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Logic to process payment using paymentDetails
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Processing payment: &#34;</span> <span style="color:#f92672">+</span> paymentDetails<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shipping</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">shipProduct</span><span style="color:#f92672">(</span>String productId<span style="color:#f92672">,</span> String address<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Logic to ship the product to the given address
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Shipping product &#34;</span> <span style="color:#f92672">+</span> productId <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; to &#34;</span> <span style="color:#f92672">+</span> address<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Facade
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">OrderFacade</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> InventoryManagement inventoryManagement<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> PaymentProcessing paymentProcessing<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> Shipping shipping<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">OrderFacade</span><span style="color:#f92672">(</span>InventoryManagement inventoryManagement<span style="color:#f92672">,</span> PaymentProcessing paymentProcessing<span style="color:#f92672">,</span> Shipping shipping<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">inventoryManagement</span> <span style="color:#f92672">=</span> inventoryManagement<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">paymentProcessing</span> <span style="color:#f92672">=</span> paymentProcessing<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">shipping</span> <span style="color:#f92672">=</span> shipping<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">placeOrder</span><span style="color:#f92672">(</span>String productId<span style="color:#f92672">,</span> String paymentDetails<span style="color:#f92672">,</span> String address<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>inventoryManagement<span style="color:#f92672">.</span><span style="color:#a6e22e">checkProductAvailability</span><span style="color:#f92672">(</span>productId<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>paymentProcessing<span style="color:#f92672">.</span><span style="color:#a6e22e">processPayment</span><span style="color:#f92672">(</span>paymentDetails<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                shipping<span style="color:#f92672">.</span><span style="color:#a6e22e">shipProduct</span><span style="color:#f92672">(</span>productId<span style="color:#f92672">,</span> address<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Order placed successfully!&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>                System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Payment processing failed.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Product is not available.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Client code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        InventoryManagement inventoryManagement <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> InventoryManagement<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        PaymentProcessing paymentProcessing <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> PaymentProcessing<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        Shipping shipping <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Shipping<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        OrderFacade orderFacade <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> OrderFacade<span style="color:#f92672">(</span>inventoryManagement<span style="color:#f92672">,</span> paymentProcessing<span style="color:#f92672">,</span> shipping<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        orderFacade<span style="color:#f92672">.</span><span style="color:#a6e22e">placeOrder</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PRODUCT-123&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;CREDIT-CARD-INFO&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;123 Main St, New York, NY&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Another more realistic example, we have the subsystem classes <code>InventorymManagement</code>, <code>PaymentProcessing</code>, and <code>Shipping</code>. Which are interacting with and handled by the facade, <code>OrderFacade</code>, which places an order as shone in the client code.</p>
+<h3 id="application-4---decorator">Application 4. - Decorator</h3>
+<p>Design patterns that allows you to add new functionality to an object dynamically without modifying its structure. This is acieved by wrapping the object with a decorator object that contains the additional functionality. The decorator conforms to the same interface as the original object so it can be used interchangbly.</p>
+<p><strong>Components:</strong></p>
+<ol>
+<li>Component (Interface): Interface or abstract class that defines the common methods for both concrete components and decorators.</li>
+<li>Concrete Component: A concrete implementation of the component interface. This is the object to which we want to add new functionality dynamically.</li>
+<li>Decorator: An obstract class that implements the component inteface and maintains a reference to a Component object. used to wrap components or other decorators</li>
+<li>Concrete Decorator: Concrete implementation of the Decorator class that adds or overrides the functionality of the wrapped component</li>
+</ol>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#75715e">// Component
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">FileStream</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">read</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">write</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Component
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BasicFileStream</span> <span style="color:#66d9ef">implements</span> FileStream <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">read</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Reading file&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">write</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Writing to file&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Decorator
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FileStreamDecorator</span> <span style="color:#66d9ef">implements</span> FileStream <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> FileStream fileStream<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">FileStreamDecorator</span><span style="color:#f92672">(</span>FileStream fileStream<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span><span style="color:#f92672">.</span><span style="color:#a6e22e">fileStream</span> <span style="color:#f92672">=</span> fileStream<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">read</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        fileStream<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">write</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        fileStream<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Decorator
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BufferedFileStream</span> <span style="color:#66d9ef">extends</span> FileStreamDecorator <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">BufferedFileStream</span><span style="color:#f92672">(</span>FileStream fileStream<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span>fileStream<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">read</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Setting up buffer for reading&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">write</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Setting up buffer for writing&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Decorator
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CompressedFileStream</span> <span style="color:#66d9ef">extends</span> FileStreamDecorator <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">CompressedFileStream</span><span style="color:#f92672">(</span>FileStream fileStream<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span>fileStream<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">read</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Decompressing data&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">write</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Compressing data&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Decorator
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">EncryptedFileStream</span> <span style="color:#66d9ef">extends</span> FileStreamDecorator <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">EncryptedFileStream</span><span style="color:#f92672">(</span>FileStream fileStream<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">(</span>fileStream<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">read</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Decrypting data&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">write</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Encrypting data&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">super</span><span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Client code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        FileStream fileStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BasicFileStream<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Add buffering
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        fileStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> BufferedFileStream<span style="color:#f92672">(</span>fileStream<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Add compression
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        fileStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> CompressedFileStream<span style="color:#f92672">(</span>fileStream<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Add encryption
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        fileStream <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> EncryptedFileStream<span style="color:#f92672">(</span>fileStream<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        fileStream<span style="color:#f92672">.</span><span style="color:#a6e22e">read</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;-----&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        fileStream<span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>Output:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Setting up buffer for reading
+</span></span><span style="display:flex;"><span>Decompressing data
+</span></span><span style="display:flex;"><span>Decrypting data
+</span></span><span style="display:flex;"><span>Reading file
+</span></span><span style="display:flex;"><span>-----
+</span></span><span style="display:flex;"><span>Setting up buffer for writing
+</span></span><span style="display:flex;"><span>Compressing data
+</span></span><span style="display:flex;"><span>Encrypting data
+</span></span><span style="display:flex;"><span>Writing to file
+</span></span></code></pre></div><p>In this example, we extend the behavior of a file I/O system without modifying its structure. You can dynamically add different combinations of functionalities like buffering, compressing and encryption to the file reading and writing process as needed.</p>
+<h2 id="creational-patterns">Creational Patterns</h2>
+<p>Concerns the process of object creation.</p>
+<h3 id="application-1---abstract-factory">Application 1. - Abstract Factory</h3>
+<p>Provides an interface for creating families of related or dependent objects without specifying their concrete classes. It is useful when you want to provide a library or a framework where the users can extend or customize the components.</p>
+<p><strong>Components:</strong></p>
+<ol>
+<li>Abstract Factory (Interface): An interface that declares methods for creating abstract products</li>
+<li>Concrete Factory: A concrete class that implements the Abstract Factory interface. It&rsquo;s responsible for creating concrete products from a specfic family.</li>
+<li>Abstract Product (Interface): An interface that defines product to be created. Each product family will have its own interface.</li>
+<li>Concrete Product: A concrete implementation of the Abstract Product interface. Each concrete factory will create specific Concrete Product.</li>
+<li>Client: (Do you see the pattern) code that uses factory and product interfaces to work with the concrete factories and products.</li>
+</ol>
+<p><strong>Example 1:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#75715e">// Abstract Products
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Button</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">render</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Checkbox</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">render</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Products - Light Theme
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LightButton</span> <span style="color:#66d9ef">implements</span> Button <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">render</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Rendering Light Theme Button&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LightCheckbox</span> <span style="color:#66d9ef">implements</span> Checkbox <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">render</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Rendering Light Theme Checkbox&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Products - Dark Theme
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DarkButton</span> <span style="color:#66d9ef">implements</span> Button <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">render</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Rendering Dark Theme Button&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DarkCheckbox</span> <span style="color:#66d9ef">implements</span> Checkbox <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">render</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Rendering Dark Theme Checkbox&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Abstract Factory
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">ThemeFactory</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    Button <span style="color:#a6e22e">createButton</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    Checkbox <span style="color:#a6e22e">createCheckbox</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Factories
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">LightThemeFactory</span> <span style="color:#66d9ef">implements</span> ThemeFactory <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Button <span style="color:#a6e22e">createButton</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> LightButton<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Checkbox <span style="color:#a6e22e">createCheckbox</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> LightCheckbox<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DarkThemeFactory</span> <span style="color:#66d9ef">implements</span> ThemeFactory <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Button <span style="color:#a6e22e">createButton</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> DarkButton<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Override</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> Checkbox <span style="color:#a6e22e">createCheckbox</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> DarkCheckbox<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Client code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        ThemeFactory themeFactory<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Choose the theme based on user preference
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        String userPreferredTheme <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;dark&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span><span style="color:#e6db74">&#34;light&#34;</span><span style="color:#f92672">.</span><span style="color:#a6e22e">equalsIgnoreCase</span><span style="color:#f92672">(</span>userPreferredTheme<span style="color:#f92672">))</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            themeFactory <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> LightThemeFactory<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">else</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            themeFactory <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> DarkThemeFactory<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Create and render UI components for the chosen theme
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Button button <span style="color:#f92672">=</span> themeFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">createButton</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        button<span style="color:#f92672">.</span><span style="color:#a6e22e">render</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Checkbox checkbox <span style="color:#f92672">=</span> themeFactory<span style="color:#f92672">.</span><span style="color:#a6e22e">createCheckbox</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        checkbox<span style="color:#f92672">.</span><span style="color:#a6e22e">render</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><h3 id="application-2---singleton">Application 2. - Singleton</h3>
+<p>This pattern ensures a class has only one instance and provides a global point of access to that instance. It is useful when you need to control access to shared resources, such as a database connections or application configuration.</p>
+<p><strong>Example - Java:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Singleton</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 2. Declare a static private variable to store the single instance of the class
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> Singleton instance<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 1. Make the constructor private so that no other class can create an instance of it
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">Singleton</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Initialize your class here, for example, set up configuration or resources
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 3. Create a public static method to get the single instance of the class
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> Singleton <span style="color:#a6e22e">getInstance</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">(</span>instance <span style="color:#f92672">==</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// If the instance doesn&#39;t exist, create one
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            instance <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Singleton<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Return the existing instance
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> instance<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Add other methods specific to your Singleton class
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">doSomething</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Singleton is doing something.&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Client code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Main</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Access the Singleton instance
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Singleton singleton <span style="color:#f92672">=</span> Singleton<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        singleton<span style="color:#f92672">.</span><span style="color:#a6e22e">doSomething</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Trying to access the Singleton instance again
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Singleton anotherSingleton <span style="color:#f92672">=</span> Singleton<span style="color:#f92672">.</span><span style="color:#a6e22e">getInstance</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Are singleton and anotherSingleton the same instance? &#34;</span> <span style="color:#f92672">+</span> <span style="color:#f92672">(</span>singleton <span style="color:#f92672">==</span> anotherSingleton<span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><strong>Example - Kotlin:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Singleton class using object declaration
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">object</span> <span style="color:#a6e22e">Singleton</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">init</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Initialize your class here, for example, set up configuration or resources
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Add other methods specific to your Singleton class
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">doSomething</span>() {
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Singleton is doing something.&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Client code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Access the Singleton instance
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> singleton = Singleton
+</span></span><span style="display:flex;"><span>    singleton.doSomething()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Trying to access the Singleton instance again
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> anotherSingleton = Singleton
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Are singleton and anotherSingleton the same instance? &#34;</span> + (singleton <span style="color:#f92672">===</span> anotherSingleton))
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="application-3---factory-method">Application 3. - Factory Method</h3>
+<p>Creational pattern that provides an interface for creating objects in a superclass while allowing subclasses to decide the type of the objects to create.</p>
+<p><strong>Components:</strong></p>
+<ol>
+<li>Product: interface that defines the general structure and behavior of the objects the factory method creates</li>
+<li>ConcreteProduct: Classes that implement Product interface providing the specific implementation details for each product</li>
+<li>Creator: This is an interface that declares the factory method which returns an object of the product type</li>
+<li>ConcreteCreator: These are the classes that implement the creator interface</li>
+</ol>
+<p><strong>Example 1:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Product
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">DocumentParser</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">parse</span>(document: ByteArray): ParsedDocument
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ConcreteProduct - PDFParser
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PDFParser</span> : DocumentParser {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">parse</span>(document: ByteArray): ParsedDocument {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Parsing logic specific to PDF files
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ConcreteProduct - WordParser
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WordParser</span> : DocumentParser {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">parse</span>(document: ByteArray): ParsedDocument {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Parsing logic specific to Word files
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ConcreteProduct - ExcelParser
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ExcelParser</span> : DocumentParser {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">parse</span>(document: ByteArray): ParsedDocument {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Parsing logic specific to Excel files
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Creator
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DocumentParserFactory</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">createParser</span>(): DocumentParser
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ConcreteCreator - PDFParserFactory
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PDFParserFactory</span> : DocumentParserFactory() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">createParser</span>(): DocumentParser {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> PDFParser()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ConcreteCreator - WordParserFactory
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WordParserFactory</span> : DocumentParserFactory() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">createParser</span>(): DocumentParser {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> WordParser()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ConcreteCreator - ExcelParserFactory
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ExcelParserFactory</span> : DocumentParserFactory() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">createParser</span>(): DocumentParser {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> ExcelParser()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DocumentProcessor</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> parserFactory: DocumentParserFactory) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">processDocument</span>(document: ByteArray) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> parser = parserFactory.createParser()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> parsedDocument = parser.parse(document)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Further processing of the parsed document
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>Here are the benefits that can be seen in the code above:</p>
+<ul>
+<li>Decoupling: Seperates object creation from object usage, resulting in more modular and maintainable code</li>
+<li>Encapsulation: Encapsulates complext object creation logic in a dedicated factory class, keeping the client code doing its primary reponsibility</li>
+<li>Flexibility: Easy addition of new types of objects</li>
+</ul>
+<h2 id="behaviorial-patterns">Behaviorial Patterns</h2>
+<p>Concerns the interaction between classes or objects.</p>
+<h3 id="application-1---iterator">Application 1. - Iterator</h3>
+<p>Provides a way to access the elements of an aggregate object sequenctially without exposing its underlying representation. The iterator pattern allows you to traverse the elements of different types of collection in a uniform mannar, without knowing the specifics of how these collections are implemented.</p>
+<p><strong>Components:</strong></p>
+<ol>
+<li>Iterator: An interface that defines the methods required for accessing and traversing elements in a collection. Common methods include <code>hasNext()</code>, <code>next()</code> and <code>remove()</code></li>
+<li>ConcreteIterator: Implements the interface above and provides specific implementations of the functions</li>
+<li>Aggregate: An interface that defines the method for creating an Iterator object for a specific collection type</li>
+<li>ConcreteAggregate: provides a specific implementation for creating a ConcreteIterator for the particular collection</li>
+</ol>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Aggregate
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Library</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">createIterator</span>(): Iterator&lt;Book&gt;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ConcreteAggregate
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ConcreteLibrary</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> books: List&lt;Book&gt;) : Library {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">createIterator</span>(): Iterator&lt;Book&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> BookIterator(books)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Book</span>(<span style="color:#66d9ef">val</span> title: String, <span style="color:#66d9ef">val</span> author: String)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Iterator
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Iterator</span>&lt;T&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">hasNext</span>(): Boolean
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">next</span>(): T
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">remove</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ConcreteIterator
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BookIterator</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> books: List&lt;Book&gt;) : Iterator&lt;Book&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> currentIndex = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">hasNext</span>(): Boolean {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> currentIndex &lt; books.size
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">next</span>(): Book {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (!hasNext()) <span style="color:#66d9ef">throw</span> NoSuchElementException()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> books[currentIndex<span style="color:#f92672">++</span>]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">remove</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">throw</span> UnsupportedOperationException(<span style="color:#e6db74">&#34;Remove operation is not supported.&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> library: Library = ConcreteLibrary(
+</span></span><span style="display:flex;"><span>        listOf(
+</span></span><span style="display:flex;"><span>            Book(<span style="color:#e6db74">&#34;Clean Code&#34;</span>, <span style="color:#e6db74">&#34;Robert C. Martin&#34;</span>),
+</span></span><span style="display:flex;"><span>            Book(<span style="color:#e6db74">&#34;Effective Java&#34;</span>, <span style="color:#e6db74">&#34;Joshua Bloch&#34;</span>),
+</span></span><span style="display:flex;"><span>            Book(<span style="color:#e6db74">&#34;Design Patterns&#34;</span>, <span style="color:#e6db74">&#34;Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides&#34;</span>)
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> iterator = library.createIterator()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> (iterator.hasNext()) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> book = iterator.next()
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Title: </span><span style="color:#e6db74">${book.title}</span><span style="color:#e6db74">, Author: </span><span style="color:#e6db74">${book.author}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><ul>
+<li>Encapsulation: this pattern encapsulates the internal structure of a collection, providing a cleaner and more flexible way to acces its elements.</li>
+<li>Uniform traversal: This pattern enables uniform traversal of different types of collections, allowing you to write clean code that can work with various types of collection types</li>
+<li>Seperatation of concerns: seperate the traversal logic from collection itself, this adheres to the single responsibility principle</li>
+</ul>
+<h3 id="application-2---observer">Application 2. - Observer</h3>
+<p>The observer pattern defines a one to many dependency between objects, so that when one object (the subject) changes its state, all its dependents (observers) are notified and updatesd automatically. This pattern is often used to implement even driven systems or to establish loose coupling between components.</p>
+<p><strong>Components:</strong></p>
+<ol>
+<li>Subject (Observable): An interface that maintans a list of observers and provides methods for attaching, detaching and notiffying observers of state changes.</li>
+<li>ConcreteSubject: A class that implements the subject and provides specific implemnetation for managing its state and notifying obervers when the state changes.</li>
+<li>Observer: An interface that defines the method for receiving updates from the subject (usually called by <code>update())</code></li>
+<li>ConcreteObserver: implementation of Observer class and provides a specific implementation for handling updates from subjects</li>
+</ol>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Subject (Observable)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Stock</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">addObserver</span>(observer: StockListener)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">removeObserver</span>(observer: StockListener)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">notifyObservers</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ConcreteSubject
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ConcreteStock</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> symbol: String, <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> price: Double) : Stock {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> observers = mutableListOf&lt;StockListener&gt;()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">addObserver</span>(observer: StockListener) {
+</span></span><span style="display:flex;"><span>        observers.add(observer)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">removeObserver</span>(observer: StockListener) {
+</span></span><span style="display:flex;"><span>        observers.remove(observer)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">notifyObservers</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> (observer <span style="color:#66d9ef">in</span> observers) {
+</span></span><span style="display:flex;"><span>            observer.update(symbol, price)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">setPrice</span>(price: Double) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.price = price
+</span></span><span style="display:flex;"><span>        notifyObservers()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Observer
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">StockListener</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">update</span>(symbol: String, price: Double)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// ConcreteObserver - Investor
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Investor</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">val</span> name: String) : StockListener {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">update</span>(symbol: String, price: Double) {
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">$name</span><span style="color:#e6db74"> received an update: </span><span style="color:#e6db74">$symbol</span><span style="color:#e6db74"> is now trading at $</span><span style="color:#e6db74">$price</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> googleStock = ConcreteStock(<span style="color:#e6db74">&#34;GOOG&#34;</span>, <span style="color:#ae81ff">1000.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> investor1 = Investor(<span style="color:#e6db74">&#34;Alice&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> investor2 = Investor(<span style="color:#e6db74">&#34;Bob&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    googleStock.addObserver(investor1)
+</span></span><span style="display:flex;"><span>    googleStock.addObserver(investor2)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    googleStock.setPrice(<span style="color:#ae81ff">1010.0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Output:
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// Alice received an update: GOOG is now trading at $1010.0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// Bob received an update: GOOG is now trading at $1010.0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><ul>
+<li>Loose coupling: Promotes loose coupling between the subject and its observers, allowing them to evolve independently, which makes the overall system more flexible and maintainable.</li>
+</ul>
+<h3 id="application-3---template">Application 3. - Template</h3>
+<p>Provides a skeleton of an algorithm in an operation, deferring some steps to subclasses. The Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm&rsquo;s structure.</p>
+<p><strong>Components:</strong></p>
+<ol>
+<li>Abstract Class (Template): defines the template method, which altlines the algorithm&rsquo;s structure. This class also includes abstract methods representing the algorithms steps.</li>
+<li>Concrete Class: Implementation</li>
+</ol>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Abstract Class (Template)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SocialMediaSharer</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">share</span>(content: String) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> formattedContent = formatContent(content)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">val</span> platformSpecificContent = preparePlatformSpecificContent(formattedContent)
+</span></span><span style="display:flex;"><span>        postContent(platformSpecificContent)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">formatContent</span>(content: String): String {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Perform common formatting (e.g., remove extra spaces, fix typos)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> content.trim()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">preparePlatformSpecificContent</span>(formattedContent: String): String
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">protected</span> <span style="color:#66d9ef">abstract</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">postContent</span>(platformSpecificContent: String)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Class - TwitterSharer
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TwitterSharer</span> : SocialMediaSharer() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">preparePlatformSpecificContent</span>(formattedContent: String): String {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Prepare content according to Twitter&#39;s guidelines (e.g., truncate if &gt; 280 characters)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">if</span> (formattedContent.length &gt; <span style="color:#ae81ff">280</span>) formattedContent.substring(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">277</span>) + <span style="color:#e6db74">&#34;...&#34;</span> <span style="color:#66d9ef">else</span> formattedContent
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">postContent</span>(platformSpecificContent: String) {
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Posting on Twitter: </span><span style="color:#e6db74">$platformSpecificContent</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Class - FacebookSharer
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FacebookSharer</span> : SocialMediaSharer() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">preparePlatformSpecificContent</span>(formattedContent: String): String {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Prepare content according to Facebook&#39;s guidelines (e.g., add a hashtag)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;#MyPost </span><span style="color:#e6db74">$formattedContent</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">postContent</span>(platformSpecificContent: String) {
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Posting on Facebook: </span><span style="color:#e6db74">$platformSpecificContent</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> content = <span style="color:#e6db74">&#34;  This is a sample social media post!  &#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> twitterSharer = TwitterSharer()
+</span></span><span style="display:flex;"><span>    twitterSharer.share(content)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Output: Posting on Twitter: This is a sample social media post!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> facebookSharer = FacebookSharer()
+</span></span><span style="display:flex;"><span>    facebookSharer.share(content)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Output: Posting on Facebook: #MyPost This is a sample social media post!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><ul>
+<li>Consistency: The Template Method pattern ensures that the content sharing process follows a consistent sequence of steps across different social media platforms, reducing the chance of errors or inconsistencies in the shared content</li>
+<li>Code reusability: The pattern promotes code reusability by extracting common parts of the content sharing process (e.g., formatting) into a base class, while allowing subclasses to provide custom behavior for platform-specific requirements.</li>
+<li>Flexibility: The pattern allows for easy addition of new social media platforms by simply extending the base class and providing implementations for the preparePlatformSpecificContent() and postContent() methods, without having to change the existing code.</li>
+</ul>
+<h3 id="application-4---strategy">Application 4. - Strategy</h3>
+<p>This design pattern defines a family of algorithms, encapsulates each one, andmakes them interchangable. The strategy pattern lets algoritjms vary independently from clients that use it.</p>
+<p><strong>Components:</strong></p>
+<ol>
+<li>Context: Class that maintains a reference to a strategy object and delegates some operations to it</li>
+<li>Strategy Interface: An interface that is implemented by all concrete strategies defining commmon set of methods.</li>
+<li>Concrete Strategy: implementation of different variations of the algorithm</li>
+</ol>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Strategy Interface
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">RouteStrategy</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calculateRoute</span>(start: String, destination: String): List&lt;String&gt;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Strategy - FastestRouteStrategy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FastestRouteStrategy</span> : RouteStrategy {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calculateRoute</span>(start: String, destination: String): List&lt;String&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Calculate the fastest route between start and destination
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> listOf(<span style="color:#e6db74">&#34;Fastest route: </span><span style="color:#e6db74">$start</span><span style="color:#e6db74"> -&gt; </span><span style="color:#e6db74">$destination</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Strategy - ShortestRouteStrategy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ShortestRouteStrategy</span> : RouteStrategy {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calculateRoute</span>(start: String, destination: String): List&lt;String&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Calculate the shortest route between start and destination
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> listOf(<span style="color:#e6db74">&#34;Shortest route: </span><span style="color:#e6db74">$start</span><span style="color:#e6db74"> -&gt; </span><span style="color:#e6db74">$destination</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Strategy - ScenicRouteStrategy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ScenicRouteStrategy</span> : RouteStrategy {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">calculateRoute</span>(start: String, destination: String): List&lt;String&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Calculate the most scenic route between start and destination
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> listOf(<span style="color:#e6db74">&#34;Scenic route: </span><span style="color:#e6db74">$start</span><span style="color:#e6db74"> -&gt; </span><span style="color:#e6db74">$destination</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Context
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NavigationApp</span>(<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">var</span> routeStrategy: RouteStrategy) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">setRouteStrategy</span>(strategy: RouteStrategy) {
+</span></span><span style="display:flex;"><span>        routeStrategy = strategy
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">buildRoute</span>(start: String, destination: String): List&lt;String&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> routeStrategy.calculateRoute(start, destination)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> start = <span style="color:#e6db74">&#34;New York&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> destination = <span style="color:#e6db74">&#34;San Francisco&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> navigationApp = NavigationApp(FastestRouteStrategy())
+</span></span><span style="display:flex;"><span>    println(navigationApp.buildRoute(start, destination))
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Output: [Fastest route: New York -&gt; San Francisco]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    navigationApp.setRouteStrategy(ShortestRouteStrategy())
+</span></span><span style="display:flex;"><span>    println(navigationApp.buildRoute(start, destination))
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Output: [Shortest route: New York -&gt; San Francisco]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    navigationApp.setRouteStrategy(ScenicRouteStrategy())
+</span></span><span style="display:flex;"><span>    println(navigationApp.buildRoute(start, destination))
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Output: [Scenic route: New York -&gt; San Francisco]
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><ul>
+<li>Flexibility: The Strategy pattern allows for easy addition or removal of routing strategies without modifying the code that uses them.</li>
+<li>Encapsulation: The pattern encapsulates the implementation details of each routing algorithm, exposing a clean interface to the clients.</li>
+<li>Maintainability: The pattern separates the concerns of different routing algorithms, making it easier to maintain and modify individual strategies.</li>
+<li>Open/Closed Principle: The Strategy pattern adheres to the Open/Closed Principle, as it allows for extending the functionality by adding new strategies without modifying the existing code that uses them</li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://w28ahmad.github.io/post/supply-and-demand/" data-toggle="tooltip" data-placement="top" title="Supply and Demand">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Wahab Ahmad" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:w28ahmad@uwaterloo.ca"
+                        rel="alternate" type="application/rss+xml" title="mailto:w28ahmad@uwaterloo.ca" >
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/w28ahmad" title="GitHub">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/" title="LinkedIn">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Wahab Ahmad 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe title="Zhao Huabing GitHub"
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>
