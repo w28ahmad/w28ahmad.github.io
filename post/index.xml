@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Wahab Ahmad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 Apr 2023 07:15:38 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 24 Apr 2023 04:36:36 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Architectural_Style</title>
+      <link>https://w28ahmad.github.io/post/architectural_style/</link>
+      <pubDate>Mon, 24 Apr 2023 04:36:36 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/architectural_style/</guid>
+      <description>Pipe and Filter Suitable for application that require a defined series of independent computations Components reads streams of data and on its inputs and produces streams of data on its outputs Components: called filters apply local transformation to their input streams and often do their computing incrementally so that the output begins before all input is consumed. Connectors: called pipes serve as conduits for the streams, transmitting outputs of one filter to inputs of another</description>
+    </item>
+    
     <item>
       <title>Design Patterns</title>
       <link>https://w28ahmad.github.io/post/design-patterns/</link>

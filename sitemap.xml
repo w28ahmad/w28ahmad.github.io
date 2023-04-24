@@ -2,13 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://w28ahmad.github.io/post/architectural_style/</loc>
+    <lastmod>2023-04-24T04:36:36-04:00</lastmod>
+  </url><url>
+    <loc>https://w28ahmad.github.io/post/</loc>
+    <lastmod>2023-04-24T04:36:36-04:00</lastmod>
+  </url><url>
+    <loc>https://w28ahmad.github.io/</loc>
+    <lastmod>2023-04-24T04:36:36-04:00</lastmod>
+  </url><url>
     <loc>https://w28ahmad.github.io/categories/</loc>
     <lastmod>2023-04-19T07:15:38-04:00</lastmod>
   </url><url>
     <loc>https://w28ahmad.github.io/post/design-patterns/</loc>
-    <lastmod>2023-04-19T07:15:38-04:00</lastmod>
-  </url><url>
-    <loc>https://w28ahmad.github.io/post/</loc>
     <lastmod>2023-04-19T07:15:38-04:00</lastmod>
   </url><url>
     <loc>https://w28ahmad.github.io/tags/programming/</loc>
@@ -18,9 +24,6 @@
     <lastmod>2023-04-19T07:15:38-04:00</lastmod>
   </url><url>
     <loc>https://w28ahmad.github.io/tags/</loc>
-    <lastmod>2023-04-19T07:15:38-04:00</lastmod>
-  </url><url>
-    <loc>https://w28ahmad.github.io/</loc>
     <lastmod>2023-04-19T07:15:38-04:00</lastmod>
   </url><url>
     <loc>https://w28ahmad.github.io/tags/economics/</loc>

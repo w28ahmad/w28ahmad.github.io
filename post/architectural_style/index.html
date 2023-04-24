@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Wahab Ahmad">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://w28ahmad.github.io/">
+    <meta property="twitter:image" content="https://w28ahmad.github.io/" />
+    
+
+    
+    <meta name="title" content="Architectural_Style" />
+    <meta property="og:title" content="Architectural_Style" />
+    <meta property="twitter:title" content="Architectural_Style" />
+    
+
+    
+    <meta name="description" content="">
+    <meta property="og:description" content="" />
+    <meta property="twitter:description" content="" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Wahab, Math, Machine Learning">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Architectural_Style-Wahab&#39;s Blog</title>
+
+    <link rel="canonical" href="/post/architectural_style/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wahab Ahmad</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/economics">economics</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/machine-learning">machine-learning</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/math">math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/programming">programming</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="https://wahabahmad.me/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                    </div>
+                    <h1>Architectural_Style</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                Wahab Ahmad
+                         
+                        on 
+                        Monday, April 24, 2023
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <h3 id="pipe-and-filter">Pipe and Filter</h3>
+<ul>
+<li>Suitable for application that require a defined series of independent computations</li>
+<li>Components reads streams of data and on its inputs and produces streams of data on its outputs</li>
+</ul>
+<p><strong>Components:</strong> called filters apply local transformation to their input streams and often do their computing incrementally so that the output begins before all input is consumed.
+<strong>Connectors:</strong> called pipes serve as conduits for the streams, transmitting outputs of one filter to inputs of another</p>
+<p><strong>Types:</strong></p>
+<ul>
+<li>Pipelines: restricts topologies to linear squences of filters</li>
+<li>Batch Sequential: A degenerate case of a pipline architecture where each filter processes all of its input data before producing any output</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ol>
+<li>Unix Shell Scripts</li>
+<li>Traditional Compilers</li>
+</ol>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Easy to understand</li>
+<li>Support reuse</li>
+<li>Easily Maintainable</li>
+<li>Specialized analysis</li>
+<li>Support concurrent execution</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>Not good for handling interactive systems</li>
+<li>Loss of performance</li>
+<li>Increased Complexity</li>
+</ul>
+<h3 id="repository-style">Repository Style</h3>
+<ul>
+<li>Suitable for application in which the central issue is establishing, augmenting and maintaining a complex central body of information</li>
+<li>Typically the information must be manipulated in a variety of ways. Long term persistence is required</li>
+</ul>
+<p><strong>Components:</strong> Central data structure representing the current state of the system. A collection of independent components that operate on the central data structure
+<strong>Connectors:</strong> Typically direct memory access</p>
+<p><strong>Specializations:</strong></p>
+<ol>
+<li>Changes to the data structure / trigger computations.</li>
+<li>Data structure in memory. This is presistent option</li>
+<li>Data structure on disk</li>
+<li>Concurrent computation</li>
+</ol>
+<p><strong>Types:</strong></p>
+<ul>
+<li>Blackboard: the repository is active and can activate the components in response to changes in it self. Where as in repository style, the repository is inactive and just maintains the central data.</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<ol>
+<li>Central Code Repository Systems</li>
+<li>Programming Environments</li>
+<li>Graphical Editors</li>
+<li>Database Management Systems</li>
+<li>Games - multiple users editing and interacting with the same world</li>
+</ol>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Efficient way to store large amounts of data</li>
+<li>Sharing model is published as the repository schema</li>
+<li>Centralized management</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>Must agree on a data model before</li>
+<li>Difficult to distribute data</li>
+<li>Data evolution is expensive</li>
+<li>Single point of failure</li>
+</ul>
+<h3 id="implicit-invocation-sytle">Implicit invocation Sytle</h3>
+<ul>
+<li>Suitable for application where the creators do not need to know who or how many will need to use the data</li>
+<li>A component broadcasts output that are consumed by one or more of the other components</li>
+</ul>
+<p><strong>Components:</strong></p>
+<ul>
+<li>Data Generators</li>
+<li>Data Consumers</li>
+</ul>
+<p>** Connectors:**</p>
+<ul>
+<li>Event Bus</li>
+<li>Procedure Calls</li>
+</ul>
+<p><strong>Publish - Subscribe Variant:</strong></p>
+<ul>
+<li>Subscribers register to receive specific messages</li>
+<li>Publishers maintain a subscription list and broadcast messages to subscribers</li>
+<li>Subscribers connect to publishers directly</li>
+<li>Diagram is generally scattered between publishers and subscribers</li>
+<li>Examples: Twitter / Environment Canada</li>
+</ul>
+<p>** Event-Based Variant:**</p>
+<ul>
+<li>Components asynchronously emit and receive &ldquo;events&rdquo; communicated over event bus</li>
+<li>Components do not directly talk to each other</li>
+<li>Diagram is gerally sequential between even bus and subscribers/publishers</li>
+<li>Examples: Debugger breakpoint announcement / Editors scrolls to appropriate source line and hihglights it</li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Provides strong support for reuse</li>
+<li>Eases system evolution</li>
+<li>Effiecient dissemination of one way info</li>
+</ul>
+<p><strong>Disadvantage:</strong></p>
+<ul>
+<li>Need special protocols when number of subscribers is very large</li>
+<li>When a component announces an event
+<ul>
+<li>It has no idea what other component will respond to it</li>
+<li>It cannot rely on the order in which the reponses are invoked</li>
+<li>It cannot know when responses are finished</li>
+</ul>
+</li>
+</ul>
+<h3 id="layered-style">Layered Style:</h3>
+<ul>
+<li>Architecture is seperated into ordered layers
+<ul>
+<li>A program in one layer may obtain services from a layer below it</li>
+</ul>
+</li>
+</ul>
+<p><strong>Components:</strong> called layers, does local calculations and communicates with adjacent layers
+<strong>Connectors:</strong> are pre-determined protocols for communication between layers</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Layered Communication Protocals: Network/Link/Physical layer</li>
+<li>Operating Systems</li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Design</li>
+<li>Enhancement</li>
+<li>Reuse</li>
+</ul>
+<p><strong>Disadvantages</strong>:</p>
+<ul>
+<li>Not all systems are easily structured in a layer fasion</li>
+<li>Performance requirements</li>
+</ul>
+<h3 id="client-server-style">Client-Server Style</h3>
+<ul>
+<li>Suitable for applications that involve distributed data and processing across a range of components</li>
+</ul>
+<p><strong>Components:</strong></p>
+<ul>
+<li>Clients</li>
+<li>Servers</li>
+</ul>
+<p><strong>Connectors:</strong> The Network</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>File Servers: Sharing files across the network</li>
+<li>DB Servers:
+<ul>
+<li>More effient use of distributing power than file servers</li>
+<li>Client passes SQL requests as messages to the DB servers; results are returned over the network</li>
+</ul>
+</li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Data Distribution is straight forward</li>
+<li>Tranparency of location</li>
+<li>Mix and match heterogeneous platforms</li>
+<li>Easy to add new servers or upgrade existing servers</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>No Central register of names and services &ndash; might be hard to find out what servifces are available</li>
+</ul>
+<h3 id="process-control-style">Process Control Style</h3>
+<ul>
+<li>Suitable for application whose purpose is to maintain specified properties of the output of the process at given reference values</li>
+<li>Also called feedback control system</li>
+</ul>
+<p><strong>Components:</strong></p>
+<ul>
+<li>Process Definition</li>
+<li>Control Algorithm</li>
+</ul>
+<p><strong>Connectors:</strong></p>
+<ul>
+<li>Process Variables
+<ul>
+<li>Controlled variable</li>
+<li>Input variable</li>
+<li>Manipulated variable</li>
+</ul>
+</li>
+<li>Set Point</li>
+<li>Sensors</li>
+</ul>
+<p><strong>Example:</strong> Varios realtime systems (Neclear Power Plants, Car Cruise Control)</p>
+<h3 id="serverless-architecture">Serverless Architecture</h3>
+<ul>
+<li>Using and paying for functionality on an as neede bases</li>
+</ul>
+<p><strong>Components:</strong></p>
+<ul>
+<li>Function (Container)</li>
+</ul>
+<p><strong>Connector:</strong></p>
+<ul>
+<li>Event
+<ul>
+<li>Synchronous (HTTP request)</li>
+<li>Asynchronous (Message Queue)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Pay per use</li>
+<li>Less maintenance</li>
+<li>Fast Deployment</li>
+<li>Easiy to debug</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>3rd party depenedency</li>
+<li>Intial latency (cold start)</li>
+<li>Stateless nature - won&rsquo;t remember the previous state</li>
+</ul>
+<h3 id="microservices-architecture">Microservices Architecture</h3>
+<ul>
+<li>forcus on building single function modules with well defined interfaces and operations</li>
+<li>Suitable for applications that require short release cycles and must be highly scalabale</li>
+</ul>
+<p><strong>Components:</strong> Self contained services</p>
+<p><strong>Connectors:</strong></p>
+<ul>
+<li>Synchronous: HTTP</li>
+<li>Asynchronous - Advanced Messaging Queue Protocol</li>
+</ul>
+<p><strong>General Properties:</strong></p>
+<ul>
+<li>Single responsibility</li>
+<li>Can be developed and maintained by single independent teams</li>
+<li>it is not overly dependent on another service. If so, merge</li>
+<li>It must be seperately deployable</li>
+<li>It maintains the integrity and consistency of the data overall</li>
+</ul>
+<p><strong>Advantages</strong></p>
+<ul>
+<li>Independently deployable</li>
+<li>Easy CI/CD integration</li>
+<li>Independently Scalable</li>
+<li>Reduce downtime</li>
+<li>Team autonomy</li>
+<li>Simple to maintain</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>expensive</li>
+<li>more distributed complixity</li>
+</ul>
+<h3 id="mvvm---model-view-view-model">MVVM - Model View View Model</h3>
+<ul>
+<li>Seperate the UI from business logic</li>
+</ul>
+<p><strong>Components:</strong></p>
+<ul>
+<li>View</li>
+<li>ViewModel</li>
+<li>Model</li>
+</ul>
+<p><strong>Connectors:</strong></p>
+<ul>
+<li>Events and Method Calls</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Any RSS reader app or any app with UI and some data in the back to be manipulated</li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Abstraction helps in:
+<ul>
+<li>Testing</li>
+<li>Different Teams work independently</li>
+</ul>
+</li>
+</ul>
+<p><strong>DisAdvantage:</strong></p>
+<ul>
+<li>For simple applications MVVN can be overkill</li>
+<li>Debugging</li>
+</ul>
+<h3 id="mvc-vs-mvp-vs-mvvm">MVC vs MVP vs MVVM</h3>
+<ul>
+<li>Controller (C) - Connects Model with View but is not required to be organized</li>
+<li>Presenter (P) - Gets the data from the Model and the UI rules from the view and applies to the data</li>
+<li>ViewModel (VM) - Like P in that it is more organized and we know what data needs to be associated for a view but then seperates the actual presentation logic of the UI thus making it easier to test</li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://w28ahmad.github.io/post/design-patterns/" data-toggle="tooltip" data-placement="top" title="Design Patterns">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Wahab Ahmad" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:w28ahmad@uwaterloo.ca"
+                        rel="alternate" type="application/rss+xml" title="mailto:w28ahmad@uwaterloo.ca" >
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/w28ahmad" title="GitHub">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/" title="LinkedIn">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Wahab Ahmad 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe title="Zhao Huabing GitHub"
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>
