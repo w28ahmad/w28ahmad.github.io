@@ -57,8 +57,42 @@
 
     
     <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/javascript" async src="https://w28ahmad.github.io/js/mathjax.js"></script>
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
  
+    
+    <script>
+        MathJax = {
+          tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            processEscapes: true,
+            processEnvironments: true
+          },
+          options: {
+            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+          },
+          startup: {
+            pageReady: function () {
+              return MathJax.startup.defaultPageReady().then(function () {
+                document.querySelectorAll("mjx-container").forEach(function (x) {
+                  x.parentElement.classList += 'has-jax';
+                });
+              });
+            }
+          },
+          loader: {
+            load: ['[tex]/ams']
+          },
+          texInput: {
+            packages: { '[+]': ['ams'] },
+          },
+          chtml: {
+            scale: 1,
+          },
+        };
+    </script>
+
+
     
     <script src="/js/jquery.min.js"></script>
     
