@@ -56,25 +56,21 @@
     
 
     
-    <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+KnujslD4Cg5VMpYHNJ9m8LO4GLwyGc6RgK/ULOe1X8IBU5" crossorigin="anonymous">
-
-    
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-UvGf8WZyCrbDb8XKf/+66x10Tk6QbB7vI8KbybVz/hFh1i03K6nWR8XALM7CkRn6" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-1O4gKctz+0yAE/7t9G9Efgp7tZc1tjmpr1tN8fzWag0sG71Lf2K2X1nqBqFqB0CJ" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-          renderMathInElement(document.body, {
-            delimiters: [
-              { left: "$$", right: "$$", display: true },
-              { left: "\\[", right: "\\]", display: true },
-              { left: "$", right: "$", display: false },
-              { left: "\\(", right: "\\)", display: false }
-            ]
-          });
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
         });
+      });
     </script>
 
 
@@ -378,14 +374,14 @@ f(x) = x^2 \newline
 $$
 We can adjust the $x$ and move it in the direction of decreasing slope like so:
 $$
-x_o = x_o - f&rsquo;(x)|<em>{x=x_o}\newline~
+x_o = x_o - f&rsquo;(x)\Bigr\rvert_{x=x_o}\newline~
 \newline
 \text{Iteration 1:}\newline
-x_o = -3 - f&rsquo;(x)|</em>{x=-3}\newline
+x_o = -3 - f&rsquo;(x)\Bigr\rvert_{x=-3}\newline
 x_o = 3 \newline~
 \newline
 \text{Iteration 2:}\newline
-x_o = 3 - f&rsquo;(x)|_{x=3}\newline
+x_o = 3 - f&rsquo;(x)\Bigr\rvert_{x=3}\newline
 x_o = -3
 $$
 Hmm, looks like we aren&rsquo;t making any progress:</p>
