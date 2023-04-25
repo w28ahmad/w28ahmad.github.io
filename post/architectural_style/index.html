@@ -234,14 +234,8 @@
       <ul>
         <li><a href="#pipe-and-filter">Pipe and Filter</a></li>
         <li><a href="#repository-style">Repository Style</a></li>
-        <li><a href="#implicit-invocation-sytle">Implicit invocation Sytle</a></li>
+        <li><a href="#implicit-invocation-style">Implicit Invocation Style</a></li>
         <li><a href="#layered-style">Layered Style:</a></li>
-        <li><a href="#client-server-style">Client-Server Style</a></li>
-        <li><a href="#process-control-style">Process Control Style</a></li>
-        <li><a href="#serverless-architecture">Serverless Architecture</a></li>
-        <li><a href="#microservices-architecture">Microservices Architecture</a></li>
-        <li><a href="#mvvm---model-view-view-model">MVVM - Model View View Model</a></li>
-        <li><a href="#mvc-vs-mvp-vs-mvvm">MVC vs MVP vs MVVM</a></li>
       </ul>
     </li>
   </ul>
@@ -249,301 +243,124 @@
                 
                 <h3 id="pipe-and-filter">Pipe and Filter</h3>
 <ul>
-<li>Suitable for application that require a defined series of independent computations</li>
-<li>Components reads streams of data and on its inputs and produces streams of data on its outputs</li>
+<li>Suitable for applications that require a defined series of independent computations.</li>
+<li>Components read streams of data on their inputs and produce streams of data on their outputs.</li>
 </ul>
-<p><strong>Components:</strong> called filters apply local transformation to their input streams and often do their computing incrementally so that the output begins before all input is consumed.
-<strong>Connectors:</strong> called pipes serve as conduits for the streams, transmitting outputs of one filter to inputs of another</p>
+<p><strong>Components:</strong> Filters, apply local transformations to their input streams and often do their computing incrementally so that the output begins before all input is consumed.
+<strong>Connectors:</strong> Pipes, serve as conduits for the streams, transmitting outputs of one filter to inputs of another.</p>
 <p><strong>Types:</strong></p>
 <ul>
-<li>Pipelines: restricts topologies to linear squences of filters</li>
-<li>Batch Sequential: A degenerate case of a pipline architecture where each filter processes all of its input data before producing any output</li>
+<li>Pipelines: Restricts topologies to linear sequences of filters.</li>
+<li>Batch Sequential: A degenerate case of a pipeline architecture where each filter processes all of its input data before producing any output.</li>
 </ul>
-<p><strong>Example:</strong></p>
+<p><strong>Examples:</strong></p>
 <ol>
 <li>Unix Shell Scripts</li>
 <li>Traditional Compilers</li>
 </ol>
 <p><strong>Advantages:</strong></p>
 <ul>
-<li>Easy to understand</li>
-<li>Support reuse</li>
-<li>Easily Maintainable</li>
-<li>Specialized analysis</li>
-<li>Support concurrent execution</li>
+<li>Easy to understand.</li>
+<li>Supports reuse.</li>
+<li>Easily maintainable.</li>
+<li>Specialized analysis.</li>
+<li>Supports concurrent execution.</li>
 </ul>
 <p><strong>Disadvantages:</strong></p>
 <ul>
-<li>Not good for handling interactive systems</li>
-<li>Loss of performance</li>
-<li>Increased Complexity</li>
+<li>Not good for handling interactive systems.</li>
+<li>Loss of performance.</li>
+<li>Increased complexity.</li>
 </ul>
 <h3 id="repository-style">Repository Style</h3>
 <ul>
-<li>Suitable for application in which the central issue is establishing, augmenting and maintaining a complex central body of information</li>
-<li>Typically the information must be manipulated in a variety of ways. Long term persistence is required</li>
+<li>Suitable for applications in which the central issue is establishing, augmenting, and maintaining a complex central body of information.</li>
+<li>Typically, the information must be manipulated in a variety of ways. Long-term persistence is required.</li>
 </ul>
-<p><strong>Components:</strong> Central data structure representing the current state of the system. A collection of independent components that operate on the central data structure
-<strong>Connectors:</strong> Typically direct memory access</p>
+<p><strong>Components:</strong> Central data structure representing the current state of the system. A collection of independent components that operate on the central data structure.
+<strong>Connectors:</strong> Typically, direct memory access.</p>
 <p><strong>Specializations:</strong></p>
 <ol>
-<li>Changes to the data structure / trigger computations.</li>
-<li>Data structure in memory. This is presistent option</li>
-<li>Data structure on disk</li>
-<li>Concurrent computation</li>
+<li>Changes to the data structure trigger computations.</li>
+<li>Data structure in memory. This is a persistent option.</li>
+<li>Data structure on disk.</li>
+<li>Concurrent computation.</li>
 </ol>
 <p><strong>Types:</strong></p>
 <ul>
-<li>Blackboard: the repository is active and can activate the components in response to changes in it self. Where as in repository style, the repository is inactive and just maintains the central data.</li>
+<li>Blackboard: The repository is active and can activate the components in response to changes in itself. Whereas, in the repository style, the repository is inactive and just maintains the central data.</li>
 </ul>
 <p><strong>Examples:</strong></p>
 <ol>
-<li>Central Code Repository Systems</li>
-<li>Programming Environments</li>
-<li>Graphical Editors</li>
-<li>Database Management Systems</li>
-<li>Games - multiple users editing and interacting with the same world</li>
+<li>Central Code Repository Systems.</li>
+<li>Programming Environments.</li>
+<li>Graphical Editors.</li>
+<li>Database Management Systems.</li>
+<li>Games - multiple users editing and interacting with the same world.</li>
 </ol>
 <p><strong>Advantages:</strong></p>
 <ul>
-<li>Efficient way to store large amounts of data</li>
-<li>Sharing model is published as the repository schema</li>
-<li>Centralized management</li>
+<li>Efficient way to store large amounts of data.</li>
+<li>Sharing model is published as the repository schema.</li>
+<li>Centralized management.</li>
 </ul>
 <p><strong>Disadvantages:</strong></p>
 <ul>
-<li>Must agree on a data model before</li>
-<li>Difficult to distribute data</li>
-<li>Data evolution is expensive</li>
-<li>Single point of failure</li>
+<li>Must agree on a data model before.</li>
+<li>Difficult to distribute data.</li>
+<li>Data evolution is expensive.</li>
+<li>Single point of failure.</li>
 </ul>
-<h3 id="implicit-invocation-sytle">Implicit invocation Sytle</h3>
+<h3 id="implicit-invocation-style">Implicit Invocation Style</h3>
 <ul>
-<li>Suitable for application where the creators do not need to know who or how many will need to use the data</li>
-<li>A component broadcasts output that are consumed by one or more of the other components</li>
+<li>Suitable for applications where the creators do not need to know who or how many will need to use the data.</li>
+<li>A component broadcasts outputs that are consumed by one or more of the other components.</li>
 </ul>
 <p><strong>Components:</strong></p>
 <ul>
-<li>Data Generators</li>
-<li>Data Consumers</li>
+<li>Data generators.</li>
+<li>Data consumers.</li>
 </ul>
 <p><strong>Connectors:</strong></p>
 <ul>
-<li>Event Bus</li>
-<li>Procedure Calls</li>
+<li>Event bus.</li>
+<li>Procedure calls.</li>
 </ul>
 <p><strong>Publish - Subscribe Variant:</strong></p>
 <ul>
-<li>Subscribers register to receive specific messages</li>
-<li>Publishers maintain a subscription list and broadcast messages to subscribers</li>
-<li>Subscribers connect to publishers directly</li>
-<li>Diagram is generally scattered between publishers and subscribers</li>
-<li>Examples: Twitter / Environment Canada</li>
+<li>Subscribers register to receive specific messages.</li>
+<li>Publishers maintain a subscription list and broadcast messages to subscribers.</li>
+<li>Subscribers connect to publishers directly.</li>
+<li>Diagram is generally scattered between publishers and subscribers.</li>
+<li>Examples: Twitter / Environment Canada.</li>
 </ul>
-<p>** Event-Based Variant:**</p>
+<p><strong>Event-Based Variant:</strong></p>
 <ul>
-<li>Components asynchronously emit and receive &ldquo;events&rdquo; communicated over event bus</li>
-<li>Components do not directly talk to each other</li>
-<li>Diagram is gerally sequential between even bus and subscribers/publishers</li>
-<li>Examples: Debugger breakpoint announcement / Editors scrolls to appropriate source line and hihglights it</li>
+<li>Components asynchronously emit and receive &ldquo;events&rdquo; communicated over the event bus.</li>
+<li>Components do not directly talk to each other.</li>
+<li>Diagram is generally sequential between the event bus and subscribers/publishers.</li>
+<li>Examples: Debugger breakpoint announcement / Editors scroll to appropriate source line and highlights it.</li>
 </ul>
 <p><strong>Advantages:</strong></p>
 <ul>
-<li>Provides strong support for reuse</li>
-<li>Eases system evolution</li>
-<li>Effiecient dissemination of one way info</li>
+<li>Provides strong support for reuse.</li>
+<li>Eases system evolution.</li>
+<li>Efficient dissemination of one-way info.</li>
 </ul>
 <p><strong>Disadvantage:</strong></p>
 <ul>
-<li>Need special protocols when number of subscribers is very large</li>
-<li>When a component announces an event
+<li>Need special protocols when the number of subscribers is very large.</li>
+<li>When a component announces an event:
 <ul>
-<li>It has no idea what other component will respond to it</li>
-<li>It cannot rely on the order in which the reponses are invoked</li>
-<li>It cannot know when responses are finished</li>
+<li>It has no idea what other components will respond to it.</li>
+<li>It cannot rely on the order in which the responses are invoked.</li>
+<li>It cannot know when responses are finished.</li>
 </ul>
 </li>
 </ul>
 <h3 id="layered-style">Layered Style:</h3>
 <ul>
-<li>Architecture is seperated into ordered layers
-<ul>
-<li>A program in one layer may obtain services from a layer below it</li>
-</ul>
-</li>
-</ul>
-<p><strong>Components:</strong> called layers, does local calculations and communicates with adjacent layers
-<strong>Connectors:</strong> are pre-determined protocols for communication between layers</p>
-<p><strong>Examples:</strong></p>
-<ul>
-<li>Layered Communication Protocals: Network/Link/Physical layer</li>
-<li>Operating Systems</li>
-</ul>
-<p><strong>Advantages:</strong></p>
-<ul>
-<li>Design</li>
-<li>Enhancement</li>
-<li>Reuse</li>
-</ul>
-<p><strong>Disadvantages</strong>:</p>
-<ul>
-<li>Not all systems are easily structured in a layer fasion</li>
-<li>Performance requirements</li>
-</ul>
-<h3 id="client-server-style">Client-Server Style</h3>
-<ul>
-<li>Suitable for applications that involve distributed data and processing across a range of components</li>
-</ul>
-<p><strong>Components:</strong></p>
-<ul>
-<li>Clients</li>
-<li>Servers</li>
-</ul>
-<p><strong>Connectors:</strong> The Network</p>
-<p><strong>Examples:</strong></p>
-<ul>
-<li>File Servers: Sharing files across the network</li>
-<li>DB Servers:
-<ul>
-<li>More effient use of distributing power than file servers</li>
-<li>Client passes SQL requests as messages to the DB servers; results are returned over the network</li>
-</ul>
-</li>
-</ul>
-<p><strong>Advantages:</strong></p>
-<ul>
-<li>Data Distribution is straight forward</li>
-<li>Tranparency of location</li>
-<li>Mix and match heterogeneous platforms</li>
-<li>Easy to add new servers or upgrade existing servers</li>
-</ul>
-<p><strong>Disadvantages:</strong></p>
-<ul>
-<li>No Central register of names and services &ndash; might be hard to find out what servifces are available</li>
-</ul>
-<h3 id="process-control-style">Process Control Style</h3>
-<ul>
-<li>Suitable for application whose purpose is to maintain specified properties of the output of the process at given reference values</li>
-<li>Also called feedback control system</li>
-</ul>
-<p><strong>Components:</strong></p>
-<ul>
-<li>Process Definition</li>
-<li>Control Algorithm</li>
-</ul>
-<p><strong>Connectors:</strong></p>
-<ul>
-<li>Process Variables
-<ul>
-<li>Controlled variable</li>
-<li>Input variable</li>
-<li>Manipulated variable</li>
-</ul>
-</li>
-<li>Set Point</li>
-<li>Sensors</li>
-</ul>
-<p><strong>Example:</strong> Varios realtime systems (Neclear Power Plants, Car Cruise Control)</p>
-<h3 id="serverless-architecture">Serverless Architecture</h3>
-<ul>
-<li>Using and paying for functionality on an as neede bases</li>
-</ul>
-<p><strong>Components:</strong></p>
-<ul>
-<li>Function (Container)</li>
-</ul>
-<p><strong>Connector:</strong></p>
-<ul>
-<li>Event
-<ul>
-<li>Synchronous (HTTP request)</li>
-<li>Asynchronous (Message Queue)</li>
-</ul>
-</li>
-</ul>
-<p><strong>Advantages:</strong></p>
-<ul>
-<li>Pay per use</li>
-<li>Less maintenance</li>
-<li>Fast Deployment</li>
-<li>Easiy to debug</li>
-</ul>
-<p><strong>Disadvantages:</strong></p>
-<ul>
-<li>3rd party depenedency</li>
-<li>Intial latency (cold start)</li>
-<li>Stateless nature - won&rsquo;t remember the previous state</li>
-</ul>
-<h3 id="microservices-architecture">Microservices Architecture</h3>
-<ul>
-<li>forcus on building single function modules with well defined interfaces and operations</li>
-<li>Suitable for applications that require short release cycles and must be highly scalabale</li>
-</ul>
-<p><strong>Components:</strong> Self contained services</p>
-<p><strong>Connectors:</strong></p>
-<ul>
-<li>Synchronous: HTTP</li>
-<li>Asynchronous - Advanced Messaging Queue Protocol</li>
-</ul>
-<p><strong>General Properties:</strong></p>
-<ul>
-<li>Single responsibility</li>
-<li>Can be developed and maintained by single independent teams</li>
-<li>it is not overly dependent on another service. If so, merge</li>
-<li>It must be seperately deployable</li>
-<li>It maintains the integrity and consistency of the data overall</li>
-</ul>
-<p><strong>Advantages</strong></p>
-<ul>
-<li>Independently deployable</li>
-<li>Easy CI/CD integration</li>
-<li>Independently Scalable</li>
-<li>Reduce downtime</li>
-<li>Team autonomy</li>
-<li>Simple to maintain</li>
-</ul>
-<p><strong>Disadvantages:</strong></p>
-<ul>
-<li>expensive</li>
-<li>more distributed complixity</li>
-</ul>
-<h3 id="mvvm---model-view-view-model">MVVM - Model View View Model</h3>
-<ul>
-<li>Seperate the UI from business logic</li>
-</ul>
-<p><strong>Components:</strong></p>
-<ul>
-<li>View</li>
-<li>ViewModel</li>
-<li>Model</li>
-</ul>
-<p><strong>Connectors:</strong></p>
-<ul>
-<li>Events and Method Calls</li>
-</ul>
-<p><strong>Example:</strong></p>
-<ul>
-<li>Any RSS reader app or any app with UI and some data in the back to be manipulated</li>
-</ul>
-<p><strong>Advantages:</strong></p>
-<ul>
-<li>Abstraction helps in:
-<ul>
-<li>Testing</li>
-<li>Different Teams work independently</li>
-</ul>
-</li>
-</ul>
-<p><strong>DisAdvantage:</strong></p>
-<ul>
-<li>For simple applications MVVN can be overkill</li>
-<li>Debugging</li>
-</ul>
-<h3 id="mvc-vs-mvp-vs-mvvm">MVC vs MVP vs MVVM</h3>
-<ul>
-<li>Controller (C) - Connects Model with View but is not required to be organized</li>
-<li>Presenter (P) - Gets the data from the Model and the UI rules from the view and applies to the data</li>
-<li>ViewModel (VM) - Like P in that it is more organized and we know what data needs to be associated for a view but then seperates the actual presentation logic of the UI thus making it easier to test</li>
+<li>Architecture is separated into</li>
 </ul>
 
 

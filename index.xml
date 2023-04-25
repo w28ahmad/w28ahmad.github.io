@@ -13,7 +13,7 @@
       <pubDate>Mon, 24 Apr 2023 04:36:36 -0400</pubDate>
       
       <guid>https://w28ahmad.github.io/post/architectural_style/</guid>
-      <description>Pipe and Filter Suitable for application that require a defined series of independent computations Components reads streams of data and on its inputs and produces streams of data on its outputs Components: called filters apply local transformation to their input streams and often do their computing incrementally so that the output begins before all input is consumed. Connectors: called pipes serve as conduits for the streams, transmitting outputs of one filter to inputs of another</description>
+      <description>Pipe and Filter Suitable for applications that require a defined series of independent computations. Components read streams of data on their inputs and produce streams of data on their outputs. Components: Filters, apply local transformations to their input streams and often do their computing incrementally so that the output begins before all input is consumed. Connectors: Pipes, serve as conduits for the streams, transmitting outputs of one filter to inputs of another.</description>
     </item>
     
     <item>
