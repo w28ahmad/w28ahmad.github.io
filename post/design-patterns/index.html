@@ -239,7 +239,7 @@
     </li>
     <li><a href="#structural-patterns">Structural Patterns</a>
       <ul>
-        <li><a href="#application-1---adaptor">Application 1. - Adaptor</a></li>
+        <li><a href="#application-1---adapter">Application 1 - Adapter</a></li>
         <li><a href="#application-2---composite">Application 2. - Composite</a></li>
         <li><a href="#application-3---facade">Application 3. - Facade</a></li>
         <li><a href="#application-4---decorator">Application 4. - Decorator</a></li>
@@ -252,7 +252,7 @@
         <li><a href="#application-3---factory-method">Application 3. - Factory Method</a></li>
       </ul>
     </li>
-    <li><a href="#behaviorial-patterns">Behaviorial Patterns</a>
+    <li><a href="#behavioral-patterns">Behavioral Patterns</a>
       <ul>
         <li><a href="#application-1---iterator">Application 1. - Iterator</a></li>
         <li><a href="#application-2---observer">Application 2. - Observer</a></li>
@@ -264,28 +264,28 @@
 </nav>
                 
                 <h2 id="overview">Overview</h2>
-<p>Object oriented design patterns are fundamental to programming, they are reusable solutions to common problems during programming. Often make heavy use of interfaces, information hiding, polymorphisms and intermediary objects. There are 3 main categories of design patterns that will be discussed in this blog:</p>
+<p>Object-oriented design patterns are fundamental to programming. They are reusable solutions to common problems encountered during programming, often making heavy use of interfaces, information hiding, polymorphism, and intermediary objects. There are three main categories of design patterns that will be discussed in this blog:</p>
 <ol>
 <li>Creational Patterns</li>
 <li>Structural Patterns</li>
 <li>Behavioral Patterns</li>
 </ol>
-<p>Other engineers have faced issues while developing applications and so they have come up with specific design patterns. We can leverage their knowledge in our own software design to simplify the process.</p>
+<p>Other engineers have faced issues while developing applications, and they have come up with specific design patterns. We can leverage their knowledge in our own software design to simplify the process.</p>
 <h2 id="design-properties">Design Properties</h2>
 <h3 id="cohesion">Cohesion</h3>
 <ul>
-<li>Degree to which a module relies on members withing the module to deliver functionality</li>
+<li>The degree to which a module relies on members within the module to deliver functionality</li>
 <li>Ideally <strong>HIGH</strong></li>
 </ul>
 <h3 id="coupling">Coupling</h3>
 <ul>
-<li>Degree to which a module relies on other modules to deliver functionality</li>
+<li>The degree to which a module relies on other modules to deliver functionality</li>
 <li>Ideally <strong>LOW</strong></li>
 </ul>
 <h2 id="structural-patterns">Structural Patterns</h2>
-<p>Concerns the process of assembling objects and classes.</p>
-<h3 id="application-1---adaptor">Application 1. - Adaptor</h3>
-<p>The Adapter Design Pattern is a structural design pattern that allows two incompatible interfaces to work together. This design pattern acts as a bridge between two interfaces, converting one interface into the other without modifying the original code. This pattern is useful when you want to intergrate existing code/libraries that have different interfaces.</p>
+<p>Structural patterns concern the process of assembling objects and classes.</p>
+<h3 id="application-1---adapter">Application 1 - Adapter</h3>
+<p>The Adapter Design Pattern is a structural design pattern that allows two incompatible interfaces to work together. This design pattern acts as a bridge between two interfaces, converting one interface into the other without modifying the original code. This pattern is useful when you want to integrate existing code or libraries that have different interfaces.</p>
 <p><strong>Components:</strong></p>
 <ol>
 <li>Target Interface: The desired interface that the client code expects</li>
@@ -295,11 +295,11 @@
 </ol>
 <p><strong>Types of Adapters:</strong></p>
 <ol>
-<li>Class Adapters: in uses multiple inheritance (inheritance from both target and adaptee) to aadapt the interface. Less flexible as it relies on inheritance and doesn&rsquo;t allow dynamic adaptation at runtime.</li>
-<li>Object Adapters: it uses composition to adapt the interface, where the adapter has reference to the adaptee.It is more flexable and allows for dynamic adaption at runtime, but requires more code if interface changees.</li>
+<li>Class Adapters: This type uses multiple inheritance (inheritance from both target and adaptee) to adapt the interface. It is less flexible as it relies on inheritance and doesn&rsquo;t allow dynamic adaptation at runtime.</li>
+<li>Object Adapters: This type uses composition to adapt the interface, where the adapter has a reference to the adaptee. It is more flexible and allows for dynamic adaptation at runtime, but requires more code if the interface changes.</li>
 </ol>
-<p><strong>Example 1:</strong>
-You are building a weather app that fetches data from a third party weather API. The API returns data in a different format that what the app requires. In this case we will need to conver the API response into a format the app can understand:</p>
+<p><strong>Example 1:</strong></p>
+<p>You are building a weather app that fetches data from a third-party weather API. The API returns data in a different format than what the app requires. In this case, we will need to convert the API response into a format the app can understand:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WeatherApiResponse</span>(<span style="color:#66d9ef">val</span> temperatureF: Double)
 </span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">WeatherData</span>(<span style="color:#66d9ef">val</span> temperatureC: Double)
 </span></span></code></pre></div><p>Now we define an adapter class:</p>
@@ -317,8 +317,8 @@ You are building a weather app that fetches data from a third party weather API.
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">val</span> weatherDataAdapter = WeatherDataAdapter()
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> weatherData = weatherDataAdapter.adapt(apiResponse)
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><p><strong>Example 2:</strong>
-Another example is when we want to create a condition on the same type but one of the object interface is of another type. Thus we need to adapt it to the new interface. In this example <code>StripeGateway</code> and <code>PaypalGateway</code> are both of type <code>PaymentGateway</code>. However, <code>BankGateway</code> is of another type, but we must adapt it to use it in a when statement which returns an object of the same type:</p>
+</span></span></code></pre></div><p><strong>Example 2:</strong></p>
+<p>Another example is when we want to create a condition on the same type, but one of the object interfaces is of another type. Thus, we need to adapt it to the new interface. In this example, <code>StripeGateway</code> and <code>PaypalGateway</code> are both of type <code>PaymentGateway</code>. However, <code>BankGateway</code> is of another type, but we must adapt it to use it in a when statement which returns an object of the same type:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">processPayment</span>(selectedGatewayId: Int, paymentAmount: Double): Boolean {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> stripeGateway = StripeGateway()
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> payPalGateway = PayPalGateway()
@@ -342,13 +342,13 @@ Another example is when we want to create a condition on the same type but one o
 <li>Adaptee: <code>bankGateway</code></li>
 </ol>
 <h3 id="application-2---composite">Application 2. - Composite</h3>
-<p>Allows you to compose objects into tree structures to represent part-whole hierarchies.Pattern enables clients to tread individual object and compositions of objection uniformly. This pattern is designed to be used when working with complex hierarchy of objects where objects may have children.</p>
+<p>Allows you to compose objects into tree structures to represent part-whole hierarchies. This pattern enables clients to treat individual object and compositions of objects uniformly. This pattern is designed to be used when working with complex hierarchies of objects where objects may have children.</p>
 <p><strong>Components:</strong></p>
 <ol>
-<li>Component: Is the base class or the interface that defines common patterns and properties for both composite and leaf objects</li>
-<li>Leaf: Individual objects without children, implements component interface or extends component class, which provides actual behaviour</li>
-<li>Composite: Class that represents objects that have children, it also implements component interface or extends the component class. It contains a collection of child components (either leaf or composite)</li>
-<li>Client: The code that interacts with the component interface or class, treat both Leaf and Composite uniformly:</li>
+<li>Component: Is the base class or the interface that defines common patterns and properties for both composite and leaf objects.</li>
+<li>Leaf: Individual objects without children, implements component interface or extends component class, which provides actual behaviour.</li>
+<li>Composite: Class that represents objects that have children, it also implements component interface or extends the component class. It contains a collection of child components (either leaf or composite).</li>
+<li>Client: The code that interacts with the component interface or class, treats both Leaf and Composite uniformly.</li>
 </ol>
 <p><strong>Example 1:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#f92672">import</span> java.util.ArrayList<span style="color:#f92672">;</span>
@@ -421,9 +421,9 @@ Another example is when we want to create a condition on the same type but one o
 </span></span><span style="display:flex;"><span>        root<span style="color:#f92672">.</span><span style="color:#a6e22e">display</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;&#34;</span><span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><p>In this example, we have an interface <code>FileSystemElement</code> which requires a <code>display</code> function. This interface is implemented as a <code>File</code> and <code>Directory</code> as a Leaf and Composite. This works well because a composite can be composed of other composite or other leafs, just like directory can be composed of other directory or files. Finally, we show a client code which implements composite and client classes in a functional way.</p>
+</span></span></code></pre></div><p>In this example, we have an interface <code>FileSystemElement</code> which requires a <code>display</code> function. This interface is implemented as a <code>File</code> and <code>Directory</code> as a Leaf and Composite. This works well because a composite can be composed of other composite or other leaves, just like a directory can be composed of other directories or files. Finally, we show a client code which implements composite and client classes in a functional way.</p>
 <h3 id="application-3---facade">Application 3. - Facade</h3>
-<p>The Facade Design Pattern provides a simplified, unified interface to a set of interfaces or subsystems. It reduces complexity and improves the ease of use of a system by hiding internal details/complexitis from client code.</p>
+<p>The Facade Design Pattern provides a simplified, unified interface to a set of interfaces or subsystems. It reduces complexity and improves the ease of use of a system by hiding internal details/complexities from client code.</p>
 <p><strong>Components:</strong></p>
 <ol>
 <li><strong>Facade</strong>: Class that provides a simple, unified interface to interact with a subsystem. The Facade class contains methods that delegate the client&rsquo;s requests to the appropriate subsystem, while taking care of any complex logic/coordination.</li>
@@ -485,7 +485,7 @@ Another example is when we want to create a condition on the same type but one o
 </span></span><span style="display:flex;"><span>        travelFacade<span style="color:#f92672">.</span><span style="color:#a6e22e">bookTrip</span><span style="color:#f92672">();</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><p>In this example, we have 3 subsytem classes <code>FlightBooking</code>, <code>HotelBooking</code>, and <code>CarRental</code>. We have a Facade to interact with these subsystem classes <code>TravelFacade</code>. Finally, we use the Facade to plan and book trips, which groups searching and booking flights, hotel rooms and cars.</p>
+</span></span></code></pre></div><p>In this example, we have three subsystem classes: <code>FlightBooking</code>, <code>HotelBooking</code>, and <code>CarRental</code>. We have a Facade to interact with these subsystem classes called <code>TravelFacade</code>. Finally, we use the Facade to plan and book trips, which groups searching and booking flights, hotel rooms, and cars.</p>
 <p><strong>Example 2:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#75715e">// Subsystem classes
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">InventoryManagement</span> <span style="color:#f92672">{</span>
@@ -548,15 +548,15 @@ Another example is when we want to create a condition on the same type but one o
 </span></span><span style="display:flex;"><span>        orderFacade<span style="color:#f92672">.</span><span style="color:#a6e22e">placeOrder</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;PRODUCT-123&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;CREDIT-CARD-INFO&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;123 Main St, New York, NY&#34;</span><span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><p>Another more realistic example, we have the subsystem classes <code>InventorymManagement</code>, <code>PaymentProcessing</code>, and <code>Shipping</code>. Which are interacting with and handled by the facade, <code>OrderFacade</code>, which places an order as shone in the client code.</p>
+</span></span></code></pre></div><p>Another more realistic example, we have the subsystem classes <code>InventoryManagement</code>, <code>PaymentProcessing</code>, and <code>Shipping</code>, which are interacting with and handled by the facade, <code>OrderFacade</code>, which places an order as shown in the client code.</p>
 <h3 id="application-4---decorator">Application 4. - Decorator</h3>
-<p>Design patterns that allows you to add new functionality to an object dynamically without modifying its structure. This is acieved by wrapping the object with a decorator object that contains the additional functionality. The decorator conforms to the same interface as the original object so it can be used interchangbly.</p>
+<p>Design patterns that allow you to add new functionality to an object dynamically without modifying its structure. This is achieved by wrapping the object with a decorator object that contains the additional functionality. The decorator conforms to the same interface as the original object so it can be used interchangeably.</p>
 <p><strong>Components:</strong></p>
 <ol>
 <li>Component (Interface): Interface or abstract class that defines the common methods for both concrete components and decorators.</li>
 <li>Concrete Component: A concrete implementation of the component interface. This is the object to which we want to add new functionality dynamically.</li>
-<li>Decorator: An obstract class that implements the component inteface and maintains a reference to a Component object. used to wrap components or other decorators</li>
-<li>Concrete Decorator: Concrete implementation of the Decorator class that adds or overrides the functionality of the wrapped component</li>
+<li>Decorator: An abstract class that implements the component interface and maintains a reference to a Component object. It is used to wrap components or other decorators.</li>
+<li>Concrete Decorator: Concrete implementation of the Decorator class that adds or overrides the functionality of the wrapped component.</li>
 </ol>
 <p><strong>Example:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#75715e">// Component
@@ -690,10 +690,10 @@ Another example is when we want to create a condition on the same type but one o
 <p>Provides an interface for creating families of related or dependent objects without specifying their concrete classes. It is useful when you want to provide a library or a framework where the users can extend or customize the components.</p>
 <p><strong>Components:</strong></p>
 <ol>
-<li>Abstract Factory (Interface): An interface that declares methods for creating abstract products</li>
-<li>Concrete Factory: A concrete class that implements the Abstract Factory interface. It&rsquo;s responsible for creating concrete products from a specfic family.</li>
-<li>Abstract Product (Interface): An interface that defines product to be created. Each product family will have its own interface.</li>
-<li>Concrete Product: A concrete implementation of the Abstract Product interface. Each concrete factory will create specific Concrete Product.</li>
+<li>Abstract Factory (Interface): An interface that declares methods for creating abstract products.</li>
+<li>Concrete Factory: A concrete class that implements the Abstract Factory interface. It&rsquo;s responsible for creating concrete products from a specific family.</li>
+<li>Abstract Product (Interface): An interface that defines the product to be created. Each product family will have its interface.</li>
+<li>Concrete Product: A concrete implementation of the Abstract Product interface. Each concrete factory will create a specific Concrete Product.</li>
 <li>Client: (Do you see the pattern) code that uses factory and product interfaces to work with the concrete factories and products.</li>
 </ol>
 <p><strong>Example 1:</strong></p>
@@ -790,7 +790,7 @@ Another example is when we want to create a condition on the same type but one o
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
 </span></span></code></pre></div><h3 id="application-2---singleton">Application 2. - Singleton</h3>
-<p>This pattern ensures a class has only one instance and provides a global point of access to that instance. It is useful when you need to control access to shared resources, such as a database connections or application configuration.</p>
+<p>This pattern ensures a class has only one instance and provides a global point of access to that instance. It is useful when you need to control access to shared resources, such as a database connection or application configuration.</p>
 <p><strong>Example - Java:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Singleton</span> <span style="color:#f92672">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 2. Declare a static private variable to store the single instance of the class
@@ -854,13 +854,13 @@ Another example is when we want to create a condition on the same type but one o
 </span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;Are singleton and anotherSingleton the same instance? &#34;</span> + (singleton <span style="color:#f92672">===</span> anotherSingleton))
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><h3 id="application-3---factory-method">Application 3. - Factory Method</h3>
-<p>Creational pattern that provides an interface for creating objects in a superclass while allowing subclasses to decide the type of the objects to create.</p>
+<p>The Factory Method is a creational pattern that provides an interface for creating objects in a superclass while allowing subclasses to decide the type of the objects to create.</p>
 <p><strong>Components:</strong></p>
 <ol>
-<li>Product: interface that defines the general structure and behavior of the objects the factory method creates</li>
-<li>ConcreteProduct: Classes that implement Product interface providing the specific implementation details for each product</li>
-<li>Creator: This is an interface that declares the factory method which returns an object of the product type</li>
-<li>ConcreteCreator: These are the classes that implement the creator interface</li>
+<li>Product: An interface that defines the general structure and behavior of the objects the factory method creates.</li>
+<li>ConcreteProduct: Classes that implement Product interface providing the specific implementation details for each product.</li>
+<li>Creator: This is an interface that declares the factory method which returns an object of the product type.</li>
+<li>ConcreteCreator: These are the classes that implement the creator interface.</li>
 </ol>
 <p><strong>Example 1:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Product
@@ -924,20 +924,20 @@ Another example is when we want to create a condition on the same type but one o
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>Here are the benefits that can be seen in the code above:</p>
 <ul>
-<li>Decoupling: Seperates object creation from object usage, resulting in more modular and maintainable code</li>
-<li>Encapsulation: Encapsulates complext object creation logic in a dedicated factory class, keeping the client code doing its primary reponsibility</li>
+<li>Decoupling: Separates object creation from object usage, resulting in more modular and maintainable code</li>
+<li>Encapsulation: Encapsulates complex object creation logic in a dedicated factory class, keeping the client code doing its primary responsibility</li>
 <li>Flexibility: Easy addition of new types of objects</li>
 </ul>
-<h2 id="behaviorial-patterns">Behaviorial Patterns</h2>
+<h2 id="behavioral-patterns">Behavioral Patterns</h2>
 <p>Concerns the interaction between classes or objects.</p>
 <h3 id="application-1---iterator">Application 1. - Iterator</h3>
-<p>Provides a way to access the elements of an aggregate object sequenctially without exposing its underlying representation. The iterator pattern allows you to traverse the elements of different types of collection in a uniform mannar, without knowing the specifics of how these collections are implemented.</p>
+<p>Provides a way to access the elements of an aggregate object sequentially without exposing its underlying representation. The iterator pattern allows you to traverse the elements of different types of collections in a uniform manner, without knowing the specifics of how these collections are implemented.</p>
 <p><strong>Components:</strong></p>
 <ol>
-<li>Iterator: An interface that defines the methods required for accessing and traversing elements in a collection. Common methods include <code>hasNext()</code>, <code>next()</code> and <code>remove()</code></li>
-<li>ConcreteIterator: Implements the interface above and provides specific implementations of the functions</li>
-<li>Aggregate: An interface that defines the method for creating an Iterator object for a specific collection type</li>
-<li>ConcreteAggregate: provides a specific implementation for creating a ConcreteIterator for the particular collection</li>
+<li>Iterator: An interface that defines the methods required for accessing and traversing elements in a collection. Common methods include <code>hasNext()</code>, <code>next()</code> and <code>remove()</code>.</li>
+<li>ConcreteIterator: Implements the interface above and provides specific implementations of the functions.</li>
+<li>Aggregate: An interface that defines the method for creating an Iterator object for a specific collection type.</li>
+<li>ConcreteAggregate: Provides a specific implementation for creating a ConcreteIterator for the particular collection.</li>
 </ol>
 <p><strong>Example:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Aggregate
@@ -995,18 +995,18 @@ Another example is when we want to create a condition on the same type but one o
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
-<li>Encapsulation: this pattern encapsulates the internal structure of a collection, providing a cleaner and more flexible way to acces its elements.</li>
-<li>Uniform traversal: This pattern enables uniform traversal of different types of collections, allowing you to write clean code that can work with various types of collection types</li>
-<li>Seperatation of concerns: seperate the traversal logic from collection itself, this adheres to the single responsibility principle</li>
+<li>Encapsulation: This pattern encapsulates the internal structure of a collection, providing a cleaner and more flexible way to access its elements.</li>
+<li>Uniform traversal: This pattern enables uniform traversal of different types of collections, allowing you to write clean code that can work with various types of collection types.</li>
+<li>Separation of concerns: Separate the traversal logic from the collection itself, this adheres to the single responsibility principle.</li>
 </ul>
 <h3 id="application-2---observer">Application 2. - Observer</h3>
-<p>The observer pattern defines a one to many dependency between objects, so that when one object (the subject) changes its state, all its dependents (observers) are notified and updatesd automatically. This pattern is often used to implement even driven systems or to establish loose coupling between components.</p>
+<p>The observer pattern defines a one-to-many dependency between objects, so that when one object (the subject) changes its state, all its dependents (observers) are notified and updated automatically. This pattern is often used to implement event-driven systems or to establish loose coupling between components.</p>
 <p><strong>Components:</strong></p>
 <ol>
-<li>Subject (Observable): An interface that maintans a list of observers and provides methods for attaching, detaching and notiffying observers of state changes.</li>
-<li>ConcreteSubject: A class that implements the subject and provides specific implemnetation for managing its state and notifying obervers when the state changes.</li>
-<li>Observer: An interface that defines the method for receiving updates from the subject (usually called by <code>update())</code></li>
-<li>ConcreteObserver: implementation of Observer class and provides a specific implementation for handling updates from subjects</li>
+<li>Subject (Observable): An interface that maintains a list of observers and provides methods for attaching, detaching, and notifying observers of state changes.</li>
+<li>ConcreteSubject: A class that implements the subject and provides specific implementation for managing its state and notifying observers when the state changes.</li>
+<li>Observer: An interface that defines the method for receiving updates from the subject (usually called by <code>update()</code>).</li>
+<li>ConcreteObserver: Implementation of Observer class and provides a specific implementation for handling updates from subjects.</li>
 </ol>
 <p><strong>Example:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Subject (Observable)
@@ -1073,7 +1073,7 @@ Another example is when we want to create a condition on the same type but one o
 <p>Provides a skeleton of an algorithm in an operation, deferring some steps to subclasses. The Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm&rsquo;s structure.</p>
 <p><strong>Components:</strong></p>
 <ol>
-<li>Abstract Class (Template): defines the template method, which altlines the algorithm&rsquo;s structure. This class also includes abstract methods representing the algorithms steps.</li>
+<li>Abstract Class (Template): defines the template method, which outlines the algorithm&rsquo;s structure. This class also includes abstract methods representing the algorithm&rsquo;s steps.</li>
 <li>Concrete Class: Implementation</li>
 </ol>
 <p><strong>Example:</strong></p>
@@ -1131,17 +1131,17 @@ Another example is when we want to create a condition on the same type but one o
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Output: Posting on Facebook: #MyPost This is a sample social media post!
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
 </span></span></code></pre></div><ul>
-<li>Consistency: The Template Method pattern ensures that the content sharing process follows a consistent sequence of steps across different social media platforms, reducing the chance of errors or inconsistencies in the shared content</li>
+<li>Consistency: The Template Method pattern ensures that the content sharing process follows a consistent sequence of steps across different social media platforms, reducing the chance of errors or inconsistencies in the shared content.</li>
 <li>Code reusability: The pattern promotes code reusability by extracting common parts of the content sharing process (e.g., formatting) into a base class, while allowing subclasses to provide custom behavior for platform-specific requirements.</li>
 <li>Flexibility: The pattern allows for easy addition of new social media platforms by simply extending the base class and providing implementations for the preparePlatformSpecificContent() and postContent() methods, without having to change the existing code.</li>
 </ul>
 <h3 id="application-4---strategy">Application 4. - Strategy</h3>
-<p>This design pattern defines a family of algorithms, encapsulates each one, andmakes them interchangable. The strategy pattern lets algoritjms vary independently from clients that use it.</p>
+<p>This design pattern defines a family of algorithms, encapsulates each one, and makes them interchangeable. The strategy pattern lets algorithms vary independently from clients that use it.</p>
 <p><strong>Components:</strong></p>
 <ol>
-<li>Context: Class that maintains a reference to a strategy object and delegates some operations to it</li>
-<li>Strategy Interface: An interface that is implemented by all concrete strategies defining commmon set of methods.</li>
-<li>Concrete Strategy: implementation of different variations of the algorithm</li>
+<li>Context: Class that maintains a reference to a strategy object and delegates some operations to it.</li>
+<li>Strategy Interface: An interface that is implemented by all concrete strategies defining a common set of methods.</li>
+<li>Concrete Strategy: Implementation of different variations of the algorithm.</li>
 </ol>
 <p><strong>Example:</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Strategy Interface
@@ -1204,7 +1204,7 @@ Another example is when we want to create a condition on the same type but one o
 <li>Flexibility: The Strategy pattern allows for easy addition or removal of routing strategies without modifying the code that uses them.</li>
 <li>Encapsulation: The pattern encapsulates the implementation details of each routing algorithm, exposing a clean interface to the clients.</li>
 <li>Maintainability: The pattern separates the concerns of different routing algorithms, making it easier to maintain and modify individual strategies.</li>
-<li>Open/Closed Principle: The Strategy pattern adheres to the Open/Closed Principle, as it allows for extending the functionality by adding new strategies without modifying the existing code that uses them</li>
+<li>Open/Closed Principle: The Strategy pattern adheres to the Open/Closed Principle, as it allows for extending the functionality by adding new strategies without modifying the existing code that uses them.</li>
 </ul>
 
 
