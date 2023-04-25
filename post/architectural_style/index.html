@@ -236,6 +236,12 @@
         <li><a href="#repository-style">Repository Style</a></li>
         <li><a href="#implicit-invocation-style">Implicit Invocation Style</a></li>
         <li><a href="#layered-style">Layered Style:</a></li>
+        <li><a href="#client-server-style">Client-Server Style:</a></li>
+        <li><a href="#process-control-style">Process Control Style:</a></li>
+        <li><a href="#serverless-architecture">Serverless Architecture:</a></li>
+        <li><a href="#microservices-architecture">Microservices Architecture:</a></li>
+        <li><a href="#mvvm---model-view-view-model">MVVM - Model View View Model:</a></li>
+        <li><a href="#mvc-vs-mvp-vs-mvvm">MVC vs MVP vs MVVM</a></li>
       </ul>
     </li>
   </ul>
@@ -359,8 +365,165 @@
 </li>
 </ul>
 <h3 id="layered-style">Layered Style:</h3>
+<p>The layered style of architecture separates the system into ordered layers where a program in one layer may obtain services from a layer below it.</p>
+<p><strong>Components:</strong> Layers that perform local calculations and communicate with adjacent layers.</p>
+<p><strong>Connectors:</strong> Pre-determined protocols for communication between layers.</p>
+<p><strong>Examples:</strong></p>
 <ul>
-<li>Architecture is separated into</li>
+<li>Layered Communication Protocols: Network/Link/Physical layer.</li>
+<li>Operating Systems.</li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Facilitates design, enhancement, and reuse.</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>Not all systems are easily structured in a layered fashion.</li>
+<li>Performance requirements may not be met.</li>
+</ul>
+<h3 id="client-server-style">Client-Server Style:</h3>
+<p>The client-server style is suitable for applications that involve distributed data and processing across a range of components.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li>Clients.</li>
+<li>Servers.</li>
+</ul>
+<p><strong>Connectors:</strong> The network.</p>
+<p><strong>Examples:</strong></p>
+<ul>
+<li>File Servers: Sharing files across the network.</li>
+<li>DB Servers:
+<ul>
+<li>More efficient use of distributing power than file servers.</li>
+<li>Client passes SQL requests as messages to the DB servers; results are returned over the network.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Data distribution is straightforward.</li>
+<li>Transparency of location.</li>
+<li>Mix and match heterogeneous platforms.</li>
+<li>Easy to add new servers or upgrade existing servers.</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>No central register of names and services &ndash; might be hard to find out what services are available.</li>
+</ul>
+<h3 id="process-control-style">Process Control Style:</h3>
+<p>The process control style is suitable for applications whose purpose is to maintain specified properties of the output of the process at given reference values. It is also called a feedback control system.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li>Process Definition.</li>
+<li>Control Algorithm.</li>
+</ul>
+<p><strong>Connectors:</strong></p>
+<ul>
+<li>Process Variables:
+<ul>
+<li>Controlled variable.</li>
+<li>Input variable.</li>
+<li>Manipulated variable.</li>
+</ul>
+</li>
+<li>Set Point.</li>
+<li>Sensors.</li>
+</ul>
+<p><strong>Example:</strong> Various realtime systems (Nuclear Power Plants, Car Cruise Control).</p>
+<h3 id="serverless-architecture">Serverless Architecture:</h3>
+<p>The serverless architecture involves using and paying for functionality on an as-needed basis.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li>Function (Container).</li>
+</ul>
+<p><strong>Connector:</strong></p>
+<ul>
+<li>Event:
+<ul>
+<li>Synchronous (HTTP request).</li>
+<li>Asynchronous (Message Queue).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Pay per use.</li>
+<li>Less maintenance.</li>
+<li>Fast deployment.</li>
+<li>Easy to debug.</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>3rd party dependency.</li>
+<li>Initial latency (cold start).</li>
+<li>Stateless nature - won&rsquo;t remember the previous state.</li>
+</ul>
+<h3 id="microservices-architecture">Microservices Architecture:</h3>
+<p>The microservices architecture focuses on building single function modules with well-defined interfaces and operations. It is suitable for applications that require short release cycles and must be highly scalable.</p>
+<p><strong>Components:</strong> Self-contained services.</p>
+<p><strong>Connectors:</strong></p>
+<ul>
+<li>Synchronous: HTTP.</li>
+<li>Asynchronous: Advanced Messaging Queue Protocol.</li>
+</ul>
+<p><strong>General Properties:</strong></p>
+<ul>
+<li>Single responsibility.</li>
+<li>Can be developed and maintained by single independent teams.</li>
+<li>It is not overly dependent on another service. If so, merge.</li>
+<li>It must be separately deployable.</li>
+<li>It maintains the integrity and consistency of the data overall.</li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Independently deployable.</li>
+<li>Easy CI/CD integration.</li>
+<li>Independently scalable.</li>
+<li>Reduce downtime.</li>
+<li>Team autonomy.</li>
+<li>Simple to maintain.</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>Expensive.</li>
+<li>More distributed complexity.</li>
+</ul>
+<h3 id="mvvm---model-view-view-model">MVVM - Model View View Model:</h3>
+<p>The MVVM architecture separates the UI from business logic.</p>
+<p><strong>Components:</strong></p>
+<ul>
+<li>View.</li>
+<li>ViewModel.</li>
+<li>Model.</li>
+</ul>
+<p><strong>Connectors:</strong></p>
+<ul>
+<li>Events and method calls.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<ul>
+<li>Any RSS reader app or any app with UI and some data in the back to be manipulated.</li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Abstraction helps in:
+<ul>
+<li>Testing.</li>
+<li>Different teams work independently.</li>
+</ul>
+</li>
+</ul>
+<p><strong>Disadvantages:</strong></p>
+<ul>
+<li>MVVM can be overkill for simple applications.</li>
+<li>Debugging can be more difficult with the abstraction layers.</li>
+</ul>
+<h3 id="mvc-vs-mvp-vs-mvvm">MVC vs MVP vs MVVM</h3>
+<ul>
+<li>Controller (C) - Connects the Model with the View, but is not required to be organized.</li>
+<li>Presenter (P) - Gets data from the Model and the UI rules from the View, and applies them to the data.</li>
+<li>ViewModel (VM) - Similar to the Presenter, but more organized. It associates the data with the View, and separates the actual presentation logic of the UI, making it easier to test.</li>
 </ul>
 
 
