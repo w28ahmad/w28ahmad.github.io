@@ -58,39 +58,24 @@
 
     
     <script src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js"></script>
- 
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+KnujslD4Cg5VMpYHNJ9m8LO4GLwyGc6RgK/ULOe1X8IBU5" crossorigin="anonymous">
+
+    
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-UvGf8WZyCrbDb8XKf/+66x10Tk6QbB7vI8KbybVz/hFh1i03K6nWR8XALM7CkRn6" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-1O4gKctz+0yAE/7t9G9Efgp7tZc1tjmpr1tN8fzWag0sG71Lf2K2X1nqBqFqB0CJ" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
     
     <script>
-        MathJax = {
-          tex: {
-            inlineMath: [['$', '$'], ['\\(', '\\)']],
-            displayMath: [['$$', '$$'], ['\\[', '\\]']],
-            processEscapes: true,
-            processEnvironments: true
-          },
-          options: {
-            skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-          },
-          startup: {
-            pageReady: function () {
-              return MathJax.startup.defaultPageReady().then(function () {
-                document.querySelectorAll("mjx-container").forEach(function (x) {
-                  x.parentElement.classList += 'has-jax';
-                });
-              });
-            }
-          },
-          loader: {
-            load: ['[tex]/ams']
-          },
-          texInput: {
-            packages: { '[+]': ['ams'] },
-          },
-          chtml: {
-            scale: 1,
-          },
-        };
+        document.addEventListener("DOMContentLoaded", function() {
+          renderMathInElement(document.body, {
+            delimiters: [
+              { left: "$$", right: "$$", display: true },
+              { left: "\\[", right: "\\]", display: true },
+              { left: "$", right: "$", display: false },
+              { left: "\\(", right: "\\)", display: false }
+            ]
+          });
+        });
     </script>
 
 
