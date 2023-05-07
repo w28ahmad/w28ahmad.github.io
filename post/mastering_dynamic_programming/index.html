@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Wahab Ahmad">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://w28ahmad.github.io/">
+    <meta property="twitter:image" content="https://w28ahmad.github.io/" />
+    
+
+    
+    <meta name="title" content="Mastering Dynamic Programming" />
+    <meta property="og:title" content="Mastering Dynamic Programming" />
+    <meta property="twitter:title" content="Mastering Dynamic Programming" />
+    
+
+    
+    <meta name="description" content="Master Dynamic Programming for Interview with ALOT of step by step examples and explinations">
+    <meta property="og:description" content="Master Dynamic Programming for Interview with ALOT of step by step examples and explinations" />
+    <meta property="twitter:description" content="Master Dynamic Programming for Interview with ALOT of step by step examples and explinations" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Wahab, Math, Machine Learning">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Mastering Dynamic Programming-Wahab&#39;s Blog</title>
+
+    <link rel="canonical" href="/post/mastering_dynamic_programming/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+      });
+    </script>
+
+
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wahab Ahmad</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/economics">economics</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/machine-learning">machine-learning</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/math">math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/programming">programming</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="https://wahabahmad.ca/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/programming" title="Programming">
+                            Programming
+                        </a>
+                        
+                        <a class="tag" href="/tags/interview-prep." title="Interview Prep.">
+                            Interview Prep.
+                        </a>
+                        
+                    </div>
+                    <h1>Mastering Dynamic Programming</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                Wahab Ahmad
+                         
+                        on 
+                        Wednesday, April 26, 2023
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>Contents</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#introduction">Introduction</a>
+      <ul>
+        <li><a href="#fibonacci-numbers">Fibonacci Numbers</a></li>
+        <li><a href="#maximum-subarray">Maximum Subarray</a></li>
+      </ul>
+    </li>
+    <li><a href="#tips-for-dynamic-programming">Tips for Dynamic Programming</a></li>
+    <li><a href="#ex-counting-plays">Ex: Counting Plays</a></li>
+    <li><a href="#ex-leveshtein-distance">Ex: Leveshtein Distance</a></li>
+    <li><a href="#ex-counting-ways-to-traverse-a-2d-array">Ex: Counting ways to traverse a 2D array</a></li>
+  </ul>
+</nav>
+                
+                <h2 id="overview">Overview</h2>
+<p>Dynamic Programming is a general technique for solving optimization, search, and counting
+problems that can be decomposed to subproblems. In such problems, these subproblems commonly
+reoccur and so we must cache the solutions to the subproblems and use them to solve larger
+problems until we obtain the solution to the original problem.</p>
+<h2 id="introduction">Introduction</h2>
+<h3 id="fibonacci-numbers">Fibonacci Numbers</h3>
+<p>Let us start with a rather simple example, Fibonacci Numbers are computed using the following
+formula $F(n) = F(n-1) + F(n-2)$ and constructs the following infinite sequence $0, 1, 1, 2, 3,
+5, 8, 13, 21, &hellip;$ Since the new element in the sequence is generated using the previous 2 elements
+suggests that Dynamic Programming can be leveraged. One observation to make is that the pattern
+cannot begin without base cases of $F(0) = 0$ and $F(1) = 1$. This is yet another manditory
+requirement of Dynamic Programming problems, we are to break a problem into subproblems, we require
+a base problem(s) or base case(s) to start constructing the solutions to larger problems till the
+original problem.</p>
+<p>A naive approach utilizes recursion to solve the problem:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(2^n) - Binary tree with height n &amp; 2^n nodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n)  - Stack space is the height of the tree, n</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">Fib</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>: <span style="color:#66d9ef">return</span> n
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Fib(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> Fib(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><p>The following image shows the rescursion tree of computing <code>Fib(6)</code>:
+
+  <img src="/static/posts/20230427035532.png" alt="">
+
+</p>
+<p>One thing to note is how in the recursion tree we are calling duplicate calls to
+<code>Fib</code>. For example, <code>Fib(3)</code> is being called 3 times. We can use a hasmap to
+temporary cache these results or we can use python&rsquo;s built in <code>@functools.lrucache</code>
+annotation to store intermediate results and thus avoid duplicate calls.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - duplicates will be cached and will not require recomputing</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - The cache will still need to store n computations</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@functools.lrucache</span>()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">Fib</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>: <span style="color:#66d9ef">return</span> n
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Fib(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> Fib(n<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>)
+</span></span></code></pre></div><p>Finally, we can use dynamic programming approach to construct the solution to
+<code>Fib(n)</code>. The approach is optimal as it only requires $O(1)$ space complexity:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - we need to solve n subproblems to reach and solve Fib(n)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(1)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">Fib</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> n <span style="color:#f92672">==</span> <span style="color:#ae81ff">1</span>: <span style="color:#66d9ef">return</span> n
+</span></span><span style="display:flex;"><span>    fib_0, fib_1 <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, n):
+</span></span><span style="display:flex;"><span>        fib_0, fib_1 <span style="color:#f92672">=</span> fib_1, fib_0 <span style="color:#f92672">+</span> fib_1
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fib_1
+</span></span></code></pre></div><p><strong>Learnings:</strong></p>
+<blockquote>
+<p>Original problems can be solved easily once solutions to the subproblems are
+avaliable and cached</p>
+</blockquote>
+<h3 id="maximum-subarray">Maximum Subarray</h3>
+<p>Find the maximum subarray for a given array.</p>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>----------------------------------------------------------------------------------
+</span></span><span style="display:flex;"><span>|  A[0]  |  A[1]  |  A[2]  |  A[3]  |  A[4]  |  A[5]  |  A[6]  |  A[7]  |  A[8]  |
+</span></span><span style="display:flex;"><span>|--------|--------|--------|--------|--------|--------|--------|--------|--------|
+</span></span><span style="display:flex;"><span>|   904  |   40   |  523   |   12   | -335   | -385   | -124   |  481   |  -31   |
+</span></span><span style="display:flex;"><span>----------------------------------------------------------------------------------
+</span></span></code></pre></div><p>We can start by constructing the brute force solution. We need two components
+for the brute force solution:</p>
+<ol>
+<li>We need a way to find a way to compoute <code>window_sum</code></li>
+<li>We need a way to compute all possible subarrays</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - from start to end, at worst end-start = n (size of array)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(1)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">window_sum</span>(array, start, end):
+</span></span><span style="display:flex;"><span>    sum <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> idx <span style="color:#f92672">in</span> range(start, end):
+</span></span><span style="display:flex;"><span>        sum <span style="color:#f92672">+=</span> array[idx]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> sum
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> math <span style="color:#f92672">import</span> inf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n^3) - 2 nested for loops, looping over array and call window_sum</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(1)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">maximum_subarray</span>(array):
+</span></span><span style="display:flex;"><span>    max_sum <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>inf
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(array)):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, len(array)):
+</span></span><span style="display:flex;"><span>            max_sum <span style="color:#f92672">=</span> max(max_sum, window_sum(array, i, j)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> max_sum
+</span></span></code></pre></div><p>Before we continue to the Dynamic Programming solution, it is important to point
+out a time optimization at the cost of space complexity. We can precompute the
+following: $S[k] = \sum\limits_{k} A[0,k]$. $S$ now holds information to compute
+all window sums. The window sum for input array $A$ can be computed using the
+following formula $A[i,j] = S[j] - S[i-1]$ where $S[-1]$ is taken to be 0. This
+optimization could improve the time complexity to $O(n^2)$ at the cost of $O(n)$
+space complexity.</p>
+<p>Now, to solve this problem using dynamic programming, <strong>recall</strong> that the
+idea of dynamic programming is to use solutions to subproblems to construct the
+solution to the main problem. With this in mind, suppose we have the following
+array:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>A = [2, 3, -2, 4]
+</span></span></code></pre></div><p>We can assume <code>A[0,0]</code> is a subproblem, and within this subarray, the maximum
+possible subarray is <code>A[0]</code>, since it only contains one element. Now, we create a
+larger subproblem by expanding the subarray to <code>A[0, 1]</code>, and since the new element
+increases the sum, it must be a part of the maximum subarray. We continue
+enlarging the problem to <code>A[0, 2]</code>. In this case, we add a negative number to the
+subproblem, so the maximum subarray remains the same. Finally, when we expand
+to the original problem, we see that the maximum subarray is the subarray itself.</p>
+<p>However, if we consider the case where $A[2] &lt; -4$, we realize the final solution
+would have been different. To keep a running count of the maximum, we must
+condition on whether the newly added element is a good starting point for a new
+maximum subarray <strong>OR</strong> if it is negligible in the overall summation. With these
+insights, we can construct the following algorithm:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#f92672">from</span> math <span style="color:#f92672">import</span> inf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - running loop over the input array</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(1)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">maximum_subarray</span>(array):
+</span></span><span style="display:flex;"><span>    running_max, current_max <span style="color:#f92672">=</span> <span style="color:#f92672">-</span>inf, <span style="color:#f92672">-</span>inf
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> element <span style="color:#f92672">in</span> array:
+</span></span><span style="display:flex;"><span>        running_max <span style="color:#f92672">=</span> max(element, running_max<span style="color:#f92672">+</span>element)
+</span></span><span style="display:flex;"><span>        current_max <span style="color:#f92672">=</span> max(current_max, running_max)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> current_max
+</span></span></code></pre></div><h2 id="tips-for-dynamic-programming">Tips for Dynamic Programming</h2>
+<ol>
+<li>Consider using Dynamic Programming whenever you have to make choices to arrive
+at the solution</li>
+<li>Dynamic Programming can also be applicable when counting and decision
+problems</li>
+<li>Dynamic Programming often involves iteration or recusion along side taking
+advantage of a cache. The cache could be implmented as an 1-D or 2-D array,
+hash table or binary search tree.</li>
+<li>Array caches are often used for iterative solutions and hash tables or binary
+search trees are often used for recursive solutions</li>
+<li>Dynamic Programming is based on combining optimum solutions to subproblems
+to yield an optimum solution to the original solution</li>
+<li><strong>IMPORTANT TIP</strong> When ever you construct a recursive solution is is very
+important to ask, how would the space/time complexity change by simple caching
+the function calls. I say this because often the difference between recursive
+time complexity and DP time complexity can be achieved by using Python&rsquo;s builtin
+<code>functools.lru_cache(None)</code>:</li>
+</ol>
+<h2 id="ex-counting-plays">Ex: Counting Plays</h2>
+<blockquote>
+<p><strong>Problem:</strong> In an American football game, a safety play leads to 2 points, a field goal
+leads to 3 points and a touchdown leads to 7 points. How many combinations of
+2, 3 and 7 point plays can make up a final course.</p>
+</blockquote>
+<p>We can start by implementing a brute force solution which creates a recursion
+tree branching on teach type of play that leads to points:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n^3) - function generates a 3-ary tree with max height of n</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - the recursion stack height is n</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># It is hard to pin point what n is but it is guranteed to be less that final_score</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">play_possibilities</span>(final_score):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecase</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> final_score <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> final_score <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    combinations <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># safety</span>
+</span></span><span style="display:flex;"><span>    combinations <span style="color:#f92672">+=</span> play_possibilities(final_score <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># field goal</span>
+</span></span><span style="display:flex;"><span>    combinations <span style="color:#f92672">+=</span> play_possibilities(final_score <span style="color:#f92672">-</span> <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># touchdown</span>
+</span></span><span style="display:flex;"><span>    combinations <span style="color:#f92672">+=</span> play_possibilities(final_score <span style="color:#f92672">-</span> <span style="color:#ae81ff">7</span>)
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">return</span> combinations
+</span></span></code></pre></div><p>With this nieve solution we see that this problems requires us to:</p>
+<ol>
+<li>Make choices</li>
+<li>Count</li>
+<li>Use recursion</li>
+</ol>
+<p>Now to make use of these indicators to attempt a dynamic programming solution,
+we first must identify sub problems and how to use the solutions of the sub
+problems to construct the solution the main problem. To find the total
+combination of 2,3,7 plays to reach a particular score. We can ask the following
+sub questions:</p>
+<ul>
+<li>how many combinations to abtain a final score of <code>final_score-1</code>?</li>
+<li>how many combinations to obtain a final score only using 2,3 point plays?</li>
+</ul>
+<p>These sub problems give us a mental model of the type of data structure that will
+come in handy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>   0   1   2   3   ...   n  &lt;- score
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>| 1 |   |   |   |   |   | &lt;- 2 points
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>| 1 |   |   |   |   |   | &lt;- 2,3 points
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>| 1 |   |   |   |   |   | &lt;- 2,3,7 points
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+
+</span></span></code></pre></div><blockquote>
+<p>Note we do not need any points to react a score of 0. Its a base case.</p>
+</blockquote>
+<p>Now lets move on to the next question, how can we use the solutions to these
+sub problems to solve &ldquo;the problem&rdquo;. To figure this out, lets complete the
+datascructure with an example of <code>final_score=10</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>   0   1   2   3   4   5   6   7   8   9  10  &lt;- score
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>| 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | &lt;- 2 points
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>| 1 | 0 | 1 | 1 | 1 | 1 | 2 | 1 | 2 | 2 | 3 | &lt;- 2,3 points
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>| 1 | 0 | 1 | 1 | 1 | 1 | 2 | 1 | 2 | 2 | 4 | &lt;- 2,3,7 points
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+---+---+---+---+---+
+</span></span></code></pre></div><p>Lets define this data structure as $A$ with indicies $i, j$. As we traverse<br>
+$A$, horizontally we must determine if that score is reachable using the current
+row points, say $p$. This can be done by the following update:</p>
+<p>$$
+A[i, j] = A[i, j-p]
+$$</p>
+<blockquote>
+<p>This will hit the base case at index 0, which will determine if the current $j$
+is a multiple of the current point. If it is this score is reachable using a multiple
+of the current point</p>
+</blockquote>
+<p>Now as we traverse $A$ vertically, we must determine how many solutions can be
+obtained using the points from the previous row. Thus, we can derive the following
+update rule:</p>
+<p>$$
+A[i, j] = A[i-1, j]
+$$
+Together, these update rules account for existing possibilities from the previous
+row and new possibilities from the current row. Giving the final, all accounting
+update rule:</p>
+<p>$$
+A[i, j] = A[i, j-p] + A[i-1, j]
+$$</p>
+<p>These rules can be implemented using python as such:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(sn)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(sn)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Where s is the # of possible play scores (3 in this case)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># And n is the final_score</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">play_possibilities</span>(final_score):
+</span></span><span style="display:flex;"><span>    dp_solutions <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> final_score <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>)] 
+</span></span><span style="display:flex;"><span>    play_score <span style="color:#f92672">=</span> [<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">7</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> play <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">3</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> score <span style="color:#f92672">in</span> range(final_score<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>           existing_possibilities <span style="color:#f92672">=</span> dp_solutions[play<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][score] <span style="color:#66d9ef">if</span> play <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>           new_possibilities <span style="color:#f92672">=</span> dp_solutions[play][score <span style="color:#f92672">-</span> play_score[play]] \
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> score <span style="color:#f92672">&gt;=</span> play_score[play] <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>           dp_solutions[play][score] <span style="color:#f92672">=</span> existing_possibilities <span style="color:#f92672">+</span> new_possibilities 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> dp_solutions[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span></code></pre></div><p>Now if you recall the important tip from the tips section, we can simply cache
+the function calls, and believe it or not, we again reach the optimal solution
+once again:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#f92672">import</span> functools
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - the function is called at most n times due to memoization</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - the cache size to store memoized results</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># n is the final_score</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@functools.lru_cache</span>(<span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">play_possibilities</span>(final_score):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecase</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> final_score <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> final_score <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    combinations <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># safety</span>
+</span></span><span style="display:flex;"><span>    combinations <span style="color:#f92672">+=</span> play_possibilities(final_score <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># field goal</span>
+</span></span><span style="display:flex;"><span>    combinations <span style="color:#f92672">+=</span> play_possibilities(final_score <span style="color:#f92672">-</span> <span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># touchdown</span>
+</span></span><span style="display:flex;"><span>    combinations <span style="color:#f92672">+=</span> play_possibilities(final_score <span style="color:#f92672">-</span> <span style="color:#ae81ff">7</span>)
+</span></span><span style="display:flex;"><span>   
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> combinations
+</span></span></code></pre></div><blockquote>
+<p>Memoizing / Caching is very powerful to optimize recursive solutions!</p>
+</blockquote>
+<h2 id="ex-leveshtein-distance">Ex: Leveshtein Distance</h2>
+<blockquote>
+<p><strong>Levenshtein Distance:</strong> The minimum number of edits that it takes to
+transform from one word to another. Where edits are one of the following:</p>
+<ol>
+<li><strong>Insertion:</strong> Inserting one character</li>
+<li><strong>Deletion:</strong> Removing one character</li>
+<li><strong>Substitution:</strong> Exchanging one character for another</li>
+</ol>
+</blockquote>
+<p>Write a program that takes two strings and computes the minimum
+levenshtein Distance.</p>
+<p>Lets begin by trying to understand how to solve the brute force, nieve solution.
+Given 2 words, $A$ and $B$, we want to write a function $E$ which computes
+minimum cost of converting string $A$ into string $B$ using the above 3 rules.
+Applying each rule will require a cost of 1.</p>
+<p>To develop a brute force solution, we can use a recursive approach that breaks
+down the problem into smaller problems. Specifically, lets compare the 2 strings
+character by character and make one of three edits (or all 3 edits), insertion,
+deletion and substitution. All the while computing cost of each possibility.</p>
+<p>We can define our function $E(i, j)$ where $i$ and $j$ are the indices of
+characters in strings $A$ and $B$ respectively. Since we are using recursion
+we need to start by identifying base cases:</p>
+<ol>
+<li>If $i$ is equal to the length of $A$ but $j$ is not the end of $B$, this
+means the remaining characters must be deleted so the cost is effectively
+$|B| - j$.</li>
+<li>Conversely, if $j = |B|$ then the cost is $|A| - i$.</li>
+</ol>
+<p>Now, need to understand how exactly, the recursion will take place. Recursion
+typically results in various branches on each level. The branching factor for
+Fibonacci is $2$. For this problem, it makes sense to branch on each particular
+type of edit since we are not sure which one will result in minimum possible
+distance:</p>
+<ol>
+<li><strong>Insertion:</strong> We skip one character in $B$ and add one to the cost.
+This simulates us inserting a character of our choice and is equivalent to
+calling $E(i, j + 1) + 1$. Where the $+1$ accounts for the accrued cost due
+to the edit.</li>
+<li><strong>Deletion:</strong> We skip one character in $A$ and add 1 to the cost. This
+effectively simulates us deleting the skipped character and is equivalent to
+calling $E(i + 1, j) + 1$.</li>
+<li><strong>Substitution:</strong> We compare both characters at positions $i$ and $j$, if
+they match then we increment both pointers and add a cost of 0. Otherwise, we
+again increment but add a cost of 1. This simulates substituting a character
+in either $A$ or $B$ (doesn&rsquo;t matter which). This is equivalent of
+$E(i+1, j+1) + (0 \text{ or } 1)$.</li>
+</ol>
+<p>Finally, we can take the minimum of these 3 values to obtain the smallest
+total cost over all levels of the recursion tree.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(3 ^ min(len(A), len(B))) - 3 branches, height of min(len(A), len(B))</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(min(len(A), len(B))) - Recursion stack size</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">levenshtein_distance</span>(A, B, i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecases</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(A) <span style="color:#f92672">==</span> i: <span style="color:#66d9ef">return</span> len(B)<span style="color:#f92672">-</span>j
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(B) <span style="color:#f92672">==</span> j: <span style="color:#66d9ef">return</span> len(A)<span style="color:#f92672">-</span>i
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Compute cost</span>
+</span></span><span style="display:flex;"><span>    cost <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">if</span> A[i] <span style="color:#f92672">==</span> B[j] <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># min( Insertion, Deletion, Substitution )</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> min(
+</span></span><span style="display:flex;"><span>        levenshtein_distance(A, B, i, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#75715e"># Insert char in A</span>
+</span></span><span style="display:flex;"><span>        levenshtein_distance(A, B, i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#75715e"># Delete char in A</span>
+</span></span><span style="display:flex;"><span>        levenshtein_distance(A, B, i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> cost, <span style="color:#75715e"># Substitute matching char</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span></code></pre></div><p>This thought process should be shouting <strong>Dynamic programming</strong> due to the
+simple fact that question requiring:</p>
+<ol>
+<li>Choices between insertion, deletion and substitution, i.e decision problem</li>
+<li>Use of recursion and solution to subproblems for the final solution</li>
+</ol>
+<p>Lets use the important tip from the tips section and simply cache the function
+calls:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time:  O(len(A) * len(B)) - len(A) options for i, len(B) options for j then the cache will be filled for all subproblems</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(min(len(A)), len(B)) - Recursion stack size</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@functools.lru_cache</span>(<span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">levenshtein_distance</span>(A, B, i<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, j<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecases</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(A) <span style="color:#f92672">==</span> i: <span style="color:#66d9ef">return</span> len(B)<span style="color:#f92672">-</span>j
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(B) <span style="color:#f92672">==</span> j: <span style="color:#66d9ef">return</span> len(A)<span style="color:#f92672">-</span>i
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Compute cost</span>
+</span></span><span style="display:flex;"><span>    cost <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">if</span> A[i] <span style="color:#f92672">==</span> B[j] <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># min( Insertion, Deletion, Substitution )</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> min(
+</span></span><span style="display:flex;"><span>        levenshtein_distance(A, B, i, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#75715e"># Insert char in A</span>
+</span></span><span style="display:flex;"><span>        levenshtein_distance(A, B, i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, <span style="color:#75715e"># Delete char in A</span>
+</span></span><span style="display:flex;"><span>        levenshtein_distance(A, B, i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, j<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> cost, <span style="color:#75715e"># Substitute matching char</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span></code></pre></div><p>This is as optimal as the DP solution, in fact it is more optimal since the
+dynamic programming solution requires <code>len(A) * len(B)</code> space complexity.
+Here are the functions timed:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>Original Execution time: 0.011868 seconds
+</span></span><span style="display:flex;"><span>Cached Execution time: 0.000072 seconds
+</span></span></code></pre></div><p>If you were to write a DP solution that avoids recursion and <code>@functools.lru_cache(None)</code>,
+you would get the same time complexity. However, lets work through it for the sake
+of it. We will need to create a data structure that allows us to compute <strong>cost</strong> for
+strings <strong>A</strong> and <strong>B</strong>. Lets again go with a 2D matrix, where the rows are
+the characters of string $A$ and columns are characters of string $B$ and the <code>cells[i][j]</code>
+are the costs to convert <code>A[0:i]</code> to <code>B[0:j]</code> or vise versa.</p>
+<p>For example, let $A$ be <code>kitten</code> and $B$ be <code>sitting</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>         &#34;&#34;  &#34;k&#34; &#34;i&#34; &#34;t&#34; &#34;t&#34; &#34;e&#34; &#34;n&#34;
+</span></span><span style="display:flex;"><span>   &#34;&#34;     .   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;s&#34;    .   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;i&#34;    .   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;t&#34;    .   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;t&#34;    .   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;i&#34;    .   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;n&#34;    .   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;g&#34;    .   .   .   .   .   .   .
+</span></span></code></pre></div><blockquote>
+<p>Note: using empty strings are very important to establish the base case</p>
+</blockquote>
+<p>The base cases are rather straight forward, since it takes <code>k</code> insertions to go
+from <code>&quot;&quot;</code> to <code>A[:k]</code> or <code>B[:k]</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>         &#34;&#34;  &#34;k&#34; &#34;i&#34; &#34;t&#34; &#34;t&#34; &#34;e&#34; &#34;n&#34;
+</span></span><span style="display:flex;"><span>   &#34;&#34;     0   1   2   3   4   5   6
+</span></span><span style="display:flex;"><span>   &#34;s&#34;    1   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;i&#34;    2   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;t&#34;    3   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;t&#34;    4   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;i&#34;    5   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;n&#34;    6   .   .   .   .   .   .
+</span></span><span style="display:flex;"><span>   &#34;g&#34;    7   .   .   .   .   .   .
+</span></span></code></pre></div><p>Now every other combination of $i$ and $j$ must be computed specifically to
+minimize the cost using the optimal decision between insertion, deletion and
+substitution. For this solution, I claim the following formula is correct:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span>dp[i][j] <span style="color:#f92672">=</span> min(dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">+</span> {<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>}, dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>, dp[j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][i] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>The first part, <code>dp[i-1][j-1]+{0,1}</code> accounts for the cost required for
+substitution. If the <code>A[i] == B-[j]</code> then we add $0$ to the previous diagonal
+otherwise we add $1$. The <code>dp[i-1][j]</code> can be thought of as deleting i-th
+character in $A$ and adding $1$ for the cost. The <code>dp[i][j-1]</code> can be thought of
+as inserting the j-th character from $B$ into $A$ amd we again add $1$ for the
+cost.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(len(A) * len(B)) - the 2 for loops</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(len(A) * len(B)) - size of dp</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">levenshtein_distance</span>(A, B):
+</span></span><span style="display:flex;"><span>    dp <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (len(B) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(len(A) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(len(A) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(len(B) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> i <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> j <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>: 
+</span></span><span style="display:flex;"><span>                dp[i][j] <span style="color:#f92672">=</span> max(i, j)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                cost <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> <span style="color:#66d9ef">if</span> A[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">==</span> B[j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>                dp[i][j] <span style="color:#f92672">=</span> min(dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span>cost, d[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j]<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, dp[i][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> dp[len(A)][len(B)]
+</span></span></code></pre></div><h2 id="ex-counting-ways-to-traverse-a-2d-array">Ex: Counting ways to traverse a 2D array</h2>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://w28ahmad.github.io/post/architectural_style/" data-toggle="tooltip" data-placement="top" title="Architectural Styles">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/programming" title="programming">
+                            programming
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Wahab Ahmad" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:w28ahmad@uwaterloo.ca"
+                        rel="alternate" type="application/rss+xml" title="mailto:w28ahmad@uwaterloo.ca" >
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/w28ahmad" title="GitHub">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/" title="LinkedIn">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Wahab Ahmad 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe title="Zhao Huabing GitHub"
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>
