@@ -258,6 +258,7 @@
         <li><a href="#application-2---observer">Application 2. - Observer</a></li>
         <li><a href="#application-3---template">Application 3. - Template</a></li>
         <li><a href="#application-4---strategy">Application 4. - Strategy</a></li>
+        <li><a href="#application-5-visitor">Application 5. Visitor</a></li>
       </ul>
     </li>
   </ul>
@@ -1206,6 +1207,125 @@
 <li>Maintainability: The pattern separates the concerns of different routing algorithms, making it easier to maintain and modify individual strategies.</li>
 <li>Open/Closed Principle: The Strategy pattern adheres to the Open/Closed Principle, as it allows for extending the functionality by adding new strategies without modifying the existing code that uses them.</li>
 </ul>
+<h3 id="application-5-visitor">Application 5. Visitor</h3>
+<p>Visitor design pattern is a behavioral design pattern that allows you to perform
+operations on ob jects of different types that belong to a related hierarchy or
+structure, without modifying the classes of these objects. It decouples the
+operations to be performed from the object structure itself. This is particular
+useful when you need to add new functionality to an existing object hierarchy
+without changing the existing code.</p>
+<p><strong>Components:</strong></p>
+<ol>
+<li>Element: An interface or abstract class that defines an accept method that takes
+a visitor object as an argument.</li>
+<li>Concrete Elements: Classes implement the Element interface or inherit from
+the Element class. These classes represent different types of elements in
+object structure.</li>
+<li>Visitor: An interface or abstract class that declares the visit methods for
+each type of concrete element.</li>
+<li>Concrete Visitor: Implementation of the visitor interface. This class contains
+logic for performingoperations on concrete elements.</li>
+</ol>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Kotlin" data-lang="Kotlin"><span style="display:flex;"><span><span style="color:#75715e">// Element interface
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Shape</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">accept</span>(visitor: ShapeVisitor)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Elements
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Circle</span>(<span style="color:#66d9ef">val</span> radius: Double) : Shape {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">accept</span>(visitor: ShapeVisitor) {
+</span></span><span style="display:flex;"><span>        visitor.visit(<span style="color:#66d9ef">this</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Rectangle</span>(<span style="color:#66d9ef">val</span> width: Double, <span style="color:#66d9ef">val</span> height: Double) : Shape {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">accept</span>(visitor: ShapeVisitor) {
+</span></span><span style="display:flex;"><span>        visitor.visit(<span style="color:#66d9ef">this</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">data</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Triangle</span>(<span style="color:#66d9ef">val</span> base: Double, <span style="color:#66d9ef">val</span> height: Double) : Shape {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">accept</span>(visitor: ShapeVisitor) {
+</span></span><span style="display:flex;"><span>        visitor.visit(<span style="color:#66d9ef">this</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Visitor interface
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">ShapeVisitor</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">visit</span>(circle: Circle)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">visit</span>(rectangle: Rectangle)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">visit</span>(triangle: Triangle)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Concrete Visitors
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AreaCalculator</span> : ShapeVisitor {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> area: Double = <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">visit</span>(circle: Circle) {
+</span></span><span style="display:flex;"><span>        area = <span style="color:#a6e22e">Math</span>.PI * circle.radius * circle.radius
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">visit</span>(rectangle: Rectangle) {
+</span></span><span style="display:flex;"><span>        area = rectangle.width * rectangle.height
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">visit</span>(triangle: Triangle) {
+</span></span><span style="display:flex;"><span>        area = <span style="color:#ae81ff">0.5</span> * triangle.base * triangle.height
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PerimeterCalculator</span> : ShapeVisitor {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> perimeter: Double = <span style="color:#ae81ff">0.0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">visit</span>(circle: Circle) {
+</span></span><span style="display:flex;"><span>        perimeter = <span style="color:#ae81ff">2</span> * <span style="color:#a6e22e">Math</span>.PI * circle.radius
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">visit</span>(rectangle: Rectangle) {
+</span></span><span style="display:flex;"><span>        perimeter = <span style="color:#ae81ff">2</span> * (rectangle.width + rectangle.height)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">override</span> <span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">visit</span>(triangle: Triangle) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Here, we assume it&#39;s an equilateral triangle for simplicity.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        perimeter = <span style="color:#ae81ff">3</span> * triangle.base
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Client code
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">fun</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> circle = Circle(<span style="color:#ae81ff">5.0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> rectangle = Rectangle(<span style="color:#ae81ff">10.0</span>, <span style="color:#ae81ff">20.0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> triangle = Triangle(<span style="color:#ae81ff">6.0</span>, <span style="color:#ae81ff">4.0</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> shapes: List&lt;Shape&gt; = listOf(circle, rectangle, triangle)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> areaCalculator = AreaCalculator()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">val</span> perimeterCalculator = PerimeterCalculator()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (shape <span style="color:#66d9ef">in</span> shapes) {
+</span></span><span style="display:flex;"><span>        shape.accept(areaCalculator)
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Area: </span><span style="color:#e6db74">${areaCalculator.area}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        shape.accept(perimeterCalculator)
+</span></span><span style="display:flex;"><span>        println(<span style="color:#e6db74">&#34;Perimeter: </span><span style="color:#e6db74">${perimeterCalculator.perimeter}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>In this example, we use the Visitor pattern to separate the shape properties&rsquo;
+calculations (area and perimeter) from the shape classes themselves (Circle,
+Rectangle, and Triangle). Each shape class has an accept method that takes a
+visitor as an argument. The visitor is an object that implements the
+ShapeVisitor trait, which has methods for visiting each concrete shape type.</p>
+<p>When the accept method is called on a shape, it passes itself to the appropriate
+visitor&rsquo;s method. The visitor then performs the desired calculation based on the
+shape type it visits. This approach allows us to compute properties like area and
+perimeter for various shapes without having to know their specific types during
+runtime.</p>
+<p>By using the Visitor pattern, we can add new properties or calculations related
+to shapes without modifying the shape classes themselves. Instead, we can simply
+extend the ShapeVisitor trait and create a new visitor class to handle these new
+properties. This promotes the separation of concerns and enhances the code&rsquo;s
+maintainability and flexibility.</p>
 
 
                 
