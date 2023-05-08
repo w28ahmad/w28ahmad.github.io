@@ -245,6 +245,7 @@
     <li><a href="#ex-counting-plays">Ex: Counting Plays</a></li>
     <li><a href="#ex-leveshtein-distance">Ex: Leveshtein Distance</a></li>
     <li><a href="#ex-counting-ways-to-traverse-a-2d-array">Ex: Counting ways to traverse a 2D array</a></li>
+    <li><a href="#ex-compute-binomial-coefficients">Ex: Compute Binomial Coefficients</a></li>
   </ul>
 </nav>
                 
@@ -732,7 +733,129 @@ formula:</p>
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
 </span></span><span style="display:flex;"><span>                dp[i][j] <span style="color:#f92672">=</span> dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j] <span style="color:#f92672">+</span> dp[i][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> dp[n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
-</span></span></code></pre></div>
+</span></span></code></pre></div><h2 id="ex-compute-binomial-coefficients">Ex: Compute Binomial Coefficients</h2>
+<p>The binomial theorm is used to determine the number of ways to choose k elements
+from n elements:
+$$
+\binom{n}{k} = \frac{n!}{k!(n-k)!}
+$$
+Note that direct computation of this formula results in numerator and denominator
+overflow because the values grow very fast. Even if the final result fits as a
+32-bit integer. <strong>Design an efficient algorithm for computing $\binom{n}{k}$
+which has a property that it never overflows if the final results fits in the
+integer word size</strong>.</p>
+<p>Lets start by understanding the brute force approach of the binomial algorithm.
+We can write a factorial function to compute $n!$, $k!$ and $(n-k)!$.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - We have to call the factorial n times </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - Stach space of size n</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">factorial</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> n <span style="color:#f92672">*</span> factorial(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(max(n, k))</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(max(n, k))</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">binomial</span>(n, k):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> factorial(n) <span style="color:#f92672">/</span> (factorial(k) <span style="color:#f92672">*</span> factorial(n<span style="color:#f92672">-</span>k))
+</span></span></code></pre></div><p>We could of course optimize the program by caching the function calls on factorial.
+However, this does not effect the complexity:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - We have to call the factorial n times </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - Stach space of size n</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@functools.lru_cache</span>(<span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">factorial</span>(n):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> n<span style="color:#f92672">==</span><span style="color:#ae81ff">0</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> n <span style="color:#f92672">*</span> factorial(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(max(n, k))</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(max(n, k))</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">binomial</span>(n, k):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> factorial(n) <span style="color:#f92672">/</span> (factorial(k) <span style="color:#f92672">*</span> factorial(n<span style="color:#f92672">-</span>k))
+</span></span></code></pre></div><p>However, the issues with these neive implementations is that they quickly run
+into overflow issues even if the final result does not consist of an overflow.
+To avoid overflow issues we must take advantage of a particular property of the
+binomial theorm:</p>
+<p>$$
+\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}
+$$</p>
+<p>This now requires us to perform significantly smaller factorial calculations,
+thus allowing us to compute larger binomial coefficients.</p>
+<p>Additionally, in the notation alone we note the recursive nature of this property.
+In other words, to compute a binomial coefficient, we must compute $2$ smaller
+coefficients. We note that we keep replacing the binomials with smaller and
+smaller summations. Eventually we reach $k=0$ which becomes the base case
+because $\binom{n}{0}=1$. We also know $\binom{n}{n}=1$. These become the base
+cases (one for each term, one where $n$ is decreasing to $k$ and another where $k$ is
+decreasing to $0$).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(2 ^ (n + k)) -first term of the property goes to a depth of k </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#                       and second term goes to a depth of n. Total worst case </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#                       depth is n + k</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n + k)      -again worst case depth is n + k</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">binomial</span>(n, k):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecase</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> k <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> k <span style="color:#f92672">==</span> n: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Use binomial property</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> binomial(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, k) <span style="color:#f92672">+</span> binomial(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>Lets take advantage of our <strong>important tip</strong> and mitigate the exponential
+complexity.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n + k) - first term of the property goes to a depth of k </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#                       and second term goes to a depth of n. Total worst case </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#                       depth is n + k</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n + k) - again worst case depth is n + k</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@functools.lru_cache</span>(<span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">binomial</span>(n, k):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecase</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> k <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> k <span style="color:#f92672">==</span> n: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Use binomial property</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> binomial(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, k) <span style="color:#f92672">+</span> binomial(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span></code></pre></div><p>Boom! Best case time and space complexities. Now lets go through the iterative
+solution for the practice. Plus, the iterative solution unravels alot of the
+information needed to write the iterative solution. As before, the base cases
+are the same and we are using 2D array in which we can compute $\binom{n}{k}$
+along with all its sub problems.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>+---+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>|   | 0 | 1 | 2 | 3 |...| k |
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>| 0 |   |   |   |   |   |   |
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>| 1 |   |   |   |   |   |   |
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>| 2 |   |   |   |   |   |   |
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>| 3 |   |   |   |   |   |   |
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>|...|   |   |   |   |   |   |
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+---+
+</span></span><span style="display:flex;"><span>| n |   |   |   |   |   |   |
+</span></span><span style="display:flex;"><span>+---+---+---+---+---+---+---+
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n * k) - 2 for loops of size n and k</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n * k) - n * k 2D array</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">binomial</span>(n, k):
+</span></span><span style="display:flex;"><span>    dp <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> k<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span> <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(k<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> j <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> i <span style="color:#f92672">==</span> n: dp[i][j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                dp[i][j] <span style="color:#f92672">=</span> dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j] <span style="color:#f92672">+</span> dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> dp[n][k]
+</span></span></code></pre></div><p>We can make a small optimization to avoid computing unnecessary values:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n * min(k, n - k))</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n * k)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">binomial</span>(n, k):
+</span></span><span style="display:flex;"><span>    dp <span style="color:#f92672">=</span> [[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">*</span> (k<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">for</span> _ <span style="color:#f92672">in</span> range(n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(n<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> j <span style="color:#f92672">in</span> range(min(i, k) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> j <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> i <span style="color:#f92672">==</span> j: dp[i][j] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                dp[i][j] <span style="color:#f92672">=</span> dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j] <span style="color:#f92672">+</span> dp[i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>][j<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> dp[n][k]
+</span></span></code></pre></div><p>Oddly enough the iterative solution does not perform better than the memoized
+recursive solution.</p>
+
 
                 
 
