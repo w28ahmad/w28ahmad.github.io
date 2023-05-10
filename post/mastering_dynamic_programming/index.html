@@ -892,7 +892,7 @@ adjacent.</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>  is_pattern_in_grid( grid, pattern, row<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, col, pattern_idx) <span style="color:#f92672">or</span> \
 </span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, col, pattern_idx) <span style="color:#f92672">or</span> \
 </span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row, col<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, pattern_idx) <span style="color:#f92672">or</span> \
-</span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row, col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, pattern_idx) \
+</span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row, col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, pattern_idx)
 </span></span></code></pre></div><p>Lets take advantage of our important tip and memoize the function call to
 avoid duplicate <code>(row, col, pattern_idx)</code> calls:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(mnp) - all possible combinations of (row,col,pattern_idx)</span>
@@ -915,7 +915,7 @@ avoid duplicate <code>(row, col, pattern_idx)</code> calls:</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>  is_pattern_in_grid( grid, pattern, row<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, col, pattern_idx) <span style="color:#f92672">or</span> \
 </span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, col, pattern_idx) <span style="color:#f92672">or</span> \
 </span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row, col<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, pattern_idx) <span style="color:#f92672">or</span> \
-</span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row, col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, pattern_idx) \
+</span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row, col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, pattern_idx) 
 </span></span></code></pre></div><p>Now, the iterative solution does not involve DP (or atleast I can&rsquo;t think of an
 iterative DP solution). So we&rsquo;ll skip the iterative solution for the sake of
 staying on topic.</p>
