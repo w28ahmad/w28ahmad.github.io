@@ -246,6 +246,7 @@
     <li><a href="#ex-leveshtein-distance">Ex: Leveshtein Distance</a></li>
     <li><a href="#ex-counting-ways-to-traverse-a-2d-array">Ex: Counting ways to traverse a 2D array</a></li>
     <li><a href="#ex-compute-binomial-coefficients">Ex: Compute Binomial Coefficients</a></li>
+    <li><a href="#ex-search-for-a-sequence-in-a-2d-array">Ex: Search for a sequence in a 2D Array</a></li>
   </ul>
 </nav>
                 
@@ -855,6 +856,69 @@ along with all its sub problems.</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> dp[n][k]
 </span></span></code></pre></div><p>Oddly enough the iterative solution does not perform better than the memoized
 recursive solution.</p>
+<h2 id="ex-search-for-a-sequence-in-a-2d-array">Ex: Search for a sequence in a 2D Array</h2>
+<p>Lets move on to bit of a more unique problem, which may sound hard at first but
+we will break it down step by step.</p>
+<p>Suppose you have a 2D array of integers such as the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>| 1 2 3 |
+</span></span><span style="display:flex;"><span>| 3 4 5 |
+</span></span><span style="display:flex;"><span>| 5 6 7 |
+</span></span></code></pre></div><p>And a 1D array, we will refer to this as the pattern:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>| 1 |
+</span></span><span style="display:flex;"><span>| 3 |
+</span></span><span style="display:flex;"><span>| 4 |
+</span></span><span style="display:flex;"><span>| 6 |
+</span></span></code></pre></div><p>We say the the pattern occurs in the 2D grid if we can start at some entry of
+the grid and traverse adjacent entries in the order that is specified by the
+pattern till all entries in the pattern have been visited. It is acceptable
+for you to visit the same entry more than once as long as the entries are
+adjacent.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(4^max(mn, p)) - We have 4 recursive branches &amp; max height of max(mn,p)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(max(mn,p)) - max height of max(mn,p)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Let the size of grid be mxn</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Let the size of the pattern be p</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_pattern_in_grid</span>( grid, pattern, row<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, col<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, pattern_idx<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> ):
+</span></span><span style="display:flex;"><span>    row_len, col_len, pattern_len <span style="color:#f92672">=</span> len(grid), len(grid[<span style="color:#ae81ff">0</span>]), len(pattern)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecases</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> pattern_idx <span style="color:#f92672">==</span> pattern_len: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> row <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> row <span style="color:#f92672">&gt;=</span> row_len: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> col <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> col <span style="color:#f92672">&gt;=</span> col_len: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Increment pattern position</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> pattern[pattern_idx] <span style="color:#f92672">==</span> grid[row][col]: pattern_idx <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Left, Right, Up, Down Traversal</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>  is_pattern_in_grid( grid, pattern, row<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, col, pattern_idx) <span style="color:#f92672">or</span> \
+</span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, col, pattern_idx) <span style="color:#f92672">or</span> \
+</span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row, col<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, pattern_idx) <span style="color:#f92672">or</span> \
+</span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row, col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, pattern_idx) \
+</span></span></code></pre></div><p>Lets take advantage of our important tip and memoize the function call to
+avoid duplicate <code>(row, col, pattern_idx)</code> calls:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(mnp) - all possible combinations of (row,col,pattern_idx)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(max(mn,p)) - max height of max(mn,p) is still the same</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Let the size of grid be mxn</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Let the size of the pattern be p</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@functools.lru_cache</span>(<span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_pattern_in_grid</span>( grid, pattern, row<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, col<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>, pattern_idx<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span> ):
+</span></span><span style="display:flex;"><span>    row_len, col_len, pattern_len <span style="color:#f92672">=</span> len(grid), len(grid[<span style="color:#ae81ff">0</span>]), len(pattern)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecases</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> pattern_idx <span style="color:#f92672">==</span> pattern_len: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> row <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> row <span style="color:#f92672">&gt;=</span> row_len: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> col <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">or</span> col <span style="color:#f92672">&gt;=</span> col_len: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Increment pattern position</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> pattern[pattern_idx] <span style="color:#f92672">==</span> grid[row][col]: pattern_idx <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Left, Right, Up, Down Traversal</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>  is_pattern_in_grid( grid, pattern, row<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, col, pattern_idx) <span style="color:#f92672">or</span> \
+</span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, col, pattern_idx) <span style="color:#f92672">or</span> \
+</span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row, col<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, pattern_idx) <span style="color:#f92672">or</span> \
+</span></span><span style="display:flex;"><span>            is_pattern_in_grid( grid, pattern, row, col<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, pattern_idx) \
+</span></span></code></pre></div><p>Now, the iterative solution does not involve DP (or atleast I can&rsquo;t think of an
+iterative DP solution). So we&rsquo;ll skip the iterative solution for the sake of
+staying on topic.</p>
 
 
                 
