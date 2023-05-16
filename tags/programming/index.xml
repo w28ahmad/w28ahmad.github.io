@@ -6,7 +6,16 @@
     <description>Recent content in Programming on Wahab Ahmad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 26 Apr 2023 02:01:05 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 May 2023 18:01:22 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mastering Binary Trees</title>
+      <link>https://w28ahmad.github.io/post/mastering_binary_trees/</link>
+      <pubDate>Wed, 10 May 2023 18:01:22 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/mastering_binary_trees/</guid>
+      <description>Overview Binary trees are a data strcture in computer science that consist of nodes with each node having at most $2$ children, referred to as left / right child. They are often used to organize data hierarchically, allowing efficient insertion, deletion and search operations. Common types of binary trees include binary search trees, where nodes are ordered such that for each node, all elements in its left subtree are less than the node&amp;rsquo;s value, and all nodes in its right subtree are greater than or equal to the node&amp;rsquo;s value.</description>
+    </item>
+    
     <item>
       <title>Mastering Dynamic Programming</title>
       <link>https://w28ahmad.github.io/post/mastering_dynamic_programming/</link>

@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Wahab Ahmad">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://w28ahmad.github.io/">
+    <meta property="twitter:image" content="https://w28ahmad.github.io/" />
+    
+
+    
+    <meta name="title" content="Mastering Binary Trees" />
+    <meta property="og:title" content="Mastering Binary Trees" />
+    <meta property="twitter:title" content="Mastering Binary Trees" />
+    
+
+    
+    <meta name="description" content="Mastering Binary Trees for interviews with ALOT of examples with step by step explinations">
+    <meta property="og:description" content="Mastering Binary Trees for interviews with ALOT of examples with step by step explinations" />
+    <meta property="twitter:description" content="Mastering Binary Trees for interviews with ALOT of examples with step by step explinations" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Wahab, Math, Machine Learning">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Mastering Binary Trees-Wahab&#39;s Blog</title>
+
+    <link rel="canonical" href="/post/mastering_binary_trees/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+      });
+    </script>
+
+
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wahab Ahmad</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/economics">economics</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/interview-prep">interview-prep</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/machine-learning">machine-learning</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/math">math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/programming">programming</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="https://wahabahmad.ca/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/programming" title="Programming">
+                            Programming
+                        </a>
+                        
+                        <a class="tag" href="/tags/interview-prep" title="Interview Prep">
+                            Interview Prep
+                        </a>
+                        
+                    </div>
+                    <h1>Mastering Binary Trees</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                Wahab Ahmad
+                         
+                        on 
+                        Wednesday, May 10, 2023
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>Contents</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#jargon">Jargon</a></li>
+    <li><a href="#traversals">Traversals</a></li>
+    <li><a href="#ex-balanced-tree">Ex: Balanced Tree</a></li>
+    <li><a href="#ex-check-if-a-binary-tree-is-symmetric">Ex: Check if a binary tree is symmetric</a></li>
+    <li><a href="#ex-compute-the-lowest-common-ancestor-in-a-binary-tree">Ex: Compute The lowest common ancestor in a binary tree</a></li>
+    <li><a href="#ex-compute-the-lowest-common-ancestor-when-nodes-have-parent-pointer">Ex: Compute the lowest common ancestor when nodes have parent pointer</a></li>
+    <li><a href="#ex-sum-root-to-leaf-paths-in-a-binary-tree">Ex: Sum root to leaf paths in a binary tree</a></li>
+  </ul>
+</nav>
+                
+                <h2 id="overview">Overview</h2>
+<p>Binary trees are a data strcture in computer science that consist
+of nodes with each node having at most $2$ children, referred to as
+left / right child. They are often used to organize data hierarchically,
+allowing efficient insertion, deletion and search operations. Common types of
+binary trees include binary search trees, where nodes are ordered such that
+for each node, all elements in its left subtree are less than the node&rsquo;s value,
+and all nodes in its right subtree are greater than or equal to the node&rsquo;s value.</p>
+<p>Here is an example of a binary tree:
+
+  <img src="/static/posts/20230510181342.png" alt="">
+
+</p>
+<p>The node structure itself stores some <code>data</code> and stores references to left and
+right subtrees. It can be defined as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BinaryTreeNode</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, data<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, left<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, right<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>data <span style="color:#f92672">=</span> data
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> left
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> right
+</span></span></code></pre></div><h2 id="jargon">Jargon</h2>
+<p>Let&rsquo;s summarize common terminology often used when referring to different parts
+of a sub tree:</p>
+<ol>
+<li><strong>Root</strong>: The topmost node in the tree, which does not have a parent</li>
+<li><strong>Parent</strong>: A node that has one or more children nodes</li>
+<li><strong>Child</strong>: Node that is a direct descendant of a parent node</li>
+<li><strong>Leaf</strong>: Node with no children</li>
+<li><strong>Ancestor</strong>: A node that is part of a node&rsquo;s lineage, from the root to its
+parent, grandparent, and so on.</li>
+<li><strong>Descendant</strong>: A node that is part of a node&rsquo;s subtree, including its children,
+grandchildren, and so on.</li>
+<li><strong>Sibling</strong>: Nodes that share the same parent.</li>
+<li><strong>Depth</strong>: The length of the path from a node to the root. The root has a depth
+of 0.</li>
+<li><strong>Height</strong>: The length of the longest path from a node to a leaf in its subtree.
+A leaf has a height of 0.</li>
+<li><strong>Level</strong>: The set of nodes that are the same distance (depth) from the root.</li>
+<li><strong>Subtree</strong>: A tree consisting of a node and its descendants.</li>
+<li><strong>Internal node</strong>: A node that is not a leaf, meaning it has at least one child.</li>
+</ol>
+<h2 id="traversals">Traversals</h2>
+<p>Traversal is the an order in which you can visit the nodes in a tree when solving
+a problem. All the amount to is where you put the print statement or problem
+solving logic. Here is a review:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(h)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Let h be the height of the binary tree</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Let n be the number of nodes in the tree</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Binary tree is not always n = 2^h, so we must seperate the two variables above</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">tree_traversal</span>(root):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Preorder Traversal - process root data before traversal left and right</span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Preorder: &#34;</span>, root<span style="color:#f92672">.</span>data)
+</span></span><span style="display:flex;"><span>    tree_traversal(root<span style="color:#f92672">.</span>left)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Inorder Traversal - process root data after traversing left</span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Inorder: &#34;</span>, root<span style="color:#f92672">.</span>data)
+</span></span><span style="display:flex;"><span>    tree_traversal(root<span style="color:#f92672">.</span>right)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Postorder Traversal - process root data after left and right</span>
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;Postorder: &#34;</span>, root<span style="color:#f92672">.</span>data)
+</span></span></code></pre></div><p>Now lets dive into how each of these traversals work with specific diagrams:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>       A
+</span></span><span style="display:flex;"><span>     /   \
+</span></span><span style="display:flex;"><span>    B     C
+</span></span><span style="display:flex;"><span>   / \   / \
+</span></span><span style="display:flex;"><span>  D   E F   G
+</span></span></code></pre></div><p>Lets start by analyzing preorder traversl, so in simple words print data before
+left/right traversal:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>A -&gt; B -&gt; D -&gt; E -&gt; C -&gt; F -&gt; G
+</span></span></code></pre></div><p>Next, we do inorder traversal, so traverse left, print, then print right:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>D -&gt; B -&gt; E -&gt; A -&gt; F -&gt; C -&gt; G 
+</span></span></code></pre></div><p>Next, we do postorder traversal, so traverse left, then right and then print:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>D -&gt; E -&gt; B -&gt; F -&gt; G -&gt; C -&gt; A
+</span></span></code></pre></div><h2 id="ex-balanced-tree">Ex: Balanced Tree</h2>
+<p>A binary tree is said to be height balanced if for each node the difference
+between left and right subtrees is at most one. Here is an example of a
+non-perfect binary tree:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>        A
+</span></span><span style="display:flex;"><span>      /   \
+</span></span><span style="display:flex;"><span>     B     C
+</span></span><span style="display:flex;"><span>    / \   /
+</span></span><span style="display:flex;"><span>   D   E F
+</span></span><span style="display:flex;"><span>  / \
+</span></span><span style="display:flex;"><span> H   I
+</span></span></code></pre></div><p>If we start by thinking about the brute force approach, we can solve this question
+if we have a way to find the height for every node. So, we for every node we
+compute the height of the left and right subtree and check if they are balanced
+we return true otherwise we return false. We do this for all nodes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Let n be number of nodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - The helper can traverse all nodes in a tree in the worst case</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - The height of a tree in the worst case is also n, so n stack height</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">height_helper</span>(tree):
+</span></span><span style="display:flex;"><span>    Basecase <span style="color:#66d9ef">if</span> no tree exists the height <span style="color:#f92672">is</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> tree <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> max(height(tree<span style="color:#f92672">.</span>left), height(tree<span style="color:#f92672">.</span>right))
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n^2) - DFS traverses all nodes, at each node we call height_helper</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - In the worst case the depth can be as deep as the number of nodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_balanced_binary_tree</span>(tree):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecase - Empty tree is height balanced</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> tree <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Compute left and right heights</span>
+</span></span><span style="display:flex;"><span>    left_height <span style="color:#f92672">=</span> height_helper(tree<span style="color:#f92672">.</span>left)
+</span></span><span style="display:flex;"><span>    right_height <span style="color:#f92672">=</span> height_helper(tree<span style="color:#f92672">.</span>right)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check if current subtree is balanced</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(left_height <span style="color:#f92672">-</span> right_height) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check if all subtrees are balanced</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> is_balanced_binary_tree(tree<span style="color:#f92672">.</span>left) <span style="color:#f92672">and</span> \
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">is</span> balanced_binary_tree(tree<span style="color:#f92672">.</span>right)
+</span></span></code></pre></div><p>We very quickly note that we are making duplicate calls to <code>height_helper</code> from
+<code>is_balanced_binary_tree</code> so a quick an quite effective optimization we can make
+is to cache function calls to <code>height_helper</code> so we don&rsquo;t duplicate computation.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Let n be number of nodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - The helper can traverse all nodes in a tree in the worst case</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - The height of a tree in the worst case is also n, so n stack height</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@functools.lru_cache</span>(<span style="color:#66d9ef">None</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">height_helper</span>(tree):
+</span></span><span style="display:flex;"><span>    Basecase <span style="color:#66d9ef">if</span> no tree exists the height <span style="color:#f92672">is</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> tree <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> max(height(tree<span style="color:#f92672">.</span>left), height(tree<span style="color:#f92672">.</span>right))
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - DFS traverses all nodes, at first node we call height_helper </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># height helper will only be called for the first node and the results will be </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># cached for the remaining nodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - In the worst case the depth can be as deep as the number of nodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_balanced_binary_tree</span>(tree):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecase - Empty tree is height balanced</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> tree <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Compute left and right heights</span>
+</span></span><span style="display:flex;"><span>    left_height <span style="color:#f92672">=</span> height_helper(tree<span style="color:#f92672">.</span>left)
+</span></span><span style="display:flex;"><span>    right_height <span style="color:#f92672">=</span> height_helper(tree<span style="color:#f92672">.</span>right)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check if current subtree is balanced</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> abs(left_height <span style="color:#f92672">-</span> right_height) <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check if all subtrees are balanced</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> is_balanced_binary_tree(tree<span style="color:#f92672">.</span>left) <span style="color:#f92672">and</span> \
+</span></span><span style="display:flex;"><span>           <span style="color:#f92672">is</span> balanced_binary_tree(tree<span style="color:#f92672">.</span>right)
+</span></span></code></pre></div><p>However, lets try to work though how we would optimize this function without
+using <code>lru_cache</code>. Use a bottom up approach, which eliminates the need for
+redundant height calculations and use tuple returns to pass height values
+and balance checks. Using a bottom up approach requires us to use post
+order traversal, so we check if the node is balaced after traversing both
+left and right. This ensures that we are traversing the tree bottom up and
+returning heights and balanced and so we don&rsquo;t need redundant height calculations:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_balanced_binary_tree</span>(tree):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Defining a custom return type to return </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># if a node is balanced and also the hight</span>
+</span></span><span style="display:flex;"><span>    balancedAndHeight <span style="color:#f92672">=</span> collections<span style="color:#f92672">.</span>namedtuple(
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;balancedAndHeight&#39;</span>, (<span style="color:#e6db74">&#39;balanced&#39;</span>, <span style="color:#e6db74">&#39;height&#39;</span>))
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_balanced</span>(tree):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Basecase - Empty Tree is height balanced</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> tree <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>: 
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> balancedAndHeight(balanced<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>, height<span style="color:#f92672">=-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check left and right for balanced</span>
+</span></span><span style="display:flex;"><span>        left_result <span style="color:#f92672">=</span> check_balanced(tree<span style="color:#f92672">.</span>left)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> left_result<span style="color:#f92672">.</span>balanced: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        right_result <span style="color:#f92672">=</span> check_balanced(tree<span style="color:#f92672">.</span>right)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> right_result<span style="color:#f92672">.</span>balanced: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check if the current node is balanced</span>
+</span></span><span style="display:flex;"><span>        is_balanced <span style="color:#f92672">=</span> abs(left_result<span style="color:#f92672">.</span>height <span style="color:#f92672">-</span> right_result<span style="color:#f92672">.</span>height) <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        height <span style="color:#f92672">=</span> max(left_result<span style="color:#f92672">.</span>height, right_result<span style="color:#f92672">.</span>height)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> balancedAndHeight(balanced<span style="color:#f92672">=</span>is_balanced, height<span style="color:#f92672">=</span>height)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> check_balanced(tree)
+</span></span></code></pre></div><h2 id="ex-check-if-a-binary-tree-is-symmetric">Ex: Check if a binary tree is symmetric</h2>
+<p>A tree is symmetric if you can draw a vertical line down the middle of the
+tree and the reflection matches the original. For example:</p>
+<pre tabindex="0"><code>   Symmetric Tree            Asymmetric Tree
+
+        1                         1
+       / \                       / \
+      2   2                     2   2
+     / \ / \                   /     \
+    3  4 4  3                 3       4
+</code></pre><p>Write a program that determines if a tree is symmetric.</p>
+<p>Now, I would like to share my very first attempt at soluving this question
+which in fact is <strong>INCORRECT</strong> and I will explain why:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - We need to loop through all possible nodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - In the worst case the height is equal to all the nodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_symmetric</span>(tree):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecase</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> tree <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>, <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check left and right subtrees</span>
+</span></span><span style="display:flex;"><span>    left_symmetric, left_value <span style="color:#f92672">=</span> is_symmetric(tree<span style="color:#f92672">.</span>left)
+</span></span><span style="display:flex;"><span>    right_symmetric, right_value <span style="color:#f92672">=</span> is_symmetric(tree<span style="color:#f92672">.</span>right)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> left_value <span style="color:#f92672">==</span> right_value <span style="color:#f92672">and</span> left_symmetric <span style="color:#f92672">and</span> right_symmetric
+</span></span></code></pre></div><p>This solution at first glance looks right. However, there is a subtle mistake.
+The following tree is not symmetric however, the above code will return true:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>    1
+</span></span><span style="display:flex;"><span>   / \
+</span></span><span style="display:flex;"><span>  2   2
+</span></span><span style="display:flex;"><span> / \   
+</span></span><span style="display:flex;"><span>3   3   
+</span></span></code></pre></div><p>Additionally, the following tree is symmetric but the incorrect code above will
+return False:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>    1
+</span></span><span style="display:flex;"><span>   / \
+</span></span><span style="display:flex;"><span>  2   2
+</span></span><span style="display:flex;"><span> /     \
+</span></span><span style="display:flex;"><span>3       3
+</span></span></code></pre></div><p>So we must re-examine, and think through a solution that accounts for the
+subtleties. We are not comparing each branch at every node to confirm if
+the left and right data is equal. Rather, we are comparing the branching
+from the root node to confirm symmetry exists. Now that we have that in
+mind, we will need two recursive functions to ensure the first function
+executes checking symmetry from the root node and another function that checks
+both left and right subtrees are mirror images of each other. In order for two
+subtrees to be mirror images of each other we have $4$ requirements:</p>
+<ol>
+<li>If the right branch of the right tree equals the left branch of left subtree</li>
+<li>If the left branch of the right subtree equals the right branch of the left subtree</li>
+</ol>
+<p>Now with this in mind we can construct the correct optimized solution:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - we are checking all subtrees once -- Thus, we are checking all nodes once</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - The stack space required is the same as the height which in the worst case is n</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">is_symmetric</span>(tree):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">check_symmetric</span>(left_tree, right_tree):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Basecase: both are None thus symmetric</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> left_tree <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">and</span> right_tree <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Otherwise: lets check both subtrees </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> left_tree <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">and</span> right_tree <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> left_tree<span style="color:#f92672">.</span>data <span style="color:#f92672">==</span> right_tree<span style="color:#f92672">.</span>value <span style="color:#f92672">and</span> \
+</span></span><span style="display:flex;"><span>            check_symmetric(left_tree<span style="color:#f92672">.</span>left, right_tree<span style="color:#f92672">.</span>right) <span style="color:#f92672">and</span> \
+</span></span><span style="display:flex;"><span>            check_symmetric(left_tree<span style="color:#f92672">.</span>right, right_tree<span style="color:#f92672">.</span>left)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">not</span> tree <span style="color:#f92672">or</span> check_symmetric(tree<span style="color:#f92672">.</span>left, tree<span style="color:#f92672">.</span>right) 
+</span></span><span style="display:flex;"><span>    
+</span></span></code></pre></div><h2 id="ex-compute-the-lowest-common-ancestor-in-a-binary-tree">Ex: Compute The lowest common ancestor in a binary tree</h2>
+<p>Any $2$ nodes have several ancestors in a binary tree. The ancestor that is
+guranteed if any $2$ nodes is the root. In this example, we want to find an
+ancestor that is common to both nodes but is also the furthest ancestor from
+the root node.</p>
+<p>Here is an example, the lowest common ancestor for the following binary tree
+is B because it is the root of the smallest possible subtree that includes
+both G and I nodes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>            A
+</span></span><span style="display:flex;"><span>         /     \
+</span></span><span style="display:flex;"><span>      (B)       C
+</span></span><span style="display:flex;"><span>     /   \       \
+</span></span><span style="display:flex;"><span>   D       E       F
+</span></span><span style="display:flex;"><span>  / \     / \     / \
+</span></span><span style="display:flex;"><span>(G)  H  (I)  J   K   L
+</span></span></code></pre></div><p>Lets start off by thinking about a brute force solution. Suppose we have a
+function which finds if a node is in a tree, we can call this function twice
+for each possible subtree until we find subtree that doesn&rsquo;t have both nodes,
+the parent of this subtree will be the lowest common ancestor.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - Essentially DFS to find nodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - In worst case the stack space equals number ofnodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">node_found</span>(tree, node):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecase if root and node match then node is found</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> tree <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> tree<span style="color:#f92672">.</span>data <span style="color:#f92672">==</span> node<span style="color:#f92672">.</span>data: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Search left and right subtrees</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> node_found(tree<span style="color:#f92672">.</span>left, node) <span style="color:#f92672">or</span> \
+</span></span><span style="display:flex;"><span>            node_found(tree<span style="color:#f92672">.</span>right, node)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n^2) - We call DFS and for each node we call node_found</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - The stack height in the worst case is still n</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find_lowest_common_ancestor</span>(tree, nodeA, nodeB):
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Find which direction contains both nodes</span>
+</span></span><span style="display:flex;"><span>    go_left <span style="color:#f92672">=</span> node_found(tree<span style="color:#f92672">.</span>left, nodeA) <span style="color:#f92672">and</span> \
+</span></span><span style="display:flex;"><span>              node_found(tree<span style="color:#f92672">.</span>left, nodeB)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    go_right <span style="color:#f92672">=</span> node_found(tree<span style="color:#f92672">.</span>right, nodeA) <span style="color:#f92672">and</span> \
+</span></span><span style="display:flex;"><span>                node_found(tree<span style="color:#f92672">.</span>right, nodeB)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Go lower to find the lowest common ancestor</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> go_left:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> find_lowest_common_ancestor(tree<span style="color:#f92672">.</span>left, nodeA, nodeB)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> go_right:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> find_lowest_common_ancestor(tree<span style="color:#f92672">.</span>right, nodeA, nodeB)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Both nodes are neither in left or right subtrees, </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># so lowest ancestor found</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> tree
+</span></span></code></pre></div><p>Ok, lets try to optimize this algorithm now. So if we look at this algorithm
+carefully we see that we are essentially running Depth First Search twice.
+Lets now try to find how to solve this problem with a single DFS. The idea
+is to do bottom up depth first search which tracks at which node both target
+nodes meet first. Thus making it the lowest commong ancestor:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - Perform DFS once</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - worst case stack height is n</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">solve</span>(tree, nodeA, nodeB):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecases</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> tree: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>, <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> tree<span style="color:#f92672">.</span>data <span style="color:#f92672">==</span> nodeA<span style="color:#f92672">.</span>data: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>, <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> tree<span style="color:#f92672">.</span>data <span style="color:#f92672">==</span> nodeB<span style="color:#f92672">.</span>data: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>, <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Perform DFS bottom up - Post Order Traversal</span>
+</span></span><span style="display:flex;"><span>    found_in_left, possibilityA <span style="color:#f92672">=</span> find_lowest_common_ancestor(tree<span style="color:#f92672">.</span>left, nodeA, nodeB)
+</span></span><span style="display:flex;"><span>    found_in_right, possibilityB <span style="color:#f92672">=</span> find_lowest_common_ancestor(tree<span style="color:#f92672">.</span>right, nodeA, nodeB)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Pass the ancestor all the way up</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> found_in_left <span style="color:#f92672">and</span> found_in_right: 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>, tree
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> possibilityA <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>, possibilityA
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> possibilityB <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>, possibilityB
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Ancestor not found</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>, <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - We are just running solve</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - We are just running solve</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find_lowest_common_ancestor</span>(tree, nodeA, nodeB):
+</span></span><span style="display:flex;"><span>    _, ancestor <span style="color:#f92672">=</span> solve(tree, nodeA, nodeB)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> ancestor
+</span></span></code></pre></div><h2 id="ex-compute-the-lowest-common-ancestor-when-nodes-have-parent-pointer">Ex: Compute the lowest common ancestor when nodes have parent pointer</h2>
+<p>Lets modify the structure of a node to allow a node to have a pointer to the
+parent. Here is the modified structure:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BinaryTreeNode</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, data<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, left<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, right<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, parent<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>data <span style="color:#f92672">=</span> data
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> left
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> right
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>parent <span style="color:#f92672">=</span> parent
+</span></span></code></pre></div><p>The question now becomes we if can come up with a even more efficient algorithm
+than <code>O(n)</code> and <code>O(n)</code> by simple storing a tiny field in the binary tree data
+structure.</p>
+<p>Since we have the parent pointer, we do not use any stack space to find the
+original nodes. This is because we are given the original nodes and we don&rsquo;t
+need to use any sort of DFS traversal to find them. Rather, we can use our
+knowledge of the depth of a node to find the lowest common ancestor. Recall:</p>
+<blockquote>
+<p>Depth is the measure of how far a node is from the root of a tree</p>
+</blockquote>
+<p>Suppose <code>nodeA</code> has a depth $d_1$ and <code>nodeB</code> has a depth $d_2$. We have the
+following three cases:</p>
+<p>$$
+d_2 = d_1  \ \ \ \ (1) \\
+d_1 &gt; d_2  \ \ \ \ (2) \\
+d_2 &gt; d_1  \ \ \ \ (3) \\
+$$</p>
+<p>For case $(1)$, if we find both nodes to have the same height, the first node
+in common when traversing up would be the lowest common ancestor.</p>
+<p>For case $(2)$ and $(3)$, we can find the <code>offset</code> by computing $\text{max}(d_1,d_2) -
+\text{min}(d_1,d_2)$. This offset can be applied to the lower node and then we
+would have the solution to case $(1)$ apply to solve for the lowest common ancestor.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - We traverse the height which in the worst case is n </span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(1)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">uniform_up_ancestor</span>(nodeA, nodeB):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> nodeA <span style="color:#f92672">!=</span> nodeB:
+</span></span><span style="display:flex;"><span>        nodeA, nodeB <span style="color:#f92672">=</span> nodeA<span style="color:#f92672">.</span>parent, nodeB<span style="color:#f92672">.</span>parent
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> nodeA
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - We traverse the height which in the worst case is n</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(1)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">depth_of</span>(node):
+</span></span><span style="display:flex;"><span>    depth <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> node:
+</span></span><span style="display:flex;"><span>        node, depth <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>parent, depth<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> depth
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - We traverse the height which in the worst case is n</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(1)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">traverse_up</span>(node, offset):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> offset <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">and</span> node:
+</span></span><span style="display:flex;"><span>        node <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>parent
+</span></span><span style="display:flex;"><span>        offset <span style="color:#f92672">-=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> node
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - Just call the helper functions</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(1) - Also just call the helper functions</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find_lowest_common_ancestor</span>(nodeA, nodeB):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Compute necessary stats</span>
+</span></span><span style="display:flex;"><span>    depthA <span style="color:#f92672">=</span> depth_of(nodeA)
+</span></span><span style="display:flex;"><span>    depthB <span style="color:#f92672">=</span> depth_of(nodeB)
+</span></span><span style="display:flex;"><span>    offset <span style="color:#f92672">=</span> abs(depthA <span style="color:#f92672">-</span> depthB)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Move nodes to equal offsets</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> depthA <span style="color:#f92672">&gt;</span> depthB:
+</span></span><span style="display:flex;"><span>        nodeA <span style="color:#f92672">=</span> traverse_up(nodeA, offset)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> depthB <span style="color:#f92672">&gt;</span> depthA:
+</span></span><span style="display:flex;"><span>        nodeB <span style="color:#f92672">=</span> traverse_up(nodeB, offset)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># find common ancestors in uniform up direction</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> uniform_up_ancestor(nodeA, nodeB)
+</span></span></code></pre></div><h2 id="ex-sum-root-to-leaf-paths-in-a-binary-tree">Ex: Sum root to leaf paths in a binary tree</h2>
+<p>If we have a binary tree where each node contains a binary digit. Write a
+program that computes the sum of all root to leaf binary combinations.
+For example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>      1
+</span></span><span style="display:flex;"><span>     / \
+</span></span><span style="display:flex;"><span>    0   1
+</span></span><span style="display:flex;"><span>   / \ / \
+</span></span><span style="display:flex;"><span>  1  0 1  0
+</span></span></code></pre></div><p>Assuming root is the most significant bit, the solution is:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>5+4+7+6
+</span></span></code></pre></div><p>We can use in preorder traversal to accrue weighted node values and pass them
+to left and right children which perform the same operation recursively.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - DFS</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - worst case height is n</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">root_to_leaf_sum</span>(root, current_sumi<span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Basecase</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> root: <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Update Sum</span>
+</span></span><span style="display:flex;"><span>    current_sum <span style="color:#f92672">=</span> root<span style="color:#f92672">.</span>value <span style="color:#f92672">+</span> current_sum <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> root<span style="color:#f92672">.</span>left <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> root<span style="color:#f92672">.</span>right:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> current_sum
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Compute remaining sums</span>
+</span></span><span style="display:flex;"><span>    left_sum <span style="color:#f92672">=</span> root_to_leaf_sum(root<span style="color:#f92672">.</span>left, current_sum)
+</span></span><span style="display:flex;"><span>    right_sum <span style="color:#f92672">=</span> root_to_leaf_sum(root<span style="color:#f92672">.</span>right, current_sum)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> left_sum <span style="color:#f92672">+</span> right_sum
+</span></span></code></pre></div>
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://w28ahmad.github.io/post/mastering_dynamic_programming/" data-toggle="tooltip" data-placement="top" title="Mastering Dynamic Programming">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/programming" title="programming">
+                            programming
+                        </a>
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Wahab Ahmad" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:w28ahmad@uwaterloo.ca"
+                        rel="alternate" type="application/rss+xml" title="mailto:w28ahmad@uwaterloo.ca" >
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/w28ahmad" title="GitHub">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/" title="LinkedIn">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Wahab Ahmad 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe title="Zhao Huabing GitHub"
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

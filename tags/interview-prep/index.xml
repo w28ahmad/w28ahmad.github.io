@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Programming on Wahab Ahmad</title>
-    <link>https://w28ahmad.github.io/categories/programming/</link>
-    <description>Recent content in Programming on Wahab Ahmad</description>
+    <title>Interview Prep on Wahab Ahmad</title>
+    <link>https://w28ahmad.github.io/tags/interview-prep/</link>
+    <description>Recent content in Interview Prep on Wahab Ahmad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 May 2023 18:01:22 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/categories/programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 May 2023 18:01:22 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/tags/interview-prep/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mastering Binary Trees</title>
       <link>https://w28ahmad.github.io/post/mastering_binary_trees/</link>
@@ -24,25 +24,6 @@
       <guid>https://w28ahmad.github.io/post/mastering_dynamic_programming/</guid>
       <description>Overview Dynamic Programming is a general technique for solving optimization, search, and counting problems that can be decomposed to subproblems. In such problems, these subproblems commonly reoccur and so we must cache the solutions to the subproblems and use them to solve larger problems until we obtain the solution to the original problem.
 Introduction Fibonacci Numbers Let us start with a rather simple example, Fibonacci Numbers are computed using the following formula $F(n) = F(n-1) + F(n-2)$ and constructs the following infinite sequence $0, 1, 1, 2, 3, 5, 8, 13, 21, &amp;hellip;$ Since the new element in the sequence is generated using the previous 2 elements suggests that Dynamic Programming can be leveraged.</description>
-    </item>
-    
-    <item>
-      <title>Architectural Styles</title>
-      <link>https://w28ahmad.github.io/post/architectural_style/</link>
-      <pubDate>Mon, 24 Apr 2023 04:36:36 -0400</pubDate>
-      
-      <guid>https://w28ahmad.github.io/post/architectural_style/</guid>
-      <description>Pipe and Filter Suitable for applications that require a defined series of independent computations. Components read streams of data on their inputs and produce streams of data on their outputs. Components: Filters, apply local transformations to their input streams and often do their computing incrementally so that the output begins before all input is consumed. Connectors: Pipes, serve as conduits for the streams, transmitting outputs of one filter to inputs of another.</description>
-    </item>
-    
-    <item>
-      <title>Design Patterns</title>
-      <link>https://w28ahmad.github.io/post/design-patterns/</link>
-      <pubDate>Wed, 19 Apr 2023 07:15:38 -0400</pubDate>
-      
-      <guid>https://w28ahmad.github.io/post/design-patterns/</guid>
-      <description>Overview Object-oriented design patterns are fundamental to programming. They are reusable solutions to common problems encountered during programming, often making heavy use of interfaces, information hiding, polymorphism, and intermediary objects. There are three main categories of design patterns that will be discussed in this blog:
-Creational Patterns Structural Patterns Behavioral Patterns Other engineers have faced issues while developing applications, and they have come up with specific design patterns. We can leverage their knowledge in our own software design to simplify the process.</description>
     </item>
     
   </channel>
