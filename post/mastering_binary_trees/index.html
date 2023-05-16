@@ -246,6 +246,7 @@
     <li><a href="#ex-compute-the-lowest-common-ancestor-in-a-binary-tree">Ex: Compute The lowest common ancestor in a binary tree</a></li>
     <li><a href="#ex-compute-the-lowest-common-ancestor-when-nodes-have-parent-pointer">Ex: Compute the lowest common ancestor when nodes have parent pointer</a></li>
     <li><a href="#ex-sum-root-to-leaf-paths-in-a-binary-tree">Ex: Sum root to leaf paths in a binary tree</a></li>
+    <li><a href="#find-a-root-to-leaf-path-with-a-specified-sum">Find a root to leaf path with a specified sum</a></li>
   </ul>
 </nav>
                 
@@ -677,6 +678,36 @@ to left and right children which perform the same operation recursively.</p>
 </span></span><span style="display:flex;"><span>    right_sum <span style="color:#f92672">=</span> root_to_leaf_sum(root<span style="color:#f92672">.</span>right, current_sum)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> left_sum <span style="color:#f92672">+</span> right_sum
+</span></span></code></pre></div><h2 id="find-a-root-to-leaf-path-with-a-specified-sum">Find a root to leaf path with a specified sum</h2>
+<p>Given a sum, check if there is a root to leaf path that equals to that sum. For
+example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>      5
+</span></span><span style="display:flex;"><span>     / \
+</span></span><span style="display:flex;"><span>    4   8
+</span></span><span style="display:flex;"><span>   /   / \
+</span></span><span style="display:flex;"><span>  11  13  4
+</span></span><span style="display:flex;"><span> / \      \
+</span></span><span style="display:flex;"><span>7   2      1
+</span></span></code></pre></div><p>If we are given the target sum of $22$, we can confirm that the following path
+matches the target sum, so we must return <code>True</code>.</p>
+<pre tabindex="0"><code>5 -&gt; 4 -&gt; 11 -&gt; 2
+</code></pre><p>The structure of this problem is similar to the previous problem because both
+problems are in a way dealing with root to leaf sums. Additionally, we have the
+basecases outlined fairly well, which is does the sum at the leaf node match
+the target. We can use simple DFS to traverse the tree and check for the basecase:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - Performing DFS</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - worst case stack height is n</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">has_path_sum</span>(tree, remaining_sum):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Edge Case</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> tree: <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Base Case</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> tree<span style="color:#f92672">.</span>left <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> tree<span style="color:#f92672">.</span>right:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> remaining_sum <span style="color:#f92672">==</span> tree<span style="color:#f92672">.</span>value
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Recursively check all nodes</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> has_path_sum(tree<span style="color:#f92672">.</span>left, remaining_sum <span style="color:#f92672">-</span> tree<span style="color:#f92672">.</span>value) <span style="color:#f92672">or</span> \
+</span></span><span style="display:flex;"><span>        has_path_sum(tree<span style="color:#f92672">.</span>right, remaining_sum <span style="color:#f92672">-</span> tree<span style="color:#f92672">.</span>value)
 </span></span></code></pre></div>
 
                 
