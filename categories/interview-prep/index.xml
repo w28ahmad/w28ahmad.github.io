@@ -26,5 +26,15 @@
 Introduction Fibonacci Numbers Let us start with a rather simple example, Fibonacci Numbers are computed using the following formula $F(n) = F(n-1) + F(n-2)$ and constructs the following infinite sequence $0, 1, 1, 2, 3, 5, 8, 13, 21, &amp;hellip;$ Since the new element in the sequence is generated using the previous 2 elements suggests that Dynamic Programming can be leveraged.</description>
     </item>
     
+    <item>
+      <title>Design Patterns</title>
+      <link>https://w28ahmad.github.io/post/design-patterns/</link>
+      <pubDate>Wed, 19 Apr 2023 07:15:38 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/design-patterns/</guid>
+      <description>Overview Object-oriented design patterns are fundamental to programming. They are reusable solutions to common problems encountered during programming, often making heavy use of interfaces, information hiding, polymorphism, and intermediary objects. There are three main categories of design patterns that will be discussed in this blog:
+Creational Patterns Structural Patterns Behavioral Patterns Other engineers have faced issues while developing applications, and they have come up with specific design patterns. We can leverage their knowledge in our own software design to simplify the process.</description>
+    </item>
+    
   </channel>
 </rss>
