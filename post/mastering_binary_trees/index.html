@@ -247,6 +247,7 @@
     <li><a href="#ex-compute-the-lowest-common-ancestor-when-nodes-have-parent-pointer">Ex: Compute the lowest common ancestor when nodes have parent pointer</a></li>
     <li><a href="#ex-sum-root-to-leaf-paths-in-a-binary-tree">Ex: Sum root to leaf paths in a binary tree</a></li>
     <li><a href="#ex-find-a-root-to-leaf-path-with-a-specified-sum">Ex: Find a root to leaf path with a specified sum</a></li>
+    <li><a href="#ex-implement-an-preorder-inorder-and-postorder-traversal-without-recursion">Ex: Implement an preorder, inorder and postorder traversal without recursion</a></li>
   </ul>
 </nav>
                 
@@ -708,6 +709,70 @@ the target. We can use simple DFS to traverse the tree and check for the basecas
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Recursively check all nodes</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> has_path_sum(tree<span style="color:#f92672">.</span>left, remaining_sum <span style="color:#f92672">-</span> tree<span style="color:#f92672">.</span>value) <span style="color:#f92672">or</span> \
 </span></span><span style="display:flex;"><span>        has_path_sum(tree<span style="color:#f92672">.</span>right, remaining_sum <span style="color:#f92672">-</span> tree<span style="color:#f92672">.</span>value)
+</span></span></code></pre></div><h2 id="ex-implement-an-preorder-inorder-and-postorder-traversal-without-recursion">Ex: Implement an preorder, inorder and postorder traversal without recursion</h2>
+<p>We gave various traversals, preorder traversal, inorder traversal and postorder
+traversal. In this example we need to write a program that performs all possible
+traversals that does not use recursion.</p>
+<p>To solve this question we must think about how recursion works. Briefly, recursion
+uses stack space and stacks recursive calls until we reach a basecase. If we are
+going to write recursion interativly we must find a way to mimic this behaviour.
+This means we need to leverage the stack data structure to mimic this behaviour.</p>
+<p><strong>Preorder Traversal</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - Need to traverse all nodes n</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - The stack space in the worst case is n</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">interative_preorder_traversal</span>(root):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Edgecase</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> root: <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Use array as a stack</span>
+</span></span><span style="display:flex;"><span>    stack <span style="color:#f92672">=</span> [root]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> stack:
+</span></span><span style="display:flex;"><span>        node <span style="color:#f92672">=</span> stack<span style="color:#f92672">.</span>pop()
+</span></span><span style="display:flex;"><span>        print(node<span style="color:#f92672">.</span>value)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Place left last because we always need to pop left first</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> node<span style="color:#f92672">.</span>right: stack<span style="color:#f92672">.</span>push(node<span style="color:#f92672">.</span>right)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> node<span style="color:#f92672">.</span>left: stack<span style="color:#f92672">.</span>push(node<span style="color:#f92672">.</span>left)
+</span></span></code></pre></div><p><strong>Inorder Traversal</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - Need to traverse all nodes n</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - The stack space in the worst case is n</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">interative_inorder_traversal</span>(root):
+</span></span><span style="display:flex;"><span>    stack <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    current <span style="color:#f92672">=</span> root
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> current <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            stack<span style="color:#f92672">.</span>push(current)
+</span></span><span style="display:flex;"><span>            current <span style="color:#f92672">=</span> root<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> stack:
+</span></span><span style="display:flex;"><span>            node <span style="color:#f92672">=</span> stack<span style="color:#f92672">.</span>pop()
+</span></span><span style="display:flex;"><span>            print(stack<span style="color:#f92672">.</span>value)
+</span></span><span style="display:flex;"><span>            current <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span></code></pre></div><p><strong>Postorder Traversal</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n) - Need to traverse all nodes n</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(n) - The stack space in the worst case is n</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">interative_postorder_traversal</span>(root):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> root <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>: <span style="color:#66d9ef">return</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    stack <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    prev <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> root <span style="color:#f92672">or</span> stack:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> root:
+</span></span><span style="display:flex;"><span>            stack<span style="color:#f92672">.</span>push(root)
+</span></span><span style="display:flex;"><span>            root <span style="color:#f92672">=</span> root<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        root <span style="color:#f92672">=</span> stack[<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> root<span style="color:#f92672">.</span>right <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#f92672">or</span> root<span style="color:#f92672">.</span>right <span style="color:#f92672">==</span> prev:
+</span></span><span style="display:flex;"><span>            print(root<span style="color:#f92672">.</span>value)
+</span></span><span style="display:flex;"><span>            stack<span style="color:#f92672">.</span>pop()
+</span></span><span style="display:flex;"><span>            prev <span style="color:#f92672">=</span> root
+</span></span><span style="display:flex;"><span>            root <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            root <span style="color:#f92672">=</span> root<span style="color:#f92672">.</span>right
 </span></span></code></pre></div>
 
                 

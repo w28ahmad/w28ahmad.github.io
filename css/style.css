@@ -228,6 +228,10 @@ th {
   line-height: 1.5;
 }
 
+/* table, th, td { */
+/*     border: 1px solid black !important; */
+/* } */
+
 /* Images */
 .alignright,
 .alignleft,
