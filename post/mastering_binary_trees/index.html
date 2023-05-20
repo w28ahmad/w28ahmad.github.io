@@ -248,6 +248,7 @@
     <li><a href="#ex-sum-root-to-leaf-paths-in-a-binary-tree">Ex: Sum root to leaf paths in a binary tree</a></li>
     <li><a href="#ex-find-a-root-to-leaf-path-with-a-specified-sum">Ex: Find a root to leaf path with a specified sum</a></li>
     <li><a href="#ex-implement-an-preorder-inorder-and-postorder-traversal-without-recursion">Ex: Implement an preorder, inorder and postorder traversal without recursion</a></li>
+    <li><a href="#ex-compute-the-k-th-node-in-an-inorder-traversal">Ex: Compute the k-th node in an inorder traversal</a></li>
   </ul>
 </nav>
                 
@@ -773,6 +774,37 @@ This means we need to leverage the stack data structure to mimic this behaviour.
 </span></span><span style="display:flex;"><span>            root <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
 </span></span><span style="display:flex;"><span>            root <span style="color:#f92672">=</span> root<span style="color:#f92672">.</span>right
+</span></span></code></pre></div><h2 id="ex-compute-the-k-th-node-in-an-inorder-traversal">Ex: Compute the k-th node in an inorder traversal</h2>
+<p>This problem is trivial given the previous recursive and iterative techniques.
+However, if we allow each node to store the number of nodes in its subtrees
+including that node, what is the most optimal way to compute the k-th node
+in an inorder traversal:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">BinaryTreeNode</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, data<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, left<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, right<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>, subnodes<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>data <span style="color:#f92672">=</span> data
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>left <span style="color:#f92672">=</span> left
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>right <span style="color:#f92672">=</span> right
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>size <span style="color:#f92672">=</span> subnodes
+</span></span></code></pre></div><p>We want to write an algorithm takes a look at the sub-tree size and decides
+wheather the k-th nodes falls in that subtree, otherwise we can simply return
+and avoid exploring the subtree. We can do this iteratively by using a variant
+of the iterative inorder traversal. While the tree exists we can take a look
+at the number of subnodes and find if the kth node is in the left subtree,
+right subtree or the current node.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#75715e"># Time: O(n)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Space: O(1)</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Let n be the number of nodes</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">find_kth_node_binary_tree</span>(tree):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> tree:
+</span></span><span style="display:flex;"><span>        left_size <span style="color:#f92672">=</span> tree<span style="color:#f92672">.</span>left<span style="color:#f92672">.</span>size <span style="color:#66d9ef">if</span> tree<span style="color:#f92672">.</span>left <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> left_size<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&lt;</span> k:     <span style="color:#75715e"># The kth node is not in the left subtree</span>
+</span></span><span style="display:flex;"><span>            k <span style="color:#f92672">-=</span> left_size <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>            tree <span style="color:#f92672">=</span> tree<span style="color:#f92672">.</span>right
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> left_size <span style="color:#f92672">==</span> k<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>:  <span style="color:#75715e"># Current node is the kth node</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> tree
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:                   <span style="color:#75715e"># Go to the left subtree</span>
+</span></span><span style="display:flex;"><span>            tree <span style="color:#f92672">=</span> tree<span style="color:#f92672">.</span>left
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">None</span>
 </span></span></code></pre></div>
 
                 
