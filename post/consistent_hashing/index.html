@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Wahab Ahmad">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://w28ahmad.github.io/">
+    <meta property="twitter:image" content="https://w28ahmad.github.io/" />
+    
+
+    
+    <meta name="title" content="Consistent Hashing" />
+    <meta property="og:title" content="Consistent Hashing" />
+    <meta property="twitter:title" content="Consistent Hashing" />
+    
+
+    
+    <meta name="description" content="Learn consistent hashing - a hashing technique that minimizes cache misses among cache servers">
+    <meta property="og:description" content="Learn consistent hashing - a hashing technique that minimizes cache misses among cache servers" />
+    <meta property="twitter:description" content="Learn consistent hashing - a hashing technique that minimizes cache misses among cache servers" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Wahab, Math, Machine Learning">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Consistent Hashing-Wahab&#39;s Blog</title>
+
+    <link rel="canonical" href="/post/consistent_hashing/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+      });
+    </script>
+
+
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wahab Ahmad</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/economics">economics</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/interview-prep">interview-prep</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/machine-learning">machine-learning</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/math">math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/programming">programming</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/system-design">system-design</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="https://wahabahmad.ca/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/distributed-computing" title="Distributed Computing">
+                            Distributed Computing
+                        </a>
+                        
+                        <a class="tag" href="/tags/system-design" title="System Design">
+                            System Design
+                        </a>
+                        
+                    </div>
+                    <h1>Consistent Hashing</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                Wahab Ahmad
+                         
+                        on 
+                        Friday, July 7, 2023
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>Contents</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-consistent-hashing">What is Consistent Hashing?</a></li>
+    <li><a href="#why-is-consistent-hashing-important">Why is Consistent Hashing Important?</a></li>
+    <li><a href="#how-does-consistent-hashing-work">How does consistent hashing work?</a></li>
+    <li><a href="#simple-hash-function">Simple Hash Function</a></li>
+    <li><a href="#inserting-a-node--cache-server">Inserting a Node / Cache Server</a></li>
+    <li><a href="#removing-a-nodecache-server">Removing a Node/Cache server</a></li>
+    <li><a href="#inserting-data">Inserting Data</a></li>
+    <li><a href="#getting-data">Getting Data</a></li>
+    <li><a href="#removing-data">Removing Data</a></li>
+    <li><a href="#final-thoughts">Final Thoughts</a></li>
+  </ul>
+</nav>
+                
+                <blockquote>
+<p>If you are unsure of the implementation, you can find the source code of my
+consistent hashing algorithm <a href="https://github.com/w28ahmad/consistency-hashing">here</a>.</p>
+</blockquote>
+<h2 id="what-is-consistent-hashing">What is Consistent Hashing?</h2>
+<p>Imagine we are running a large web service that serves millions of requests
+every hour. Now this web service serves the client by making HTTP requests
+to a backend, which in turn uses a database(s) to query data and return it
+to the client. Now, when you are using a web service, you will often
+return to the same page as you browse the web service, which means you will
+be making redundant calls to the database. This is a very performance-heavy
+operation since a database can have a lot of data, and filtering can take time.
+So how can we solve this? We need to use caches, which are in-memory data
+source(s) that store key-value pairs to store the request and the response.
+This way we won&rsquo;t need to constantly call out to the database.</p>
+<p>For a service this large, we would need quite a lot (and I mean a lot) of
+storage space. So, we would need several servers so the cumulative memory
+is sufficient. Well, now we arrive at a few more important questions&hellip;</p>
+<p>If we have several server caches which store requests and responses:</p>
+<ol>
+<li>
+<p>Which server do we use to store the request?</p>
+</li>
+<li>
+<p>Which server do we use to find the response given a request?</p>
+</li>
+<li>
+<p>What if a cache server goes down? What happens to the data?</p>
+</li>
+<li>
+<p>What if we add a server? How do we ease the load on the existing cache servers?</p>
+</li>
+</ol>
+<p>The optimal answer to all these questions lies in the implementation of
+consistent hashing.</p>
+<h2 id="why-is-consistent-hashing-important">Why is Consistent Hashing Important?</h2>
+<p>Short Answer: Because cache misses suck!</p>
+<p>Long Answer:
+Let us look at a few latency metrics that impact our measurement:</p>
+<pre tabindex="0"><code>| Operation Name            | Time      |
+|---------------------------|-----------|
+| L1 Cache Reference        | 0.5ns     |
+| L2 Cache Reference        | 7ns       |
+| Main Memory Reference     | 100ns     |
+| Disk Seek                 | 10ms      |
+</code></pre><p>Now, with this table, we realize data missing from caches incurs a heavy
+performance penalty. The whole idea around consistency hashing is to
+minimize cache misses with the least amount of overhead. Additionally,
+it can be used to improve load distribution, enabling easier scaling
+of adding additional cache nodes.</p>
+<h2 id="how-does-consistent-hashing-work">How does consistent hashing work?</h2>
+<p>The brilliant idea behind consistency hashing is that no data is thrown away
+when nodes are removed. Additionally, a portion of the data is redistributed
+every time nodes are added.</p>
+<blockquote>
+<p>I use nodes as a reference to cache servers</p>
+</blockquote>
+<p>How is this possible? This is all possible through a structure called the
+&ldquo;Hash Ring&rdquo; shown below:
+
+  <img src="/static/posts/20230830193504.png" alt="Test">
+
+</p>
+<p><strong>Nodes are distributed on a hash ring which allows
+us to efficiently determine which server stores what range of data. So,
+during, insertions we can split and redistribute the data and during
+deletions, we can replace the data.</strong> Specifically, the hash ring describes
+the range of keys that are stored and where we should store them. Suppose
+we get data with key $k=12$, we would travel clockwise from 12 until the first
+cache server we reach on the hash ring. That is where the data will be stored.</p>
+<p>By way of example, in the diagram above we have 4 regions that are mapped,
+in a clockwise fashion to a specific server where the data will be stored.</p>
+<p>The beautiful thing about a hash ring is that it can easily be built using an
+AVL tree, or in other words a self-balancing binary tree. This keeps the
+implementation extremely efficient as we do not have to go around a
+ring linearly trying to find a server to store the data.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">HashRing</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>hashring <span style="color:#f92672">=</span> AVLTree()
+</span></span></code></pre></div><blockquote>
+<p>We will be build out this class throughout this blog. Only upfront requirement
+is a AVL Tree.</p>
+</blockquote>
+<h2 id="simple-hash-function">Simple Hash Function</h2>
+<p>We will need to translate server identifiers to keys that are uniquely distributed.
+During this implementation we will assume server identifiers are strings like
+<code>&quot;s1&quot;</code> and we will translate them to integer keys through a simple hash function.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">hashInt</span>(self, id):
+</span></span><span style="display:flex;"><span>    hash <span style="color:#f92672">=</span> sha256(id<span style="color:#f92672">.</span>encode())
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> int(hash<span style="color:#f92672">.</span>hexdigest(), <span style="color:#ae81ff">16</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> key
+</span></span></code></pre></div><h2 id="inserting-a-node--cache-server">Inserting a Node / Cache Server</h2>
+<p>To store data, we must first add a cache server or node to the hash ring. The
+first thing that we need to do is to translate the string key to the integer
+key. Now, we will add a node to the hash ring with the data as an empty AVL Tree.
+However, we will not keep it empty for long as that would be poor load distribution.</p>
+<p>We want to redistribute the load on our successor since some of the keys don&rsquo;t
+clockwise map on this node anymore. These keys along with their data need to be
+remapped to a new node. Thus, improving load distribution and reducing load contention.</p>
+<p>Now during the remapping process, we need to be careful with one particular edgecase.
+Because of the nature of a ring-like structure, the smallest node with say id $s$ will
+need to store keys from $0&hellip;s$ but also keys that fall ahead of the largest node. I
+call these the loop over keys. And you may note later due to symmetry, the symmetrical
+operation of removing a node will also require handling such an edge case.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">putNode</span>(self, nodeId):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Get hashInt</span>
+</span></span><span style="display:flex;"><span>        key <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashInt(nodeId)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Add the node to the AVLTree</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># The data data stucture is also an AVLtree</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>insert(key, AVLTree())
+</span></span><span style="display:flex;"><span>        node <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>find(key)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Get the successor</span>
+</span></span><span style="display:flex;"><span>        successor <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>getSuccessorByNode(node)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># If no successor, the successor is the</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># first node in the hashring</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> successor <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            successor <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>getSmallestNode()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># This is not the only added node</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> successor<span style="color:#f92672">.</span>key <span style="color:#f92672">!=</span> key:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Move the data from successor which</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># belongs to the current node</span>
+</span></span><span style="display:flex;"><span>            nodeDataTree <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>data
+</span></span><span style="display:flex;"><span>            successorDataTree <span style="color:#f92672">=</span> successor<span style="color:#f92672">.</span>data
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># The data that needs to move</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># are the keys which fall before</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># equal to the current keys value</span>
+</span></span><span style="display:flex;"><span>            nodesToMove <span style="color:#f92672">=</span> successorDataTree<span style="color:#f92672">.</span>getNodesWithSmallerKeys(key)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>isSmallestNode(key):
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Need to transfer the loop over keys</span>
+</span></span><span style="display:flex;"><span>                nodesToMove<span style="color:#f92672">.</span>extend(successorDataTree
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">.</span>getNodesWithInvalidKeys(successor<span style="color:#f92672">.</span>key))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> node <span style="color:#f92672">in</span> nodesToMove:
+</span></span><span style="display:flex;"><span>                nodeDataTree<span style="color:#f92672">.</span>insert(node<span style="color:#f92672">.</span>key, node<span style="color:#f92672">.</span>data)
+</span></span><span style="display:flex;"><span>                successorDataTree<span style="color:#f92672">.</span>delete(node<span style="color:#f92672">.</span>key)
+</span></span></code></pre></div><h2 id="removing-a-nodecache-server">Removing a Node/Cache server</h2>
+<p>Removing a cache server or node has similar steps to adding a node. However,
+during deletion, we do not want to lose the data that was stored on that
+node because that would increase cache misses. We rather move the data to our
+successor as it is now responsible for holding the data.</p>
+<p>You will again note that we are dealing with loop-around nodes since the nature
+of a ring-like structure requires integers to loop around once we reach the end.
+Therefore, these keys need to be handled with care as shown below:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">removeNode</span>(self, nodeId):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get hashInt</span>
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashInt(nodeId)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get the node</span>
+</span></span><span style="display:flex;"><span>    node <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>find(key)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get the successor</span>
+</span></span><span style="display:flex;"><span>    successor <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>getSuccessorByNode(node)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get smallest node incase</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># If we later need to loop nodes around to the Start</span>
+</span></span><span style="display:flex;"><span>    smallestNode <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>getSmallestNode()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># If no successor, the successor is the</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># first node in the hashring</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> successor <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        successor <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>getSmallestNode()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> successor <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;All Nodes Cleared -- Dropping Remaining Data&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># We have not removed all servers</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> successor<span style="color:#f92672">.</span>key <span style="color:#f92672">!=</span> key:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Move the data</span>
+</span></span><span style="display:flex;"><span>        nodeDataTree <span style="color:#f92672">=</span> node<span style="color:#f92672">.</span>data
+</span></span><span style="display:flex;"><span>        successorDataTree <span style="color:#f92672">=</span> successor<span style="color:#f92672">.</span>data
+</span></span><span style="display:flex;"><span>        smallestNodeDataTree <span style="color:#f92672">=</span> smallestNode<span style="color:#f92672">.</span>data
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">while</span> <span style="color:#f92672">not</span> nodeDataTree<span style="color:#f92672">.</span>isEmpty():
+</span></span><span style="display:flex;"><span>            dataKey, data <span style="color:#f92672">=</span> nodeDataTree<span style="color:#f92672">.</span>root<span style="color:#f92672">.</span>key, nodeDataTree<span style="color:#f92672">.</span>root<span style="color:#f92672">.</span>data
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> dataKey <span style="color:#f92672">&gt;</span> key:
+</span></span><span style="display:flex;"><span>                <span style="color:#75715e"># Loop around</span>
+</span></span><span style="display:flex;"><span>                smallestNodeDataTree<span style="color:#f92672">.</span>insert(dataKey, data)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                successorDataTree<span style="color:#f92672">.</span>insert(dataKey, data)
+</span></span><span style="display:flex;"><span>            nodeDataTree<span style="color:#f92672">.</span>delete(nodeDataTree<span style="color:#f92672">.</span>root<span style="color:#f92672">.</span>key)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># delete node</span>
+</span></span><span style="display:flex;"><span>    self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>delete(key)
+</span></span></code></pre></div><p>With both insertion and deletion figured out, we can easily scale our caches
+without having to worry about minimizing cache misses. Data is maintained in
+the hashring as long as we have at least one node in the hashring at all times.
+Now all that is left to cover is how to add data to the hash ring, how to remove
+data from the hash ring and how to delete data from the hash ring.</p>
+<h2 id="inserting-data">Inserting Data</h2>
+<p>Now that we can add several nodes as potential caches, we need to cache
+the data. As mentioned before, inserting data is fairly easy, we need to move
+to the location where the data key belongs. Then find the first cache node we
+reach moving in a clockwise direction from that point forward.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">putData</span>(self, id, data):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Find the hashInt</span>
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashInt(id)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Find the node where data needs to go</span>
+</span></span><span style="display:flex;"><span>    successor <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>getSuccessorByKey(key)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> successor <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        successor <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>getSmallestNode()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> successor <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;No Storage Nodes&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Add the data to the node</span>
+</span></span><span style="display:flex;"><span>    successorDataTree <span style="color:#f92672">=</span> successor<span style="color:#f92672">.</span>data
+</span></span><span style="display:flex;"><span>    successorDataTree<span style="color:#f92672">.</span>insert(key, data)
+</span></span></code></pre></div><h2 id="getting-data">Getting Data</h2>
+<p>Now that we can place data into that cache we need the ability to retrieve it.
+It follows that same process, hash the key, find the spot in the ring where
+the integer hash belongs, move clockwise until a node is reached. Boom. You can retrieve
+the data from that node guranteed. Assuming at some point you placed the data into
+the ring (of course).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">getData</span>(self, id):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Find hashInt</span>
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashInt(id)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Find the node where the data should exist</span>
+</span></span><span style="display:flex;"><span>    successor <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>getSuccessorByKey(key)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> successor <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        successor <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>getSmallestNode()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> successor <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;No Storage Node&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get the data from the node</span>
+</span></span><span style="display:flex;"><span>    successorDataTree <span style="color:#f92672">=</span> successor<span style="color:#f92672">.</span>data
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> successorDataTree<span style="color:#f92672">.</span>find(key)<span style="color:#f92672">.</span>data
+</span></span></code></pre></div><h2 id="removing-data">Removing Data</h2>
+<p>Now that we can place the data and retrieve the data, we need a way to remove the
+data. Which, in all honesty, generally doesn&rsquo;t happen in a cache since the data
+is removed when the cache becomes full through some protocol like LRU (Least-Recently-Used).
+However, we will implement a function to remove the data for completeness sake and
+testing purposes. Fortunately, removing data is not that much more complex and in
+fact, it is almost a similar process to the previous two. Hash the key into an integer
+find the integer on the ring, find the successor and then remove the data from that
+cache node.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Python" data-lang="Python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">removeData</span>(self, id):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Get hashInt</span>
+</span></span><span style="display:flex;"><span>    key <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashInt(id)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Find the node where data exists</span>
+</span></span><span style="display:flex;"><span>    successor <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>getSuccessorByKey(key)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> successor <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        successor <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>hashring<span style="color:#f92672">.</span>getSmallestNode()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> successor <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;No Storage Node&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Remove the data from the node</span>
+</span></span><span style="display:flex;"><span>    successorDataTree <span style="color:#f92672">=</span> successor<span style="color:#f92672">.</span>data
+</span></span><span style="display:flex;"><span>    successorDataTree<span style="color:#f92672">.</span>delete(key)
+</span></span></code></pre></div><h2 id="final-thoughts">Final Thoughts</h2>
+<p>This algorithm is implemented in every distributed cache where it is vital to minimize
+cache misses and distribute load as equally as possible. With consistent hashing whenever
+we add a node we redistribute data from the successor reducing cache contention and whenever
+we remove a node we move the data to its successor which minimizes cache misses. There are
+more &ldquo;add-ons&rdquo; to this algorithm to further improve its performance, but these
+operations cover the critical implementation details and I encourage you to dive deeper
+if you are interested.</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://w28ahmad.github.io/post/mastering_binary_trees/" data-toggle="tooltip" data-placement="top" title="Mastering Binary Trees">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/interview-prep" title="interview-prep">
+                            interview-prep
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/programming" title="programming">
+                            programming
+                        </a>
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Wahab Ahmad" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:w28ahmad@uwaterloo.ca"
+                        rel="alternate" type="application/rss+xml" title="mailto:w28ahmad@uwaterloo.ca" >
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/w28ahmad" title="GitHub">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/" title="LinkedIn">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Wahab Ahmad 2023
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe title="Zhao Huabing GitHub"
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

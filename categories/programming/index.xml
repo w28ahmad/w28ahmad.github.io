@@ -13,7 +13,7 @@
       <pubDate>Wed, 10 May 2023 18:01:22 -0400</pubDate>
       
       <guid>https://w28ahmad.github.io/post/mastering_binary_trees/</guid>
-      <description>Overview Binary trees are a data strcture in computer science that consist of nodes with each node having at most $2$ children, referred to as left / right child. They are often used to organize data hierarchically, allowing efficient insertion, deletion and search operations. Common types of binary trees include binary search trees, where nodes are ordered such that for each node, all elements in its left subtree are less than the node&amp;rsquo;s value, and all nodes in its right subtree are greater than or equal to the node&amp;rsquo;s value.</description>
+      <description>Overview Binary trees are a data structure in computer science that consist of nodes with each node having at most $2$ children, referred to as left/right child. They are often used to organize data hierarchically, allowing efficient insertion, deletion and search operations. Common types of binary trees include binary search trees, where nodes are ordered such that for each node, all elements in its left subtree are less than the node&amp;rsquo;s value, and all nodes in its right subtree are greater than or equal to the node&amp;rsquo;s value.</description>
     </item>
     
     <item>

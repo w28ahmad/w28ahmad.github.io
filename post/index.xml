@@ -6,14 +6,24 @@
     <description>Recent content in Posts on Wahab Ahmad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 May 2023 18:01:22 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 07 Jul 2023 08:19:07 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Consistent Hashing</title>
+      <link>https://w28ahmad.github.io/post/consistent_hashing/</link>
+      <pubDate>Fri, 07 Jul 2023 08:19:07 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/consistent_hashing/</guid>
+      <description>If you are unsure of the implementation, you can find the source code of my consistent hashing algorithm here.
+What is Consistent Hashing? Imagine we are running a large web service that serves millions of requests every hour. Now this web service serves the client by making HTTP requests to a backend, which in turn uses a database(s) to query data and return it to the client. Now, when you are using a web service, you will often return to the same page as you browse the web service, which means you will be making redundant calls to the database.</description>
+    </item>
+    
     <item>
       <title>Mastering Binary Trees</title>
       <link>https://w28ahmad.github.io/post/mastering_binary_trees/</link>
       <pubDate>Wed, 10 May 2023 18:01:22 -0400</pubDate>
       
       <guid>https://w28ahmad.github.io/post/mastering_binary_trees/</guid>
-      <description>Overview Binary trees are a data strcture in computer science that consist of nodes with each node having at most $2$ children, referred to as left / right child. They are often used to organize data hierarchically, allowing efficient insertion, deletion and search operations. Common types of binary trees include binary search trees, where nodes are ordered such that for each node, all elements in its left subtree are less than the node&amp;rsquo;s value, and all nodes in its right subtree are greater than or equal to the node&amp;rsquo;s value.</description>
+      <description>Overview Binary trees are a data structure in computer science that consist of nodes with each node having at most $2$ children, referred to as left/right child. They are often used to organize data hierarchically, allowing efficient insertion, deletion and search operations. Common types of binary trees include binary search trees, where nodes are ordered such that for each node, all elements in its left subtree are less than the node&amp;rsquo;s value, and all nodes in its right subtree are greater than or equal to the node&amp;rsquo;s value.</description>
     </item>
     
     <item>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>System Design on Wahab Ahmad</title>
+    <link>https://w28ahmad.github.io/tags/system-design/</link>
+    <description>Recent content in System Design on Wahab Ahmad</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 07 Jul 2023 08:19:07 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/tags/system-design/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Consistent Hashing</title>
+      <link>https://w28ahmad.github.io/post/consistent_hashing/</link>
+      <pubDate>Fri, 07 Jul 2023 08:19:07 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/consistent_hashing/</guid>
+      <description>If you are unsure of the implementation, you can find the source code of my consistent hashing algorithm here.
+What is Consistent Hashing? Imagine we are running a large web service that serves millions of requests every hour. Now this web service serves the client by making HTTP requests to a backend, which in turn uses a database(s) to query data and return it to the client. Now, when you are using a web service, you will often return to the same page as you browse the web service, which means you will be making redundant calls to the database.</description>
+    </item>
+    
+  </channel>
+</rss>
