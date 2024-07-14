@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Wahab Ahmad">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://w28ahmad.github.io/">
+    <meta property="twitter:image" content="https://w28ahmad.github.io/" />
+    
+
+    
+    <meta name="title" content="Java Streams" />
+    <meta property="og:title" content="Java Streams" />
+    <meta property="twitter:title" content="Java Streams" />
+    
+
+    
+    <meta name="description" content="Lets learn about Java Streams">
+    <meta property="og:description" content="Lets learn about Java Streams" />
+    <meta property="twitter:description" content="Lets learn about Java Streams" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Wahab, Math, Machine Learning">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Java Streams-Wahab&#39;s Blog</title>
+
+    <link rel="canonical" href="/post/java-streams/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+      });
+    </script>
+
+
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wahab Ahmad</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/databases">databases</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/economics">economics</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/interview-prep">interview-prep</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/java">java</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/machine-learning">machine-learning</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/math">math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/programming">programming</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/sql">sql</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/system-design">system-design</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="https://wahabahmad.ca/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/java" title="Java">
+                            Java
+                        </a>
+                        
+                    </div>
+                    <h1>Java Streams</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                Wahab Ahmad
+                         
+                        on 
+                        Friday, October 13, 2023
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>Contents</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-a-stream">What is a Stream</a></li>
+    <li><a href="#why-streams-vs-collections">Why Streams vs Collections</a></li>
+    <li><a href="#how-are-streams-used">How are streams used</a></li>
+    <li><a href="#intermediate-operations">Intermediate Operations</a>
+      <ul>
+        <li><a href="#map">Map</a></li>
+        <li><a href="#filter">Filter</a></li>
+        <li><a href="#sort">Sort</a></li>
+        <li><a href="#flat-map">Flat Map</a></li>
+      </ul>
+    </li>
+    <li><a href="#terminal-operations">Terminal Operations</a>
+      <ul>
+        <li><a href="#collect">Collect</a></li>
+        <li><a href="#for-each">For Each</a></li>
+        <li><a href="#reduce">Reduce</a></li>
+        <li><a href="#find-first">Find First</a></li>
+        <li><a href="#all-match-any-match-and-none-match">All Match, Any Match and None Match</a></li>
+        <li><a href="#partition-by">Partition By</a></li>
+        <li><a href="#group-by">Group By</a></li>
+        <li><a href="#mapping">Mapping</a></li>
+        <li><a href="#dealing-with-nulls">Dealing with Nulls</a></li>
+      </ul>
+    </li>
+    <li><a href="#parallel-streams">Parallel Streams</a></li>
+    <li><a href="#benefits">Benefits</a></li>
+  </ul>
+</nav>
+                
+                <h2 id="what-is-a-stream">What is a Stream</h2>
+<p>Streams are contained inside the standard <code>java.util</code> library that were introduced
+in Java 8. They are used when we have sequence of elements on which we can
+perform aggregate operations. Stream operations consist of a <strong>stream pipeline</strong>,
+which consists of a source, a set of operations/computations followed by a terminal
+operation. Streams are lazy which means that they are not setup or initialized during
+setup, rather computation on the source is only initiated when the program reaches
+the terminal operation. It is imporant to note that a stream does not store data
+and in that sense it is not a data structure.</p>
+<h2 id="why-streams-vs-collections">Why Streams vs Collections</h2>
+<p>There are many similarities among stream uses and collection uses. However, the main
+differences lies in management of and access to elements. Collections allow access
+to elements along with efficient ways to manage these elements. Streams do not allow
+access to these elements or ways to manipulate the data. Rather, the goal of a stream
+is to give you a way to declaratively describe computational operations performed on
+the data from the source.</p>
+<p>Example from java docs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> <span style="color:#66d9ef">int</span> sum <span style="color:#f92672">=</span> widgets<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> w<span style="color:#f92672">.</span><span style="color:#a6e22e">getColor</span><span style="color:#f92672">()</span> <span style="color:#f92672">==</span> RED<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">mapToInt</span><span style="color:#f92672">(</span>w <span style="color:#f92672">-&gt;</span> w<span style="color:#f92672">.</span><span style="color:#a6e22e">getWeight</span><span style="color:#f92672">())</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">sum</span><span style="color:#f92672">();</span>
+</span></span></code></pre></div><h2 id="how-are-streams-used">How are streams used</h2>
+<p>As described before, there are two types of operations that can be performed on a
+stream. Namely:</p>
+<ul>
+<li>Intermediate Operations</li>
+<li>Terminal Operations</li>
+</ul>
+<p>Intermediate operations convert one input stream into another output stream. Then
+multiple operations can be chained in a row to perform multiple operations. The
+terminal operations then transforms the stream into whatever data type the result
+should be stored.</p>
+<h2 id="intermediate-operations">Intermediate Operations</h2>
+<h3 id="map">Map</h3>
+<p>Map mutates elements of a stream into another:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> number <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">,</span><span style="color:#ae81ff">5</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> square <span style="color:#f92672">=</span> number<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>x<span style="color:#f92672">-&gt;</span>x<span style="color:#f92672">*</span>x<span style="color:#f92672">).</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+</span></span></code></pre></div><p>There are also builtin functions to map elements to a different data type. For
+instance, <code>mapToInt</code> converts all elements to int type.</p>
+<h3 id="filter">Filter</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> number <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">,</span><span style="color:#ae81ff">5</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> even <span style="color:#f92672">=</span> number<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>x<span style="color:#f92672">-&gt;</span>x<span style="color:#f92672">%</span><span style="color:#ae81ff">2</span><span style="color:#f92672">==</span><span style="color:#ae81ff">0</span><span style="color:#f92672">).</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+</span></span></code></pre></div><p>We can also use the <code>distinct</code> method in a similar way.</p>
+<h3 id="sort">Sort</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> number <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">,</span><span style="color:#ae81ff">5</span><span style="color:#f92672">,</span><span style="color:#ae81ff">1</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> sorted <span style="color:#f92672">=</span> number<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">sorted</span><span style="color:#f92672">().</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+</span></span></code></pre></div><h3 id="flat-map">Flat Map</h3>
+<p>Some times we are dealing with data structures which are grouped (Ex: <code>List&lt;List&lt;String&gt;&gt;</code>.
+However, we would like to perform operations on items of each group. In this case, we would
+like to flatten the elements inside the stream.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;&gt;</span> namesNested <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>      Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Jeff&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Bezos&#34;</span><span style="color:#f92672">),</span>
+</span></span><span style="display:flex;"><span>      Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Bill&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Gates&#34;</span><span style="color:#f92672">),</span>
+</span></span><span style="display:flex;"><span>      Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Mark&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;Zuckerberg&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    List<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">&gt;</span> namesFlatStream <span style="color:#f92672">=</span> namesNested<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">flatMap</span><span style="color:#f92672">(</span>Collection<span style="color:#f92672">::</span>stream<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">());</span>
+</span></span></code></pre></div><h2 id="terminal-operations">Terminal Operations</h2>
+<h3 id="collect">Collect</h3>
+<p>Used to collect the results of a stream in a data structure. Several example of
+this have been shown above.</p>
+<p>We can also collect a stream of strings and join them as we deem fit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>String joinedName <span style="color:#f92672">=</span> people<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>Person<span style="color:#f92672">::</span>getName<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">joining</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;, &#34;</span><span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">toString</span><span style="color:#f92672">();</span>
+</span></span></code></pre></div><h3 id="for-each">For Each</h3>
+<p>Loop through and access each element of the stream result:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> number <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">,</span><span style="color:#ae81ff">5</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>number<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>x<span style="color:#f92672">-&gt;</span>x<span style="color:#f92672">*</span>x<span style="color:#f92672">).</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>y<span style="color:#f92672">-&gt;</span>System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>y<span style="color:#f92672">));</span>
+</span></span></code></pre></div><h3 id="reduce">Reduce</h3>
+<p>Reduce the elements of a stream to a single value. Takes a binary operator
+as a parameter. For example, here we sum all the numbers into <code>res</code> where
+the initial value of <code>res</code> is 0.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> number <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span><span style="color:#ae81ff">3</span><span style="color:#f92672">,</span><span style="color:#ae81ff">4</span><span style="color:#f92672">,</span><span style="color:#ae81ff">5</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>Integer result <span style="color:#f92672">=</span> number<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">reduce</span><span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">,</span> <span style="color:#f92672">(</span>res<span style="color:#f92672">,</span> i<span style="color:#f92672">)</span> <span style="color:#f92672">-&gt;</span> res<span style="color:#f92672">+</span>i<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// or
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>Integer result <span style="color:#f92672">=</span> number<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">reduce</span><span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">,</span> Integer<span style="color:#f92672">::</span>sum<span style="color:#f92672">);</span>
+</span></span></code></pre></div><h3 id="find-first">Find First</h3>
+<p>Allows us to collect only the first elment that reaches the end of the stream.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Employee employee <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span>empIds<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">map</span><span style="color:#f92672">(</span>employeeRepository<span style="color:#f92672">::</span>findById<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>e <span style="color:#f92672">-&gt;</span> e <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">filter</span><span style="color:#f92672">(</span>e <span style="color:#f92672">-&gt;</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">getSalary</span><span style="color:#f92672">()</span> <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">100000</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">findFirst</span><span style="color:#f92672">()</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">.</span><span style="color:#a6e22e">orElse</span><span style="color:#f92672">(</span><span style="color:#66d9ef">null</span><span style="color:#f92672">);</span>
+</span></span></code></pre></div><h3 id="all-match-any-match-and-none-match">All Match, Any Match and None Match</h3>
+<p>These operations take a predicate and return a boolean. This can be used to see
+if a condition matches any, all or none of the elements in stream.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> intList <span style="color:#f92672">=</span> Arrays<span style="color:#f92672">.</span><span style="color:#a6e22e">asList</span><span style="color:#f92672">(</span><span style="color:#ae81ff">2</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">4</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">5</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">6</span><span style="color:#f92672">,</span> <span style="color:#ae81ff">8</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">boolean</span> allEven <span style="color:#f92672">=</span> intList<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">allMatch</span><span style="color:#f92672">(</span>i <span style="color:#f92672">-&gt;</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">boolean</span> oneEven <span style="color:#f92672">=</span> intList<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">anyMatch</span><span style="color:#f92672">(</span>i <span style="color:#f92672">-&gt;</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">boolean</span> noneMultipleOfThree <span style="color:#f92672">=</span> intList<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">noneMatch</span><span style="color:#f92672">(</span>i <span style="color:#f92672">-&gt;</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">3</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">);</span>
+</span></span></code></pre></div><h3 id="partition-by">Partition By</h3>
+<p>Using a boolean predicate we can partition a stream into two groups:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    Map<span style="color:#f92672">&lt;</span>Boolean<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;&gt;</span> isEven <span style="color:#f92672">=</span> intList<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>      Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">partitioningBy</span><span style="color:#f92672">(</span>i <span style="color:#f92672">-&gt;</span> i <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span><span style="color:#f92672">));</span>
+</span></span></code></pre></div><h3 id="group-by">Group By</h3>
+<p>If we want to partition the stream into more than two groups we can use <code>groupingBy</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    <span style="color:#75715e">// Group by first character of first name
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Map<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;</span>Person<span style="color:#f92672">&gt;&gt;</span> groupByAlphabet <span style="color:#f92672">=</span> people<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>      Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">groupingBy</span><span style="color:#f92672">(</span>e <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> Character<span style="color:#f92672">(</span>e<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">().</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">))));</span>
+</span></span></code></pre></div><h3 id="mapping">Mapping</h3>
+<p>Grouping gives us a list of items grouped appropriately. However, sometimes we are
+interested in grouping and storing a different data type. This can be achieved through
+<code>mapping</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    Map<span style="color:#f92672">&lt;</span>Character<span style="color:#f92672">,</span> List<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;&gt;</span> idGroupedByAlphabet <span style="color:#f92672">=</span> people<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">collect</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>      Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">groupingBy</span><span style="color:#f92672">(</span>p <span style="color:#f92672">-&gt;</span> <span style="color:#66d9ef">new</span> Character<span style="color:#f92672">(</span>p<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">().</span><span style="color:#a6e22e">charAt</span><span style="color:#f92672">(</span><span style="color:#ae81ff">0</span><span style="color:#f92672">)),</span>
+</span></span><span style="display:flex;"><span>        Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">mapping</span><span style="color:#f92672">(</span>Person<span style="color:#f92672">::</span>getId<span style="color:#f92672">,</span> Collectors<span style="color:#f92672">.</span><span style="color:#a6e22e">toList</span><span style="color:#f92672">())));</span>
+</span></span></code></pre></div><h3 id="dealing-with-nulls">Dealing with Nulls</h3>
+<p>To avoid writing the following code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Stream<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> number <span style="color:#f92672">!=</span> <span style="color:#66d9ef">null</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">?</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">of</span><span style="color:#f92672">(</span>number<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">:</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">empty</span><span style="color:#f92672">();</span>
+</span></span></code></pre></div><p>We can use the method <code>ofNullable</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Stream<span style="color:#f92672">&lt;</span>Integer<span style="color:#f92672">&gt;</span> result <span style="color:#f92672">=</span> Stream<span style="color:#f92672">.</span><span style="color:#a6e22e">ofNullable</span><span style="color:#f92672">(</span>number<span style="color:#f92672">);</span>
+</span></span></code></pre></div><h2 id="parallel-streams">Parallel Streams</h2>
+<p>Another advantage of using streams is that it is easy to parallelize. All you
+have to do is to use <code>.parallel()</code> after the stream of your choice. However, it
+is important to meet certain conditions:</p>
+<ol>
+<li>You have to ensure that the code is thread safe</li>
+<li>You have to ensure the order of execution of the elements does not impact the result.
+For example, using <code>findFirst</code> cannot work will with concurrent execution.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>    empList<span style="color:#f92672">.</span><span style="color:#a6e22e">stream</span><span style="color:#f92672">().</span><span style="color:#a6e22e">parallel</span><span style="color:#f92672">().</span><span style="color:#a6e22e">forEach</span><span style="color:#f92672">(</span>e <span style="color:#f92672">-&gt;</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">salaryIncrement</span><span style="color:#f92672">(</span><span style="color:#ae81ff">10.0</span><span style="color:#f92672">));</span>
+</span></span></code></pre></div><h2 id="benefits">Benefits</h2>
+<ul>
+<li>Makes bulk operations convenient and fast</li>
+<li>Lazy evaluation - reduces the amount of memory required and improves performance</li>
+<li>Offers easy parallel processing</li>
+<li>Improves readablity and is consise</li>
+</ul>
+<p>References:
+<a href="https://stackify.com/streams-guide-java-8/">https://stackify.com/streams-guide-java-8/</a></p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://w28ahmad.github.io/post/sql-review/" data-toggle="tooltip" data-placement="top" title="Reviewing SQL">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="https://w28ahmad.github.io/post/understanding-timestamps/" data-toggle="tooltip" data-placement="top" title="Understanding Timestamps and Timezones">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/interview-prep" title="interview-prep">
+                            interview-prep
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/programming" title="programming">
+                            programming
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Wahab Ahmad" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:w28ahmad@uwaterloo.ca"
+                        rel="alternate" type="application/rss+xml" title="mailto:w28ahmad@uwaterloo.ca" >
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/w28ahmad" title="GitHub">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/" title="LinkedIn">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Wahab Ahmad 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe title="Zhao Huabing GitHub"
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on Wahab Ahmad</title>
+    <link>https://w28ahmad.github.io/categories/java/</link>
+    <description>Recent content in Java on Wahab Ahmad</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 13 Oct 2023 10:35:49 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/categories/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Java Streams</title>
+      <link>https://w28ahmad.github.io/post/java-streams/</link>
+      <pubDate>Fri, 13 Oct 2023 10:35:49 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/java-streams/</guid>
+      <description>What is a Stream Streams are contained inside the standard java.util library that were introduced in Java 8. They are used when we have sequence of elements on which we can perform aggregate operations. Stream operations consist of a stream pipeline, which consists of a source, a set of operations/computations followed by a terminal operation. Streams are lazy which means that they are not setup or initialized during setup, rather computation on the source is only initiated when the program reaches the terminal operation.</description>
+    </item>
+    
+  </channel>
+</rss>

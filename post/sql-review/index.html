@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Wahab Ahmad">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://w28ahmad.github.io/">
+    <meta property="twitter:image" content="https://w28ahmad.github.io/" />
+    
+
+    
+    <meta name="title" content="Reviewing SQL" />
+    <meta property="og:title" content="Reviewing SQL" />
+    <meta property="twitter:title" content="Reviewing SQL" />
+    
+
+    
+    <meta name="description" content="In this post, we will review the important topics in SQL">
+    <meta property="og:description" content="In this post, we will review the important topics in SQL" />
+    <meta property="twitter:description" content="In this post, we will review the important topics in SQL" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Wahab, Math, Machine Learning">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Reviewing SQL-Wahab&#39;s Blog</title>
+
+    <link rel="canonical" href="/post/sql-review/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+      });
+    </script>
+
+
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wahab Ahmad</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/databases">databases</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/economics">economics</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/interview-prep">interview-prep</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/java">java</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/machine-learning">machine-learning</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/math">math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/programming">programming</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/sql">sql</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/system-design">system-design</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="https://wahabahmad.ca/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/databases" title="Databases">
+                            Databases
+                        </a>
+                        
+                        <a class="tag" href="/tags/sql" title="SQL">
+                            SQL
+                        </a>
+                        
+                    </div>
+                    <h1>Reviewing SQL</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                Wahab Ahmad
+                         
+                        on 
+                        Saturday, September 2, 2023
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>Contents</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#a-brief-review-of-sql-queries">A Brief Review of SQL Queries</a></li>
+    <li><a href="#reviewing-joins">Reviewing Joins</a>
+      <ul>
+        <li><a href="#1-cross-join">1. Cross Join</a></li>
+        <li><a href="#2-inner-join">2. Inner Join</a></li>
+        <li><a href="#3-left-outer-join">3. Left Outer Join</a></li>
+        <li><a href="#4-right-outer-join">4. Right Outer Join</a></li>
+        <li><a href="#5-full-outer-join">5. Full Outer Join</a></li>
+        <li><a href="#6-natural-join">6. Natural Join</a></li>
+      </ul>
+    </li>
+    <li><a href="#reviewing-sub-queries">Reviewing Sub-Queries</a>
+      <ul>
+        <li><a href="#where-sub-queries">Where Sub-Queries</a></li>
+        <li><a href="#correlated-sub-queries">Correlated Sub-Queries</a></li>
+        <li><a href="#sub-queries-from-a-from">Sub-Queries from a FROM</a></li>
+        <li><a href="#sub-queries-factoring">Sub-Queries Factoring</a></li>
+      </ul>
+    </li>
+    <li><a href="#lets-talk-about-storage">Lets talk about Storage</a>
+      <ul>
+        <li><a href="#disks">Disks</a></li>
+        <li><a href="#ssd">SSD</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-db-data-is-stored">How DB Data is stored</a>
+      <ul>
+        <li><a href="#records">Records</a></li>
+        <li><a href="#pages">Pages</a></li>
+      </ul>
+    </li>
+    <li><a href="#indexes">Indexes</a></li>
+    <li><a href="#joins">Joins</a>
+      <ul>
+        <li><a href="#index-nested-loop-join">Index Nested Loop Join</a></li>
+        <li><a href="#hash-join">Hash Join</a></li>
+      </ul>
+    </li>
+    <li><a href="#concurrency-in-sql">Concurrency in SQL</a>
+      <ul>
+        <li><a href="#deadlocks">DEADLOCKS</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+                
+                <h2 id="a-brief-review-of-sql-queries">A Brief Review of SQL Queries</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#f92672">&lt;</span>columns<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span> <span style="color:#f92672">&lt;</span><span style="color:#66d9ef">table</span><span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">WHERE</span> <span style="color:#f92672">&lt;</span>predicate<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">GROUP</span> <span style="color:#66d9ef">BY</span> <span style="color:#f92672">&lt;</span>columns<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">HAVING</span> <span style="color:#f92672">&lt;</span>predicate<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">ORDER</span> <span style="color:#66d9ef">BY</span> <span style="color:#f92672">&lt;</span>columns<span style="color:#f92672">&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">LIMIT</span> <span style="color:#f92672">&lt;</span>num<span style="color:#f92672">&gt;</span>;
+</span></span></code></pre></div><p>We have the following $7$ basic operations when querying data from a <strong>single</strong>
+table. We need to <code>SELECT</code> certain columns <code>FROM</code> a table, keep rows <code>WHERE</code>
+a certain condition matches. Potentially, <code>GROUP</code> columns that <code>HAVE</code> another
+condition matching (within the groups) and aggregate those results using aggregation functions.
+We can also <code>ORDER BY</code> one or more columns.
+Finally, <code>LIMIT</code> the number of results that are returned. If you are confused,
+you can find a more detailed explanation <a href="https://cs186berkeley.net/notes/note1/">here</a></p>
+<h2 id="reviewing-joins">Reviewing Joins</h2>
+<p>We have these 6 basic joins:</p>
+<h3 id="1-cross-join">1. Cross Join</h3>
+<p>Which is essentially the cartesian product of the two tables or in other words,
+every possible permutation of records from the first table with the records from
+the second table. The basic syntax is as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> tableA, tableB;
+</span></span></code></pre></div><h3 id="2-inner-join">2. Inner Join</h3>
+<p>Inner join is used to match records from two tables where one column in both
+records is an exact match. Although this notation is not heavily used in practice
+we could use the Cross Join to create the inner join query as follows:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> tableA, tableB
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> colA <span style="color:#f92672">=</span> colB
+</span></span></code></pre></div><p>In practice this next notation is a lot more common:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> tableA
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">inner</span> <span style="color:#66d9ef">join</span> tableB
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">on</span> colA <span style="color:#f92672">=</span> colB;
+</span></span></code></pre></div><h3 id="3-left-outer-join">3. Left Outer Join</h3>
+<p>One drawback of the inner join is that records in either table that do not have
+a matching column in the opposite table are dropped. In some situations, we want
+all records in the left table and if their join doesn&rsquo;t exist in the
+right table, just join it with a null record.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> leftTable
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">left</span> <span style="color:#66d9ef">outer</span> <span style="color:#66d9ef">join</span> rightTable
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">on</span> leftCol <span style="color:#f92672">=</span> rightCol;
+</span></span></code></pre></div><p>This will ensure all records from the left table exist and if the matching record
+in the right table is not found. We will simply append <code>NULL</code> values for the
+remaining columns.</p>
+<h3 id="4-right-outer-join">4. Right Outer Join</h3>
+<p>Simply the opposite of the Left Outer Join, where we want to keep every record
+in the right table and if the matching column does not exist in the left table
+we simply append <code>NULL</code> values for all the left record columns.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> leftTable
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">right</span> <span style="color:#66d9ef">outer</span> <span style="color:#66d9ef">join</span> rightTable
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">on</span> leftCol <span style="color:#f92672">=</span> rightCol;
+</span></span></code></pre></div><h3 id="5-full-outer-join">5. Full Outer Join</h3>
+<p>Full outer join performs both left outer join and right outer join and displays
+the unique records. This means will find both left and right records at least
+once and if the match is not found in either the left or right table, we will
+simply append <code>NULL</code> values in that table.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> leftTable
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">full</span> <span style="color:#66d9ef">outer</span> <span style="color:#66d9ef">join</span> rightTable
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">on</span> leftCol <span style="color:#f92672">=</span> rightCol;
+</span></span></code></pre></div><h3 id="6-natural-join">6. Natural Join</h3>
+<p>Natural join will simply join the first column that has the same name in both
+tables. Therefore, we don&rsquo;t require the on clause in the query:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> leftTable
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">natural</span> <span style="color:#66d9ef">join</span> rightTable;
+</span></span></code></pre></div><h2 id="reviewing-sub-queries">Reviewing Sub-Queries</h2>
+<p>If you have to query data that requires multiple steps. For example, select classes
+that have a higher than the average number of students from all offered classes. This
+query requires us to determine the average number of students and find classes
+that have students larger than that value. In this situation, sub-queries come in
+very handy. You can use <a href="https://cs186berkeley.net/notes/note2/">this</a>
+very helpful page to review different types of sub-queries to refresh your memory.</p>
+<h3 id="where-sub-queries">Where Sub-Queries</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> num <span style="color:#66d9ef">from</span> enrollment
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> students <span style="color:#f92672">&gt;=</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">select</span> <span style="color:#66d9ef">avg</span>(students) <span style="color:#66d9ef">from</span> enrollment
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><h3 id="correlated-sub-queries">Correlated Sub-Queries</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> classes
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> <span style="color:#66d9ef">exists</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> enrollment
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">where</span> classes.num <span style="color:#f92672">=</span> enrollment.num
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><h3 id="sub-queries-from-a-from">Sub-Queries from a FROM</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">select</span> num <span style="color:#66d9ef">from</span> classes
+</span></span><span style="display:flex;"><span>) <span style="color:#66d9ef">as</span> a
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> num <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;CS340&#39;</span>;
+</span></span></code></pre></div><h3 id="sub-queries-factoring">Sub-Queries Factoring</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> course_enrollment <span style="color:#66d9ef">as</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> courses
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">natural</span> <span style="color:#66d9ef">join</span> enrollment
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">from</span> course_enrollment;
+</span></span></code></pre></div><h2 id="lets-talk-about-storage">Lets talk about Storage</h2>
+<p>Now data needs to be stored somewhere and in a manner such that it can be easily
+read and written. Current technology offers several tiers of storage in increasing
+speed but decreasing size:</p>
+<p>
+  <img src="/static/posts/20230903215753.png" alt="">
+
+</p>
+<h3 id="disks">Disks</h3>
+<p>The reason disks are slow is because we need to spin the disk head into place and
+rotate the disk to the right position. The former can take 2-3ms on average and the
+latter can take up to 0-4ms with a 15,000 RPM motor. Now the transfer time is highly
+dependent on locality, if the memory being saught is contiguous then 0.25ms to read
+64KB. Now this is awful compared to cache memory which can retrieve data within ns.</p>
+<h3 id="ssd">SSD</h3>
+<p>Now the power-off SSD is that it offers comparably fast <strong>random</strong> read times.
+However, the drawback is storage cells tend to wear out. This is combated
+by using <strong>wear leveling</strong> which ensures that writes are randomized so no one
+cell wears out too quickly.</p>
+<h2 id="how-db-data-is-stored">How DB Data is stored</h2>
+<p>A <strong>table/relation</strong> consists of rows which are referred to as <strong>records</strong>, these records
+are organized into <strong>pages</strong>. A page is the smallest block of data that can
+be transferred from disk to main memory or can be written from main memory to disk.
+Now for data to be persisted it needs to be stored in the form of a file. Therefore,
+files will contain pages, which consist of records that belong to the same relation.</p>
+<p>
+  <img src="/static/posts/20230903223009.png" alt="">
+
+</p>
+<p>SQL employs internal algorithms to select the most cost-effective strategy for
+executing queries. The cost is measured based on the number of disk pages that
+have to be written or read during the query. This is because I/O operations can be
+expensive because they force us to interact with the disk, thus it is important
+to minimize these operations.</p>
+<h3 id="records">Records</h3>
+<p>There are 2 types of records, Fixed Length Records and Variable Length Records.
+This difference in types is due to the fact we can have fixed length types
+like <code>int</code>, and we can also have variable length types like <code>varchar</code>.
+
+  <img src="/static/posts/20230904015357.png" alt="">
+
+</p>
+<p>The above diagram shows how different data types are stored. The datum stores
+different fixed-length fields after the header. The header stores pointers to
+the start and end of variable length fields.</p>
+<h3 id="pages">Pages</h3>
+<p>As mentioned before multiple records are stored on pages and there are two types
+of pages. There are pages to handle fixed-length records and variable-length
+records. Let us discuss pages for fixed-length records first. The page header stores
+the size of the records and the number of records that are currently stored. We
+can use both these pieces to find the position of the insertions. Deletion makes
+things tricker because it leaves empty record slots that could be filled with
+newer records. The way this is handled is by having a bitmap that stores which
+slots are empty and this way during insertion we can first check the bitmap to
+fill in empty slots before appending to the end of the page.</p>
+<p>
+  <img src="/static/posts/20230904023831.png" alt="">
+
+</p>
+<p>Dealing with pages for variable-length records is more tricky. The tricky bit is
+since we do not know beforehand how many records will be stored on the page we
+cannot perform the previous computations for insertion. Additionally, cannot
+know the size of the bitmap because the number of records is variable. Both
+these complexities require a dynamic-sized header. However, to avoid adjusting
+the data we should instead have a footer that grows upward. This footer will
+store pointers to free space for new insertions, pointers for deletion
+space and pointers for existing records. This can be stored in a <code>[pointer, size]</code>
+format. Using this footer, periodically records will be reorganized for compaction.
+To ensure that the deleted space can be converted to free space.</p>
+<p>
+  <img src="/static/posts/20230904025342.png" alt="">
+
+</p>
+<h2 id="indexes">Indexes</h2>
+<p>Let us try to demystify what indexes are, more than just &ldquo;things&rdquo; that
+make lookup faster. Indexes are just <strong>B Trees or B+ Trees</strong> that are added on
+top of the existing infrastructure that uses columns that uniquely identify records
+and use them as keys to create a B-Tree. Now a B Tree is simply a self-balancing
+tree that has multiple ordered children on each layer. This allows us to reach the
+leaves in logarithmic time. This is good for to lookup, insertion and deletion of
+these records. So one downside we can see right off the bat is that this setup
+will require more space, however, this downside often makes up for the
+performance benefits.</p>
+<p>
+  <img src="/static/posts/20230904221327.png" alt="Example of a B&#43; Tree">
+
+</p>
+<p>One question we need to answer is: What data are the leaves going to store? We have
+two possible answers to this question. One, they can store actual records
+themselves. Or two, they can store references to which page the record is stored on disk.
+The latter approach allows us to have multiple indexes on the file.</p>
+<p>
+  <img src="/static/posts/20230904221805.png" alt="An example of the latter approach">
+
+</p>
+<p>Now there is an important note to make on how data is clustered on disk. If the
+data is unclustered meaning that you can find one record on Page A and the adjacent
+record on Page B, this means will need to run through the index $n$ times for $n$ records
+since virtually no two records would ever be found on the same page. This is not optimal.
+A more optimal design would cluster adjacent records so that we can reduce the locality
+of data within pages and leverage the in-memory cache to store the page and use that same
+cache to retrieve the next record. This will save a lot more time.</p>
+<h2 id="joins">Joins</h2>
+<p>Joins are arguably the most complex operations performed in a SQL query, let talk
+about how they are performed efficiently. There are two main ways to perform joins
+where SQL selects which algorithm to choose based on minimal I/O operations.</p>
+<h3 id="index-nested-loop-join">Index Nested Loop Join</h3>
+<p>When we are joining columns that happen to be indexes we can easily find the
+matching record. We go through the records in relation $R$ and use the index on the
+relation $S$ to find the matching record. We can then join these 2 records and
+add them to the resulting page in the buffer.</p>
+<h3 id="hash-join">Hash Join</h3>
+<p>The problem with index join is that it still takes logarithmic time to find the
+target record. If we can find a way to leverage a hashmap we can potentially
+reduce the lookup to near constant time. Now we need to maximize the in-memory
+usage as a result we need to store as many pages as we can fit in-memory. If the
+buffer can store $B$ pages, we need to reserve one page for the resulting joined table
+and one page for relation $S$. That leaves us $B-2$ pages for relation $R$. Once
+we have these pages in memory we can create a hashmap for each record in $B-2$
+pages. We can use this hashmap to find the matching records in $R$ by using
+hash keys generated from $S$.</p>
+<h2 id="concurrency-in-sql">Concurrency in SQL</h2>
+<p>Concurrecy in SQL is optimized through the use of two types of locks. Namely,
+exclusive locks (X-locks) and shared locks (S-locks). Exclusive locks are the
+same as what we learned from school, only one transaction has access to the
+resouce. For another transaction to get access, it will need to wait in a queue.
+The idea behind shared locks is that some transactions can be perfored at the same
+time. Specifically, read transaction can be performed at the same time since they
+do not mutate the data. Therefore, <code>UPDATE</code>, <code>DELETE</code> and <code>INSERT</code> naturally use
+the exclusive lock whereas all other transactions use the shared locks.</p>
+<p>Although <code>CONCURRENTLY</code> is not a standard SQL keyword, it is heavily used in the
+creation of indexes. The idea behind this is to create an index without locking
+writes, updates and deletes to the table. This is means if write is performed while
+the index was being created, the index will automatically get updated for that
+record instead of blocking the write. Obviously this slows down the operation, however,
+for certain large tables this drawback is well worth the avaliablity.</p>
+<h3 id="deadlocks">DEADLOCKS</h3>
+<p>With heavy use of concurrency, deadlocks are a possibility. It occurs when two transactions
+have conflicting requests on resources. So for example, if transaction A has lock on
+resource A and is requesting access to resource B. While transaction B has lock on resource
+B and is requesting to resouce A. Not possible for both these transactions to move forward.
+Here is a good <a href="https://shusson.info/post/dealing-with-deadlocks-in-postgres">resource on avoiding deadlocks</a>.</p>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://w28ahmad.github.io/post/consistent_hashing/" data-toggle="tooltip" data-placement="top" title="Consistent Hashing">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="https://w28ahmad.github.io/post/java-streams/" data-toggle="tooltip" data-placement="top" title="Java Streams">Next
+                            Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/interview-prep" title="interview-prep">
+                            interview-prep
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/programming" title="programming">
+                            programming
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Wahab Ahmad" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:w28ahmad@uwaterloo.ca"
+                        rel="alternate" type="application/rss+xml" title="mailto:w28ahmad@uwaterloo.ca" >
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/w28ahmad" title="GitHub">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/" title="LinkedIn">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Wahab Ahmad 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe title="Zhao Huabing GitHub"
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>

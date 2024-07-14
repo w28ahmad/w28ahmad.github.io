@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Databases on Wahab Ahmad</title>
+    <link>https://w28ahmad.github.io/categories/databases/</link>
+    <description>Recent content in Databases on Wahab Ahmad</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 02 Sep 2023 23:31:19 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/categories/databases/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reviewing SQL</title>
+      <link>https://w28ahmad.github.io/post/sql-review/</link>
+      <pubDate>Sat, 02 Sep 2023 23:31:19 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/sql-review/</guid>
+      <description>A Brief Review of SQL Queries SELECT &amp;lt;columns&amp;gt; FROM &amp;lt;table&amp;gt; WHERE &amp;lt;predicate&amp;gt; GROUP BY &amp;lt;columns&amp;gt; HAVING &amp;lt;predicate&amp;gt; ORDER BY &amp;lt;columns&amp;gt; LIMIT &amp;lt;num&amp;gt;; We have the following $7$ basic operations when querying data from a single table. We need to SELECT certain columns FROM a table, keep rows WHERE a certain condition matches. Potentially, GROUP columns that HAVE another condition matching (within the groups) and aggregate those results using aggregation functions. We can also ORDER BY one or more columns.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,7 +6,36 @@
     <description>Recent content on Wahab Ahmad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Jul 2023 08:19:07 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 20 Oct 2023 21:48:01 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Understanding Timestamps and Timezones</title>
+      <link>https://w28ahmad.github.io/post/understanding-timestamps/</link>
+      <pubDate>Fri, 20 Oct 2023 21:48:01 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/understanding-timestamps/</guid>
+      <description>Dates Dates are generally formed of 3 triplets, namely, {Day, Month, Year}. This already can create a lot of confusion around the world as they are ordered differently. For example, the date {16, 02, 2014} can be written as:
+Additionally, there are many ways to seperate these triplets. Some use / whereas others use - and .. All this variation was sandardized using the ISO-8601.
+Timestamps This standard allows us the view the same time regardless of where we live.</description>
+    </item>
+    
+    <item>
+      <title>Java Streams</title>
+      <link>https://w28ahmad.github.io/post/java-streams/</link>
+      <pubDate>Fri, 13 Oct 2023 10:35:49 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/java-streams/</guid>
+      <description>What is a Stream Streams are contained inside the standard java.util library that were introduced in Java 8. They are used when we have sequence of elements on which we can perform aggregate operations. Stream operations consist of a stream pipeline, which consists of a source, a set of operations/computations followed by a terminal operation. Streams are lazy which means that they are not setup or initialized during setup, rather computation on the source is only initiated when the program reaches the terminal operation.</description>
+    </item>
+    
+    <item>
+      <title>Reviewing SQL</title>
+      <link>https://w28ahmad.github.io/post/sql-review/</link>
+      <pubDate>Sat, 02 Sep 2023 23:31:19 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/sql-review/</guid>
+      <description>A Brief Review of SQL Queries SELECT &amp;lt;columns&amp;gt; FROM &amp;lt;table&amp;gt; WHERE &amp;lt;predicate&amp;gt; GROUP BY &amp;lt;columns&amp;gt; HAVING &amp;lt;predicate&amp;gt; ORDER BY &amp;lt;columns&amp;gt; LIMIT &amp;lt;num&amp;gt;; We have the following $7$ basic operations when querying data from a single table. We need to SELECT certain columns FROM a table, keep rows WHERE a certain condition matches. Potentially, GROUP columns that HAVE another condition matching (within the groups) and aggregate those results using aggregation functions. We can also ORDER BY one or more columns.</description>
+    </item>
+    
     <item>
       <title>Consistent Hashing</title>
       <link>https://w28ahmad.github.io/post/consistent_hashing/</link>

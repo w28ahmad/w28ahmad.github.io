@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <meta property="og:site_name" content="Wahab Ahmad">
+    <meta property="og:type" content="article">
+
+    
+    <meta property="og:image" content="https://w28ahmad.github.io/">
+    <meta property="twitter:image" content="https://w28ahmad.github.io/" />
+    
+
+    
+    <meta name="title" content="Understanding Timestamps and Timezones" />
+    <meta property="og:title" content="Understanding Timestamps and Timezones" />
+    <meta property="twitter:title" content="Understanding Timestamps and Timezones" />
+    
+
+    
+    <meta name="description" content="The ability to understand use timestamps effectively seperates rookies from seasoned devs">
+    <meta property="og:description" content="The ability to understand use timestamps effectively seperates rookies from seasoned devs" />
+    <meta property="twitter:description" content="The ability to understand use timestamps effectively seperates rookies from seasoned devs" />
+    
+
+    
+    <meta property="twitter:card" content="summary" />
+    
+    
+
+    <meta name="keyword"  content="Wahab, Math, Machine Learning">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>Understanding Timestamps and Timezones-Wahab&#39;s Blog</title>
+
+    <link rel="canonical" href="/post/understanding-timestamps/">
+
+    <link rel="stylesheet" href="/css/iDisqus.min.css"/>
+	
+    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    
+    <link rel="stylesheet" href="/css/zanshang.css">
+    
+    
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    
+    
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.css" integrity="sha384-zTROYFVGOfTw7JV7KUu8udsvW2fx4lWOsCEDqhBreBwlHI4ioVRtmIvEThzJHGET" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/katex.min.js" integrity="sha384-GxNFqL3r9uRJQhR+47eDxuPoNE7yLftQM8LcxzgS4HT73tp970WS/wV5p8UzCOmb" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.18/dist/contrib/auto-render.min.js" integrity="sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement(document.body, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$', right: '$', display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError : false
+        });
+      });
+    </script>
+
+
+    
+    <script src="/js/jquery.min.js"></script>
+    
+    
+    <script src="/js/bootstrap.min.js"></script>
+    
+    
+    <script src="/js/hux-blog.min.js"></script>
+
+    
+    
+
+</head>
+
+
+
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Wahab Ahmad</a>
+        </div>
+
+        
+        
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                        
+                        <li>
+                            <a href="/categories/databases">databases</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/economics">economics</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/interview-prep">interview-prep</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/java">java</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/machine-learning">machine-learning</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/math">math</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/programming">programming</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/sql">sql</a>
+                        </li>
+                        
+                        <li>
+                            <a href="/categories/system-design">system-design</a>
+                        </li>
+                        
+                    
+                    
+		    
+                        <li><a href="https://wahabahmad.ca/">ABOUT</a></li>
+                    
+
+                    
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+    
+</nav>
+<script>
+    
+    
+    
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        
+            $navbar.className = " ";
+            
+            setTimeout(function(){
+                
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    header.intro-header {
+        background-image: url('/')
+    }
+</style>
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/dev-skills" title="dev-skills">
+                            dev-skills
+                        </a>
+                        
+                        <a class="tag" href="/tags/sql" title="sql">
+                            sql
+                        </a>
+                        
+                    </div>
+                    <h1>Understanding Timestamps and Timezones</h1>
+                    <h2 class="subheading"></h2>
+                    <span class="meta">
+                        Posted by 
+                        
+                                Wahab Ahmad
+                         
+                        on 
+                        Friday, October 20, 2023
+                        
+                        
+                        
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+<article>
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                post-container">
+
+                
+                <header>
+                    <h2>Contents</h2>
+                </header>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#dates">Dates</a></li>
+    <li><a href="#timestamps">Timestamps</a></li>
+    <li><a href="#-timezones-">! Timezones !</a></li>
+    <li><a href="#introduction-of-day-light-savings-time-">Introduction of Day Light Savings time :(</a></li>
+    <li><a href="#using-psql-to-convert-between-timezones">Using PSQL to convert between timezones</a></li>
+    <li><a href="#unix-epoch-timestamp">Unix Epoch Timestamp</a></li>
+    <li><a href="#dealing-with-date-and-time-on-postgres">Dealing with date and time on Postgres</a>
+      <ul>
+        <li><a href="#get-current-datetime-in-utc">Get Current DateTime in UTC</a></li>
+        <li><a href="#rows-between-two-timestamps">Rows between two timestamps</a></li>
+        <li><a href="#rows-created-between-an-interval">Rows created between an interval</a></li>
+        <li><a href="#extract-part-of-a-timestamp">Extract part of a timestamp</a></li>
+        <li><a href="#converting-to-unix-timestamp">Converting to unix timestamp</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ul>
+</nav>
+                
+                <h2 id="dates">Dates</h2>
+<p>Dates are generally formed of 3 triplets, namely, <code>{Day, Month, Year}</code>. This already
+can create a lot of confusion around the world as they are ordered differently. For
+example, the date <code>{16, 02, 2014}</code> can be written as:</p>
+<p>
+  <img src="/static/posts/20231022182305.png" alt="">
+
+</p>
+<p>Additionally, there are many ways to seperate these triplets. Some use <code>/</code> whereas
+others use <code>-</code> and <code>.</code>. All this variation was sandardized using the <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO-8601</a>.</p>
+<h2 id="timestamps">Timestamps</h2>
+<p>This standard allows us the view the same time regardless of where we live. The
+most commonly used notation is:</p>
+<pre tabindex="0"><code>YYYY-MM-DDThh:mm:ss.sssZ
+</code></pre><p>Where:</p>
+<ul>
+<li><code>YYYY-MM-DD</code> is the date</li>
+<li><code>T</code> is the seperator between the date and time</li>
+<li><code>hh:mm:ss:sss</code> is the time, with hours minuts, seconds and milliseconds</li>
+<li><code>Z</code> indicates the time is in the Coordinated Universal Time (UTC)</li>
+</ul>
+<p>It it important that you understand the system you are working with and do not
+omit the <code>Z</code> from the timestamp. The absence of it means that timezone is not
+specified and we cannot confirm which timezone is being used.</p>
+<p><strong>THIS IS DANGEROUS AND CAN LEAD TO ERRORS</strong></p>
+<h2 id="-timezones-">! Timezones !</h2>
+<p>Lets talk more about timezones. As alluded to before, timezones are optional
+as per the <code>ISO-8601</code> standard. However, developers to consider them manditory
+since otherwise they can lead to many issues.</p>
+<p>So let us revisit the timestamp format:</p>
+<pre tabindex="0"><code>YYYY-MM-DDThh:mm:ss.sssZ
+</code></pre><p>The <code>Z</code> under the hood is really just the offset for specific timezones <code>+/- HH:MM</code>.</p>
+<ul>
+<li>So an offset of 0 implies you are in UTC timezone.</li>
+<li>An offset of -05:00 means you are 5 hours behind the UTC timezone. This would land
+you in New York</li>
+<li>An offset of +05:00 means you are 5 hours ahead of the UTC timezone. This would land
+you in Uzbekistan.</li>
+</ul>
+<p>The very first second of 1970 in UTC would in New York and Uzbekistan be:</p>
+<pre tabindex="0"><code>1970-01-01T19:00:00.000-05:00   (New York: 7:00PM Pervious day)
+1970-01-01T05:00:00.000+05:00   (Uzbekistan: 5:00AM)
+</code></pre><p>The very first second in New York and Uzbekistan in UTC time would be:</p>
+<pre tabindex="0"><code>1970-01-01T00:00:00.000-05:00   (UTC: 5:00AM)
+1970-01-01T00:00:00.000+05:00   (UTC: 7:00PM, previous day)
+</code></pre><p>
+  <img src="/static/posts/20231022193120.png" alt="">
+
+</p>
+<p>One surprising fact is that timezones are still not set in stone. You can see
+<a href="https://time.is/time_zone_news">here</a> as recent as this year (2023). Timezones have been getting updated in several
+countries.</p>
+<h2 id="introduction-of-day-light-savings-time-">Introduction of Day Light Savings time :(</h2>
+<p>Daylight savings time was introduced in 1925 with the basic idea to move ahead
+one hour during the summer when the day is longer and sunsets later. Them move
+back to the correct time in autum when the days are shorter. The whole purpose
+of this move to allow people make more use of daylight. However, this adds another
+complexity to understanding time.</p>
+<p>The complexity is that dates for these day light offsets are set and need to be
+accounted for during conversions. So here in Toronto, we can find the DST times
+<a href="https://www.timeanddate.com/time/change/canada/toronto">here</a>.</p>
+<p>When we are in daylight savings time, we are already one hour ahead. For instance,
+in New York during DST, we are already 1 hour ahead, so the offset <code>-04:00</code> instead
+of <code>-05:00</code>. Generally, when daylight savings occurs you timezone changes (for me atleast) from
+EST (Eastern Standard Time) to EDT (Eastern Daylight Savings Time)</p>
+<p>Annoying Vitamen D optimization from Benjamin Franklin :(</p>
+<h2 id="using-psql-to-convert-between-timezones">Using PSQL to convert between timezones</h2>
+<p>If you can&rsquo;t trust yourself with understanding all these complexities. I will
+encourage use you use your DB for the conversion or some CLI tool. To convert
+between timezones on postgres sql we can use the following query:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;2023-03-12 01:30:00&#39;</span>::<span style="color:#66d9ef">timestamp</span> <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;EDT&#39;</span> <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;UTC&#39;</span>;
+</span></span></code></pre></div><p>Which will return 5:30 same date and the following will return <code>21:30</code> previous
+date:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;2023-03-12 01:30:00&#39;</span>::<span style="color:#66d9ef">timestamp</span> <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;UTC&#39;</span> <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;EDT&#39;</span>;
+</span></span></code></pre></div><p>If you db config is setup correctly you can also rely on you db to convert between
+EDT/EST. But be careful that it is setup correctly.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#e6db74">&#39;2023-03-12 01:30:00&#39;</span>::<span style="color:#66d9ef">timestamp</span> <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;America/New_York&#39;</span> <span style="color:#66d9ef">AT</span> TIME <span style="color:#66d9ef">ZONE</span> <span style="color:#e6db74">&#39;UTC&#39;</span>;
+</span></span></code></pre></div><h2 id="unix-epoch-timestamp">Unix Epoch Timestamp</h2>
+<p>The number of milliseconds since midnight of Thursday January 1st, 1970 UTC. The
+reason for this date is because the unix system was build during the 60s and early
+70s and thus unix timestamp conventions stuck along.</p>
+<pre tabindex="0"><code>1634870400 -&gt; Fri 22 Oct 2021 02:40:00 UTC
+</code></pre><p>A quick way to convert Unix Epoch Timestamps to readable time is to use the date
+command <code>date -u -r 1634870400</code>.</p>
+<ul>
+<li><code>-u</code> is used to specify the output date should be in UTC</li>
+<li><code>-r</code> options is used to specify the timestamp</li>
+</ul>
+<h2 id="dealing-with-date-and-time-on-postgres">Dealing with date and time on Postgres</h2>
+<h3 id="get-current-datetime-in-utc">Get Current DateTime in UTC</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> now(); <span style="color:#75715e">-- date and time
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">current_date</span>; <span style="color:#75715e">-- date
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">current_time</span>; <span style="color:#75715e">-- time
+</span></span></span></code></pre></div><h3 id="rows-between-two-timestamps">Rows between two timestamps</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">count</span>(<span style="color:#f92672">*</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> <span style="color:#66d9ef">table</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> time <span style="color:#66d9ef">between</span> <span style="color:#e6db74">&#39;2018-01-01&#39;</span> <span style="color:#66d9ef">and</span> <span style="color:#e6db74">&#39;2018-01-31&#39;</span>
+</span></span></code></pre></div><h3 id="rows-created-between-an-interval">Rows created between an interval</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">count</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> events
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> time <span style="color:#f92672">&gt;</span> now() <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;1 week&#39;</span>::interval;
+</span></span></code></pre></div><p>OR:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> <span style="color:#66d9ef">count</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">from</span> events
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">where</span> time <span style="color:#66d9ef">between</span> (now() <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;1 week&#39;</span>::interval) <span style="color:#66d9ef">and</span> (now() <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;2 weeks&#39;</span>::interval);
+</span></span></code></pre></div><h3 id="extract-part-of-a-timestamp">Extract part of a timestamp</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> date_part(<span style="color:#e6db74">&#39;minute&#39;</span>, now()); <span style="color:#75715e">-- or hour, day, month
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#75715e">-- returns 0-6 (integer), where 0 is Sunday and 6 is Saturday
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> date_part(<span style="color:#e6db74">&#39;dow&#39;</span>, now());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">-- returns a string like monday, tuesday, etc
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span> to_char(now(), <span style="color:#e6db74">&#39;day&#39;</span>);
+</span></span></code></pre></div><h3 id="converting-to-unix-timestamp">Converting to unix timestamp</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> date_part(<span style="color:#e6db74">&#39;epoch&#39;</span>, now());
+</span></span></code></pre></div><h2 id="references">References</h2>
+<ul>
+<li><a href="https://medium.com/@scoulibaly/date-and-time-handling-tips-for-software-developers-d9fca9f89f30">https://medium.com/@scoulibaly/date-and-time-handling-tips-for-software-developers-d9fca9f89f30</a></li>
+<li><a href="https://popsql.com/learn-sql/postgresql/how-to-query-date-and-time-in-postgresql">https://popsql.com/learn-sql/postgresql/how-to-query-date-and-time-in-postgresql</a></li>
+</ul>
+
+
+                
+
+                <hr>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="https://w28ahmad.github.io/post/java-streams/" data-toggle="tooltip" data-placement="top" title="Java Streams">&larr;
+                            Previous Post</a>
+                    </li>
+                    
+                    
+                </ul>
+
+                
+<div id="disqus-comment"></div>
+
+
+
+            </div>
+            
+            <div class="
+                col-lg-11 col-lg-offset-1
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/interview-prep" title="interview-prep">
+                            interview-prep
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <a href="/tags/programming" title="programming">
+                            programming
+                        </a>
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                </section>
+                
+
+                
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                   
+                   <li>
+                       <a href='' rel="alternate" type="application/rss+xml" title="Wahab Ahmad" >
+                           <span class="fa-stack fa-lg">
+                               <i class="fa fa-circle fa-stack-2x"></i>
+                               <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                           </span>
+                       </a>
+                   </li>
+                   
+                    
+                    <li>
+                        <a href="mailto:w28ahmad@uwaterloo.ca"
+                        rel="alternate" type="application/rss+xml" title="mailto:w28ahmad@uwaterloo.ca" >
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+
+                    
+
+		    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/w28ahmad" title="GitHub">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://www.linkedin.com/in/wahab-ahmad/" title="LinkedIn">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+		    
+                    
+                    
+                    
+                    
+                    
+            
+            
+            
+                </ul>
+		<p class="copyright text-muted">
+                    Copyright &copy; Wahab Ahmad 2024
+                    <br>
+                    <a href="https://themes.gohugo.io/hugo-theme-cleanwhite">CleanWhite Hugo Theme</a> by <a href="https://zhaohuabing.com">Huabing</a> |
+                    <iframe title="Zhao Huabing GitHub"
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=zhaohuabing&repo=hugo-theme-cleanwhite&type=star&count=true">
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+
+
+
+
+
+<script>
+    
+    if($('#tag_cloud').length !== 0){
+        async("/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+
+<script>
+    async("https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+
+
+
+</body>
+</html>
