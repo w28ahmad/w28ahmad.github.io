@@ -6,7 +6,18 @@
     <description>Recent content in System Design on Wahab Ahmad</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Jul 2023 08:19:07 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/tags/system-design/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Jul 2024 16:28:24 -0400</lastBuildDate><atom:link href="https://w28ahmad.github.io/tags/system-design/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Merkle Trees</title>
+      <link>https://w28ahmad.github.io/post/merkle_trees/</link>
+      <pubDate>Sun, 14 Jul 2024 16:28:24 -0400</pubDate>
+      
+      <guid>https://w28ahmad.github.io/post/merkle_trees/</guid>
+      <description>For a more detailed write-up, please check out this post.
+Why do we this type of tree You might be saying, we already have binary trees, B-trees, Red Black trees. What is so special about this tree?
+Suppose you keep files stored on a 3rd party system or on some server. Whenever you download one of these files, you&amp;rsquo;d like to be sure that it is the exact same as the file you uploaded.</description>
+    </item>
+    
     <item>
       <title>Consistent Hashing</title>
       <link>https://w28ahmad.github.io/post/consistent_hashing/</link>
